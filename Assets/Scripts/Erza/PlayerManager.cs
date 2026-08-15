@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Unity.Cinemachine;
 
 public class PlayerManager : MonoBehaviour
 {
@@ -9,6 +10,7 @@ public class PlayerManager : MonoBehaviour
     public InputActionReference ChangePlayerForwardAction;
     public InputActionReference ChangePlayerBackwardAction;
     public InputActionReference ChangePlayerModeAction; // between angel and spirits
+    public CinemachineCamera virtualCamera;
 
     void Awake(){
         if (movePlayers.Length > 0){
@@ -83,6 +85,7 @@ public class PlayerManager : MonoBehaviour
 
     void EnablePlayer(int index){
         movePlayers[index].isControlled = true;
+        virtualCamera.Follow = movePlayers[index].transform;
         currentPlayerIndex = index;
     }
 
