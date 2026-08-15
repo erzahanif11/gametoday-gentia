@@ -11,6 +11,7 @@ public class MovePlayer : MonoBehaviour
     public InputActionReference MoveAction;
     public PlayerMoveMode playerMoveMode;
     public MovementMode movementMode;
+    public bool isControlled = false;
 
     void OnEnable()
     {
@@ -20,6 +21,10 @@ public class MovePlayer : MonoBehaviour
 
     void Update()
     {
+        if(!isControlled){
+            return;
+        }
+
         float moveSpeed = 5f;
         
         if (movementMode == MovementMode.Free)
