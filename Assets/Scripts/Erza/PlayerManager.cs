@@ -27,9 +27,9 @@ public class PlayerManager : MonoBehaviour
         ChangePlayerBackwardAction.action.Enable();
         ChangePlayerModeAction.action.Enable();
 
-        ChangePlayerForwardAction.action.performed += ctx => ChangePlayerForward();
-        ChangePlayerBackwardAction.action.performed += ctx => ChangePlayerBackward();
-        ChangePlayerModeAction.action.performed += ctx => ChangePlayerMode();
+        ChangePlayerForwardAction.action.performed += ctx => OnForward(ctx);
+        ChangePlayerBackwardAction.action.performed += ctx => OnBackward(ctx);
+        ChangePlayerModeAction.action.performed += ctx => OnChangeMode(ctx);
     }
 
     void OnDisable(){
@@ -37,9 +37,21 @@ public class PlayerManager : MonoBehaviour
         ChangePlayerBackwardAction.action.Disable();
         ChangePlayerModeAction.action.Disable();
 
-        ChangePlayerForwardAction.action.performed -= ctx => ChangePlayerForward();
-        ChangePlayerBackwardAction.action.performed -= ctx => ChangePlayerBackward();
-        ChangePlayerModeAction.action.performed -= ctx => ChangePlayerMode();
+        ChangePlayerForwardAction.action.performed -= ctx => OnForward(ctx);
+        ChangePlayerBackwardAction.action.performed -= ctx => OnBackward(ctx);
+        ChangePlayerModeAction.action.performed -= ctx => OnChangeMode(ctx);
+    }
+
+    void OnForward(InputAction.CallbackContext context){
+        ChangePlayerForward();
+    }
+
+    void OnBackward(InputAction.CallbackContext context){
+        ChangePlayerBackward();
+    }
+
+    void OnChangeMode(InputAction.CallbackContext context){
+        ChangePlayerMode();
     }
 
     void ChangePlayerForward(){ //spirit only
@@ -84,6 +96,10 @@ public class PlayerManager : MonoBehaviour
     }
 
     void EnablePlayer(int index){
+        if (movePlayers[index] == null){
+            Debug.LogError("Player at index " + index + " is null.");
+            return;
+        }
         movePlayers[index].isControlled = true;
         virtualCamera.Follow = movePlayers[index].transform;
         currentPlayerIndex = index;
