@@ -97,7 +97,6 @@ public class PlayerManager : MonoBehaviour
 
     void EnablePlayer(int index){
         if (movePlayers[index] == null){
-            Debug.LogError("Player at index " + index + " is null.");
             return;
         }
         movePlayers[index].isControlled = true;
