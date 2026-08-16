@@ -1,0 +1,954 @@
+fileFormatVersion: 2
+guid: cf249c2cb3d9f1e418a22460e0987f8f
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -6298132883768837588
+    second: RPG-isometric-free_0
+  - first:
+      213: 7364260019244201242
+    second: RPG-isometric-free_1
+  - first:
+      213: -8277231129068163290
+    second: RPG-isometric-free_2
+  - first:
+      213: 7005319344023192374
+    second: RPG-isometric-free_3
+  - first:
+      213: 4820150225157933593
+    second: RPG-isometric-free_4
+  - first:
+      213: -1513011093053010854
+    second: RPG-isometric-free_5
+  - first:
+      213: 8383218684014107450
+    second: RPG-isometric-free_6
+  - first:
+      213: 1266880639227480705
+    second: RPG-isometric-free_7
+  - first:
+      213: -5219415960212708356
+    second: RPG-isometric-free_8
+  - first:
+      213: -875581593470213739
+    second: RPG-isometric-free_9
+  - first:
+      213: -3062220349996067518
+    second: RPG-isometric-free_10
+  - first:
+      213: -9088970839151276691
+    second: RPG-isometric-free_11
+  - first:
+      213: -8832634749476567334
+    second: RPG-isometric-free_12
+  - first:
+      213: -7103224834334716294
+    second: RPG-isometric-free_13
+  - first:
+      213: -5263072948080351909
+    second: RPG-isometric-free_14
+  - first:
+      213: -790224632520111602
+    second: RPG-isometric-free_15
+  - first:
+      213: -7059025662003267674
+    second: RPG-isometric-free_16
+  - first:
+      213: 2155757862298087888
+    second: RPG-isometric-free_17
+  - first:
+      213: -7549188886475639542
+    second: RPG-isometric-free_18
+  - first:
+      213: 8898163429117392346
+    second: RPG-isometric-free_19
+  - first:
+      213: 5760711289937285051
+    second: RPG-isometric-free_20
+  - first:
+      213: 4042330106434370556
+    second: RPG-isometric-free_21
+  - first:
+      213: -3617925628882429209
+    second: RPG-isometric-free_22
+  - first:
+      213: 6268115573097615215
+    second: RPG-isometric-free_23
+  - first:
+      213: -7449061720861005120
+    second: RPG-isometric-free_24
+  - first:
+      213: 2626249310793442063
+    second: RPG-isometric-free_25
+  - first:
+      213: -8558978508044208319
+    second: RPG-isometric-free_26
+  - first:
+      213: 8523633402427084656
+    second: RPG-isometric-free_27
+  - first:
+      213: -3754274996958680258
+    second: RPG-isometric-free_28
+  - first:
+      213: 726883925995800918
+    second: RPG-isometric-free_29
+  - first:
+      213: 1337107919388679135
+    second: RPG-isometric-free_30
+  - first:
+      213: -1613843328798922462
+    second: RPG-isometric-free_31
+  - first:
+      213: 2931513118175305183
+    second: RPG-isometric-free_32
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 32
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: RPG-isometric-free_0
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 136
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c2a70cad2898898a0800000000000000
+      internalID: -6298132883768837588
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RPG-isometric-free_1
+      rect:
+        serializedVersion: 2
+        x: 36
+        y: 136
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a1579a0587b133660800000000000000
+      internalID: 7364260019244201242
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RPG-isometric-free_2
+      rect:
+        serializedVersion: 2
+        x: 70
+        y: 136
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 62f261c842e512d80800000000000000
+      internalID: -8277231129068163290
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RPG-isometric-free_3
+      rect:
+        serializedVersion: 2
+        x: 104
+        y: 136
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 633ccaed3d4e73160800000000000000
+      internalID: 7005319344023192374
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RPG-isometric-free_4
+      rect:
+        serializedVersion: 2
+        x: 138
+        y: 136
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 91ace8e671d94e240800000000000000
+      internalID: 4820150225157933593
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RPG-isometric-free_5
+      rect:
+        serializedVersion: 2
+        x: 172
+        y: 136
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a5c89595d64b00be0800000000000000
+      internalID: -1513011093053010854
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RPG-isometric-free_6
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 104
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a3b14171afc275470800000000000000
+      internalID: 8383218684014107450
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RPG-isometric-free_7
+      rect:
+        serializedVersion: 2
+        x: 36
+        y: 104
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 18a49f9aa3dd49110800000000000000
+      internalID: 1266880639227480705
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RPG-isometric-free_8
+      rect:
+        serializedVersion: 2
+        x: 70
+        y: 104
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cf3648c76d8e097b0800000000000000
+      internalID: -5219415960212708356
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RPG-isometric-free_9
+      rect:
+        serializedVersion: 2
+        x: 104
+        y: 104
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 59166550e2f49d3f0800000000000000
+      internalID: -875581593470213739
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RPG-isometric-free_10
+      rect:
+        serializedVersion: 2
+        x: 138
+        y: 104
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2451386e0dec085d0800000000000000
+      internalID: -3062220349996067518
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RPG-isometric-free_11
+      rect:
+        serializedVersion: 2
+        x: 172
+        y: 104
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d6d018e5d2d7dd180800000000000000
+      internalID: -9088970839151276691
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RPG-isometric-free_12
+      rect:
+        serializedVersion: 2
+        x: 206
+        y: 104
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ad68dae1e7d2c6580800000000000000
+      internalID: -8832634749476567334
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RPG-isometric-free_13
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 72
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a7e0fbdc5a64c6d90800000000000000
+      internalID: -7103224834334716294
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RPG-isometric-free_14
+      rect:
+        serializedVersion: 2
+        x: 36
+        y: 72
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b55e3b6e90fc5f6b0800000000000000
+      internalID: -5263072948080351909
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RPG-isometric-free_15
+      rect:
+        serializedVersion: 2
+        x: 70
+        y: 72
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e0a00ed22ee8805f0800000000000000
+      internalID: -790224632520111602
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RPG-isometric-free_16
+      rect:
+        serializedVersion: 2
+        x: 104
+        y: 72
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6a7bdeb8f8d490e90800000000000000
+      internalID: -7059025662003267674
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RPG-isometric-free_17
+      rect:
+        serializedVersion: 2
+        x: 138
+        y: 72
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0d17804aa5acaed10800000000000000
+      internalID: 2155757862298087888
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RPG-isometric-free_18
+      rect:
+        serializedVersion: 2
+        x: 172
+        y: 72
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a05fa4f74b4eb3790800000000000000
+      internalID: -7549188886475639542
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RPG-isometric-free_19
+      rect:
+        serializedVersion: 2
+        x: 206
+        y: 72
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ad5f9e98e70ac7b70800000000000000
+      internalID: 8898163429117392346
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RPG-isometric-free_20
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 40
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bbf4b4a856822ff40800000000000000
+      internalID: 5760711289937285051
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RPG-isometric-free_21
+      rect:
+        serializedVersion: 2
+        x: 36
+        y: 40
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cfb33ea80dd391830800000000000000
+      internalID: 4042330106434370556
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RPG-isometric-free_22
+      rect:
+        serializedVersion: 2
+        x: 70
+        y: 40
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7ea5ea22fcb8acdc0800000000000000
+      internalID: -3617925628882429209
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RPG-isometric-free_23
+      rect:
+        serializedVersion: 2
+        x: 104
+        y: 40
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f6fc39167e1dcf650800000000000000
+      internalID: 6268115573097615215
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RPG-isometric-free_24
+      rect:
+        serializedVersion: 2
+        x: 138
+        y: 40
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0caae1ae4dd9f9890800000000000000
+      internalID: -7449061720861005120
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RPG-isometric-free_25
+      rect:
+        serializedVersion: 2
+        x: 172
+        y: 40
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f03257d65df427420800000000000000
+      internalID: 2626249310793442063
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RPG-isometric-free_26
+      rect:
+        serializedVersion: 2
+        x: 206
+        y: 40
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 14772d3f466683980800000000000000
+      internalID: -8558978508044208319
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RPG-isometric-free_27
+      rect:
+        serializedVersion: 2
+        x: 36
+        y: 8
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 07f025b5b670a4670800000000000000
+      internalID: 8523633402427084656
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RPG-isometric-free_28
+      rect:
+        serializedVersion: 2
+        x: 70
+        y: 8
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e3ba52108c226ebc0800000000000000
+      internalID: -3754274996958680258
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RPG-isometric-free_29
+      rect:
+        serializedVersion: 2
+        x: 138
+        y: 8
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 659cbe95419661a00800000000000000
+      internalID: 726883925995800918
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RPG-isometric-free_30
+      rect:
+        serializedVersion: 2
+        x: 172
+        y: 8
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fdb1681819c5e8210800000000000000
+      internalID: 1337107919388679135
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RPG-isometric-free_31
+      rect:
+        serializedVersion: 2
+        x: 206
+        y: 8
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2296ecffa0a7a99e0800000000000000
+      internalID: -1613843328798922462
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 78439ad000683dc47aa9fc46242ebf31
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":32.0,"y":32.0},"gridSpriteOffset":{"x":2.0,"y":8.0},"gridSpritePadding":{"x":2.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":1,"keepEmptyRects":false,"isAlternate":false}'
+    nameFileIdTable:
+      RPG-isometric-free_0: -6298132883768837588
+      RPG-isometric-free_1: 7364260019244201242
+      RPG-isometric-free_10: -3062220349996067518
+      RPG-isometric-free_11: -9088970839151276691
+      RPG-isometric-free_12: -8832634749476567334
+      RPG-isometric-free_13: -7103224834334716294
+      RPG-isometric-free_14: -5263072948080351909
+      RPG-isometric-free_15: -790224632520111602
+      RPG-isometric-free_16: -7059025662003267674
+      RPG-isometric-free_17: 2155757862298087888
+      RPG-isometric-free_18: -7549188886475639542
+      RPG-isometric-free_19: 8898163429117392346
+      RPG-isometric-free_2: -8277231129068163290
+      RPG-isometric-free_20: 5760711289937285051
+      RPG-isometric-free_21: 4042330106434370556
+      RPG-isometric-free_22: -3617925628882429209
+      RPG-isometric-free_23: 6268115573097615215
+      RPG-isometric-free_24: -7449061720861005120
+      RPG-isometric-free_25: 2626249310793442063
+      RPG-isometric-free_26: -8558978508044208319
+      RPG-isometric-free_27: 8523633402427084656
+      RPG-isometric-free_28: -3754274996958680258
+      RPG-isometric-free_29: 726883925995800918
+      RPG-isometric-free_3: 7005319344023192374
+      RPG-isometric-free_30: 1337107919388679135
+      RPG-isometric-free_31: -1613843328798922462
+      RPG-isometric-free_4: 4820150225157933593
+      RPG-isometric-free_5: -1513011093053010854
+      RPG-isometric-free_6: 8383218684014107450
+      RPG-isometric-free_7: 1266880639227480705
+      RPG-isometric-free_8: -5219415960212708356
+      RPG-isometric-free_9: -875581593470213739
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
