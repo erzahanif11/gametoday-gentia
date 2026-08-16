@@ -1,4 +1,5 @@
 using UnityEngine;
+using Unity.Cinemachine;
 
 public class MoveArea : MonoBehaviour
 {
@@ -18,10 +19,13 @@ public class MoveArea : MonoBehaviour
                 movePlayer.SetMovementMode(MovementMode.Grid);
             }
         }
+    }
 
-        if (other.CompareTag("FreeArea"))
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.CompareTag("GridArea"))
         {
-            Debug.Log("Entered Free Area");
+            Debug.Log("Exited Grid Area");
             if (movePlayer != null)
             {
                 movePlayer.SetMovementMode(MovementMode.Free);
