@@ -1,10 +1,11 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Unity.Cinemachine;
+using System.Collections.Generic;
 
 public class PlayerManager : MonoBehaviour
 {
-    public MovePlayer[] movePlayers;
+    public List<MovePlayer> movePlayers;
     int currentPlayerIndex = 0;
     int lastSpiritIndex = 1;
     public InputActionReference ChangePlayerForwardAction;
@@ -13,10 +14,10 @@ public class PlayerManager : MonoBehaviour
     public CinemachineCamera virtualCamera;
 
     void Awake(){
-        if (movePlayers.Length > 0){
+        if (movePlayers.Count > 0){
             //player 0 must be angel
             EnablePlayer(0);
-            for(int i = 1; i < movePlayers.Length; i++){
+            for(int i = 1; i < movePlayers.Count; i++){
                 DisablePlayer(i);
             }
         }
@@ -27,9 +28,9 @@ public class PlayerManager : MonoBehaviour
         ChangePlayerBackwardAction.action.Enable();
         ChangePlayerModeAction.action.Enable();
 
-        ChangePlayerForwardAction.action.performed += ctx => OnForward(ctx);
-        ChangePlayerBackwardAction.action.performed += ctx => OnBackward(ctx);
-        ChangePlayerModeAction.action.performed += ctx => OnChangeMode(ctx);
+        ChangePlayerForwardAction.action.performed += OnForward;
+        ChangePlayerBackwardAction.action.performed += OnBackward;
+        ChangePlayerModeAction.action.performed += OnChangeMode;
     }
 
     void OnDisable(){
@@ -37,9 +38,9 @@ public class PlayerManager : MonoBehaviour
         ChangePlayerBackwardAction.action.Disable();
         ChangePlayerModeAction.action.Disable();
 
-        ChangePlayerForwardAction.action.performed -= ctx => OnForward(ctx);
-        ChangePlayerBackwardAction.action.performed -= ctx => OnBackward(ctx);
-        ChangePlayerModeAction.action.performed -= ctx => OnChangeMode(ctx);
+        ChangePlayerForwardAction.action.performed -= OnForward;
+        ChangePlayerBackwardAction.action.performed -= OnBackward;
+        ChangePlayerModeAction.action.performed -= OnChangeMode;
     }
 
     void OnForward(InputAction.CallbackContext context){
@@ -55,11 +56,11 @@ public class PlayerManager : MonoBehaviour
     }
 
     void ChangePlayerForward(){ //spirit only
-        if(movePlayers.Length <= 1 || currentPlayerIndex == 0){
+        if(movePlayers.Count <= 1 || currentPlayerIndex == 0){
             return;
         }
         DisablePlayer(currentPlayerIndex);
-        currentPlayerIndex = (currentPlayerIndex + 1) % movePlayers.Length;
+        currentPlayerIndex = (currentPlayerIndex + 1) % movePlayers.Count;
         if(currentPlayerIndex == 0){
             //player 0 must be angel
             currentPlayerIndex = 1;
@@ -69,24 +70,27 @@ public class PlayerManager : MonoBehaviour
     }
 
     void ChangePlayerBackward(){ //spirit only
-        if(movePlayers.Length <= 1 || currentPlayerIndex == 0){
+        if(movePlayers.Count <= 1 || currentPlayerIndex == 0){
             return;
         }
         DisablePlayer(currentPlayerIndex);
-        currentPlayerIndex = (currentPlayerIndex - 1 + movePlayers.Length) % movePlayers.Length;
+        currentPlayerIndex = (currentPlayerIndex - 1 + movePlayers.Count) % movePlayers.Count;
         if(currentPlayerIndex == 0){
             //player 0 must be angel
-            currentPlayerIndex = movePlayers.Length - 1;
+            currentPlayerIndex = movePlayers.Count - 1;
         }
         lastSpiritIndex = currentPlayerIndex;
         EnablePlayer(currentPlayerIndex);
     }
 
     void ChangePlayerMode(){
-        if(movePlayers.Length <= 1){
+        if(movePlayers.Count <= 1){
             return;
         }
         if(currentPlayerIndex == 0){
+            if(lastSpiritIndex >= movePlayers.Count){
+                lastSpiritIndex = movePlayers.Count - 1;
+            }
             EnablePlayer(lastSpiritIndex);
             DisablePlayer(0);
         }else{
@@ -96,6 +100,9 @@ public class PlayerManager : MonoBehaviour
     }
 
     void EnablePlayer(int index){
+        if(index < 0 || index >= movePlayers.Count){
+            return;
+        }
         if (movePlayers[index] == null){
             return;
         }
@@ -105,6 +112,12 @@ public class PlayerManager : MonoBehaviour
     }
 
     void DisablePlayer(int index){
+        if(index < 0 || index >= movePlayers.Count){
+            return;
+        }
+        if (movePlayers[index] == null){
+            return;
+        }
         movePlayers[index].isControlled = false;
     }
 
