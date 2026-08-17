@@ -15,11 +15,15 @@ public class MovePlayer : MonoBehaviour
     public LayerMask wallLayerMask;
     private Rigidbody2D rb;
     public SpiritState spiritState;
+    public SpiritManager spiritManager;
 
     void Awake(){
         rb = GetComponent<Rigidbody2D>();
         wallLayerMask = LayerMask.GetMask("Wall");
         spiritState = GetComponent<SpiritState>();
+        if(spiritManager == null){
+            spiritManager = FindAnyObjectByType<SpiritManager>();
+        }
     }
 
     void OnEnable()
@@ -84,6 +88,11 @@ public class MovePlayer : MonoBehaviour
             {
                 spiritState.SetSpiritState(SpiritStateEnum.Captured);
             }
+        }
+
+        if (other.CompareTag("SpiritSpawn"))
+        {
+            spiritManager.SpawnSpiritAtRandomPosition();
         }
     }
 }
