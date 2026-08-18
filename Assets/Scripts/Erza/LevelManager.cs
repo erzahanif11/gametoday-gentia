@@ -56,12 +56,13 @@ public class LevelManager : MonoBehaviour
     public void CompleteLevel(){
         if(levelState != null){
             levelState.SetLevelState(LevelStateEnum.Completed);
+            Debug.Log("Current State of Level ID " + currentLevelData.levelId + " is " + levelState.levelState);
             NextLevel();
         }
     }
 
     public void NextLevel(){
-        LoadLevel(currentLevelId + 1);
+        currentLevelId += 1;
     }
 
     public int GetCurrentLevelId(){

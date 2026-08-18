@@ -16,3 +16,9 @@ MonoBehaviour:
   - levelSpiritInfo: {fileID: 11400000, guid: e69042cfd20ef7c4384c38c0d86d0535, type: 2}
     levelState: 0
     levelId: 0
+  - levelSpiritInfo: {fileID: 11400000, guid: 6c832ab9024607941b4779e1cc8f524f, type: 2}
+    levelState: 0
+    levelId: 1
+  - levelSpiritInfo: {fileID: 11400000, guid: 6eaeb94f3c2acdc4f8a95658be3146e8, type: 2}
+    levelState: 0
+    levelId: 2
