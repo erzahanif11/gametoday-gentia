@@ -16,6 +16,7 @@ public class MovePlayer : MonoBehaviour
     private Rigidbody2D rb;
     public SpiritState spiritState;
     public SpiritManager spiritManager;
+    public LevelManager levelManager;
 
     void Awake(){
         rb = GetComponent<Rigidbody2D>();
@@ -23,6 +24,9 @@ public class MovePlayer : MonoBehaviour
         spiritState = GetComponent<SpiritState>();
         if(spiritManager == null){
             spiritManager = FindAnyObjectByType<SpiritManager>();
+        }
+        if(levelManager == null){
+            levelManager = FindAnyObjectByType<LevelManager>();
         }
     }
 
@@ -90,9 +94,9 @@ public class MovePlayer : MonoBehaviour
             }
         }
 
-        if (other.CompareTag("SpiritSpawn"))
+        if (other.CompareTag("LoadLevel"))
         {
-            spiritManager.SpawnSpiritAtRandomPosition();
+            levelManager.LoadLevel(levelManager.GetCurrentLevelId());
         }
     }
 }

@@ -7,7 +7,7 @@ TagManager:
   - FreeArea
   - GridArea
   - TinyArea
-  - SpiritSpawn
+  - LoadLevel
   layers:
   - Default
   - TransparentFX
