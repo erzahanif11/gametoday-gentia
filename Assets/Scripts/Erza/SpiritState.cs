@@ -9,7 +9,7 @@ public enum SpiritStateEnum{
 public class SpiritState : MonoBehaviour
 {
     public SpiritStateEnum spiritState;
-    public event Action<SpiritStateEnum> OnSpiritStateChanged;
+    public event Action<SpiritStateEnum, MovePlayer> OnSpiritStateChanged;
 
     void Awake(){
         spiritState = SpiritStateEnum.Free;
@@ -18,7 +18,7 @@ public class SpiritState : MonoBehaviour
     public void SetSpiritState(SpiritStateEnum newState){
         if(spiritState != newState){
             spiritState = newState;
-            OnSpiritStateChanged?.Invoke(newState);
+            OnSpiritStateChanged?.Invoke(newState, GetComponent<MovePlayer>());
         }
     }
 }

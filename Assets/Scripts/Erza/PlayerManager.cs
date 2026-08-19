@@ -121,6 +121,37 @@ public class PlayerManager : MonoBehaviour
         movePlayers[index].isControlled = false;
     }
 
+    public MovePlayer GetCurrentPlayer(){
+        if(currentPlayerIndex < 0 || currentPlayerIndex >= movePlayers.Count){
+            return null;
+        }
+        return movePlayers[currentPlayerIndex];
+    }
 
+    public void AddSpirit(MovePlayer spirit){
+        if(spirit == null){
+            return;
+        }
+        movePlayers.Add(spirit);
+        spirit.isControlled = false;
+        Debug.Log("Added new spirit. Total spirits: " + (movePlayers.Count - 1));
+    }
+
+    public void RemoveSpirit(MovePlayer spirit){
+        if(spirit == null){
+            return;
+        }
+        int index = movePlayers.IndexOf(spirit);
+        if(index == -1){
+            return;
+        }
+        if(currentPlayerIndex == index){
+            DisablePlayer(currentPlayerIndex);
+            currentPlayerIndex = 0; // switch back to angel
+            EnablePlayer(currentPlayerIndex);
+        }
+        movePlayers.RemoveAt(index);
+        Debug.Log("Removed a spirit. Total spirits: " + (movePlayers.Count - 1));
+    }
 
 }

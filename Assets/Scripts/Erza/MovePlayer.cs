@@ -14,10 +14,20 @@ public class MovePlayer : MonoBehaviour
     public bool isControlled = false;
     public LayerMask wallLayerMask;
     private Rigidbody2D rb;
+    public SpiritState spiritState;
+    public SpiritManager spiritManager;
+    public LevelManager levelManager;
 
     void Awake(){
         rb = GetComponent<Rigidbody2D>();
         wallLayerMask = LayerMask.GetMask("Wall");
+        spiritState = GetComponent<SpiritState>();
+        if(spiritManager == null){
+            spiritManager = FindAnyObjectByType<SpiritManager>();
+        }
+        if(levelManager == null){
+            levelManager = FindAnyObjectByType<LevelManager>();
+        }
     }
 
     void OnEnable()
@@ -71,5 +81,22 @@ public class MovePlayer : MonoBehaviour
     public void SetMovementMode(MovementMode mode)
     {
         movementMode = mode;
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("Finish"))
+        {
+            Debug.Log("Reached the finish area!");
+            if (spiritState != null)
+            {
+                spiritState.SetSpiritState(SpiritStateEnum.Captured);
+            }
+        }
+
+        if (other.CompareTag("LoadLevel"))
+        {
+            levelManager.LoadLevel(levelManager.GetCurrentLevelId());
+        }
     }
 }
