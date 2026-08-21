@@ -131,6 +131,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   spiritState: {fileID: 0}
+  spiritManager: {fileID: 0}
+  levelManager: {fileID: 0}
 --- !u!114 &301876068090773552
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -172,7 +174,7 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDamping: 0
+  m_LinearDamping: 7
   m_AngularDamping: 0.05
   m_GravityScale: 0
   m_Material: {fileID: 0}
