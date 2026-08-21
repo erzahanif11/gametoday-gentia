@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 
+
 [System.Serializable]
 public class LevelData{
     public LevelSpiritInfo levelSpiritInfo;
@@ -17,13 +18,15 @@ public class LevelManager : MonoBehaviour
     private int clearedLevelId = -1;
     private LevelData currentLevelData;
 
+    public event System.Action OnLevelCompleted;
+
     void Awake(){
         if(levelState == null){
             levelState = GetComponent<LevelState>();
         }
     }
 
-    public void LoadLevel(int levelId){
+    public bool LoadLevel(int levelId){
         LevelData entry = levelDatabase.GetLevel(levelId);
         currentLevelId = levelId;
         if(entry != null && levelId > clearedLevelId){
@@ -44,8 +47,10 @@ public class LevelManager : MonoBehaviour
                 spiritManager.SpawnSpiritAtRandomPosition();
                 StartLevel();
             }
+            return true;
         } else {
             Debug.LogError("Level with ID " + levelId + " not found in LevelDatabase or it's already cleared.");
+            return false;
         }
     }
 
@@ -60,6 +65,7 @@ public class LevelManager : MonoBehaviour
             levelState.SetLevelState(LevelStateEnum.Completed);
             clearedLevelId = currentLevelId;
             Debug.Log("Current State of Level ID " + currentLevelData.levelId + " is " + levelState.levelState);
+            OnLevelCompleted?.Invoke();
         }
     }
 

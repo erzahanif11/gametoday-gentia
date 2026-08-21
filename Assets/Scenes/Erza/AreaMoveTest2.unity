@@ -280,7 +280,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &159453429
 Transform:
   m_ObjectHideFlags: 0
@@ -1868,8 +1868,8 @@ Transform:
   m_GameObject: {fileID: 1190147065}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -29.755, y: 1.54, z: 0}
-  m_LocalScale: {x: 17.044182, y: 6.0677247, z: 1}
+  m_LocalPosition: {x: -29.755, y: 1.5696, z: 0}
+  m_LocalScale: {x: 17.044182, y: 6.127188, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1144064159}
@@ -3117,7 +3117,7 @@ GameObject:
   - component: {fileID: 2034667791}
   - component: {fileID: 2034667790}
   m_Layer: 0
-  m_Name: SpiritSpawn
+  m_Name: LoadLever
   m_TagString: LoadLevel
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3132,7 +3132,7 @@ Transform:
   m_GameObject: {fileID: 2034667786}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -20, y: 1.5454, z: 0}
+  m_LocalPosition: {x: -16.81, y: 1.5454, z: 0}
   m_LocalScale: {x: 1.9019855, y: 5.992434, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3263,6 +3263,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::LoadLevel
   levelIndex: 0
   levelManager: {fileID: 0}
+  entryDoor: {fileID: 2101226592}
+  exitDoor: {fileID: 159453428}
 --- !u!1 &2041502669
 GameObject:
   m_ObjectHideFlags: 0
@@ -3489,7 +3491,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_MaskInteraction: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
