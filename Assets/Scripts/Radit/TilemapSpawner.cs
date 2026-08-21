@@ -1,26 +1,37 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 /// <summary>
-/// Reads a <see cref="GridLayoutSO"/> and spawns the corresponding platform prefab
-/// for every non-empty cell.
+/// Reads a <see cref="Tilemap"/> painted in the Scene View and spawns the
+/// corresponding platform prefab for every tile found.
+///
+/// Pressure platform IDs are assigned via the <see cref="pressureIdMap"/>
+/// Inspector list — map each cell position to a unique ID.
+/// No secondary Tilemap or extra tile assets needed.
 /// </summary>
-public class GridSpawner : MonoBehaviour
+public class TilemapSpawner : MonoBehaviour
 {
-    [Header("Data")]
-    [SerializeField] private GridLayoutSO gridLayout;
+    [Header("Tilemap Source")]
+    [Tooltip("The Tilemap you painted in the Scene View. It will be hidden at runtime after spawning.")]
+    [SerializeField] private Tilemap sourceTilemap;
 
     [Header("Chain Reaction")]
     [Tooltip("Optional. Defines which pressure platforms trigger which targets.")]
     [SerializeField] private ChainReactionData chainData;
 
-    [Header("Prefabs")]
-    [Tooltip("Assign one prefab per PlatformType. Index must match the enum value.")]
-    [SerializeField] private PlatformPrefabEntry[] platformPrefabs;
+    [Header("Tile → Platform Mapping")]
+    [Tooltip("Map each Tile asset to its PlatformType and spawn prefab. Only one Pressure tile needed.")]
+    [SerializeField] private TilePlatformEntry[] tileMappings;
 
-    [Header("Spacing")]
-    [SerializeField] private float cellSize = 1f;
+    [Header("Pressure ID Assignment")]
+    [Tooltip("Assign a unique pressure ID to each cell position that has a Pressure tile.")]
+    [SerializeField] private CellIdEntry[] pressureIdMap;
+
+    [Header("Options")]
+    [Tooltip("If true, the source Tilemap's renderer is disabled after spawning so only the prefabs are visible.")]
+    [SerializeField] private bool hideTilemapAfterSpawn = true;
 
     // Keeps spawned objects so we can clear / respawn at runtime.
     private Transform gridParent;
@@ -30,56 +41,96 @@ public class GridSpawner : MonoBehaviour
 
     private void Start()
     {
-        SpawnGrid();
+        SpawnFromTilemap();
     }
 
+    // ───────── Core Spawning ─────────
+
     /// <summary>
-    /// Destroys any previously spawned grid and rebuilds it from the layout.
+    /// Destroys any previously spawned grid and rebuilds it by reading the Tilemap.
     /// </summary>
-    [ContextMenu("Spawn Grid")]
-    public void SpawnGrid()
+    [ContextMenu("Spawn From Tilemap")]
+    public void SpawnFromTilemap()
     {
         ClearGrid();
         spawnedPressurePlatforms.Clear();
 
-        if (gridLayout == null)
+        if (sourceTilemap == null)
         {
-            Debug.LogWarning("GridSpawner: No GridLayoutSO assigned.", this);
+            Debug.LogWarning("TilemapSpawner: No source Tilemap assigned.", this);
+            return;
+        }
+
+        if (tileMappings == null || tileMappings.Length == 0)
+        {
+            Debug.LogWarning("TilemapSpawner: No tile mappings configured.", this);
             return;
         }
 
         // Parent object keeps the hierarchy tidy
-        gridParent = new GameObject("Grid").transform;
+        gridParent = new GameObject("SpawnedPlatforms").transform;
         gridParent.SetParent(transform);
         gridParent.localPosition = Vector3.zero;
 
         // Ensure a PressurePlatformManager exists in the scene
         EnsurePressurePlatformManager();
 
-        // ── Phase 1: Spawn all cells and register pressure platforms ──
-        for (int y = 0; y < gridLayout.height; y++)
+        // Build lookups
+        Dictionary<TileBase, TilePlatformEntry> tileLookup = BuildTileLookup();
+        Dictionary<Vector2Int, int> idLookup = BuildIdLookup();
+
+        // ── Phase 1: Iterate tilemap and spawn prefabs ──
+        BoundsInt bounds = sourceTilemap.cellBounds;
+
+        for (int y = bounds.yMin; y < bounds.yMax; y++)
         {
-            for (int x = 0; x < gridLayout.width; x++)
+            for (int x = bounds.xMin; x < bounds.xMax; x++)
             {
-                PlatformType type = gridLayout.GetCell(x, y);
-                GameObject prefab = GetPrefab(type);
+                Vector3Int cellPos = new Vector3Int(x, y, 0);
+                TileBase tile = sourceTilemap.GetTile(cellPos);
 
-                if (prefab == null) continue; // skip Empty or unmapped types
+                if (tile == null) continue;
 
-                Vector3 pos = new Vector3(x * cellSize, y * cellSize, 0f);
-                GameObject instance = Instantiate(prefab, gridParent);
-                instance.transform.localPosition = pos;
-                instance.name = $"{type}_{x}_{y}";
-
-                // Initialize pressure platforms with custom ID from grid
-                if (type == PlatformType.Pressure)
+                if (!tileLookup.TryGetValue(tile, out TilePlatformEntry entry))
                 {
+                    Debug.LogWarning(
+                        $"TilemapSpawner: Tile '{tile.name}' at ({x},{y}) has no mapping. Skipping.", this);
+                    continue;
+                }
+
+                if (entry.prefab == null)
+                {
+                    Debug.LogWarning(
+                        $"TilemapSpawner: Tile '{tile.name}' mapping has no prefab assigned. Skipping.", this);
+                    continue;
+                }
+
+                // Convert cell position to world position (center of the cell)
+                Vector3 worldPos = sourceTilemap.CellToWorld(cellPos)
+                                 + sourceTilemap.cellSize * 0.5f;
+
+                GameObject instance = Instantiate(entry.prefab, gridParent);
+                instance.transform.position = worldPos;
+                instance.name = $"{entry.type}_{x}_{y}";
+
+                // Initialize pressure platforms — read ID from the pressureIdMap
+                if (entry.type == PlatformType.Pressure)
+                {
+                    Vector2Int key = new Vector2Int(x, y);
+
+                    if (!idLookup.TryGetValue(key, out int pressureId) || pressureId <= 0)
+                    {
+                        Debug.LogWarning(
+                            $"TilemapSpawner: Pressure tile at ({x},{y}) has no ID in pressureIdMap. " +
+                            $"Add a CellIdEntry for this position in the Inspector.", this);
+                        continue;
+                    }
+
                     PressurePlatform pp = instance.GetComponent<PressurePlatform>();
                     if (pp != null)
                     {
-                        int customId = gridLayout.GetCellId(x, y);
-                        pp.Initialize(customId); // sets ID + registers with manager
-                        instance.name = $"Pressure_{customId}";
+                        pp.Initialize(pressureId);
+                        instance.name = $"Pressure_{pressureId}";
                         spawnedPressurePlatforms.Add(pp);
                     }
                 }
@@ -97,6 +148,16 @@ public class GridSpawner : MonoBehaviour
         {
             spawnedPressurePlatforms[i].InitializeState();
         }
+
+        // ── Phase 4: Hide the source tilemap ──
+        if (hideTilemapAfterSpawn)
+        {
+            TilemapRenderer renderer = sourceTilemap.GetComponent<TilemapRenderer>();
+            if (renderer != null)
+                renderer.enabled = false;
+        }
+
+        Debug.Log($"TilemapSpawner: Spawned {gridParent.childCount} platforms from Tilemap.", this);
     }
 
     /// <summary>
@@ -116,17 +177,59 @@ public class GridSpawner : MonoBehaviour
         }
     }
 
-    private GameObject GetPrefab(PlatformType type)
-    {
-        if (platformPrefabs == null) return null;
+    // ───────── Lookups ─────────
 
-        for (int i = 0; i < platformPrefabs.Length; i++)
+    /// <summary>
+    /// Builds a Dictionary for O(1) layout tile lookups.
+    /// </summary>
+    private Dictionary<TileBase, TilePlatformEntry> BuildTileLookup()
+    {
+        var lookup = new Dictionary<TileBase, TilePlatformEntry>();
+
+        for (int i = 0; i < tileMappings.Length; i++)
         {
-            if (platformPrefabs[i].type == type)
-                return platformPrefabs[i].prefab;
+            TilePlatformEntry entry = tileMappings[i];
+            if (entry.tile == null) continue;
+
+            if (lookup.ContainsKey(entry.tile))
+            {
+                Debug.LogWarning(
+                    $"TilemapSpawner: Duplicate tile mapping for '{entry.tile.name}'. " +
+                    $"Using the first entry.", this);
+                continue;
+            }
+
+            lookup[entry.tile] = entry;
         }
 
-        return null;
+        return lookup;
+    }
+
+    /// <summary>
+    /// Builds a Dictionary mapping cell positions to pressure IDs for O(1) lookups.
+    /// </summary>
+    private Dictionary<Vector2Int, int> BuildIdLookup()
+    {
+        var lookup = new Dictionary<Vector2Int, int>();
+
+        if (pressureIdMap == null) return lookup;
+
+        for (int i = 0; i < pressureIdMap.Length; i++)
+        {
+            CellIdEntry entry = pressureIdMap[i];
+
+            if (lookup.ContainsKey(entry.cellPosition))
+            {
+                Debug.LogWarning(
+                    $"TilemapSpawner: Duplicate pressure ID at cell ({entry.cellPosition.x},{entry.cellPosition.y}). " +
+                    $"Using the first entry.", this);
+                continue;
+            }
+
+            lookup[entry.cellPosition] = entry.id;
+        }
+
+        return lookup;
     }
 
     // ───────── Chain Reaction Integration ─────────
@@ -175,7 +278,7 @@ public class GridSpawner : MonoBehaviour
             if (source == null)
             {
                 Debug.LogWarning(
-                    $"GridSpawner: ChainRule source ID {rule.sourceId} not found.", this);
+                    $"TilemapSpawner: ChainRule source ID {rule.sourceId} not found.", this);
                 continue;
             }
 
@@ -327,14 +430,4 @@ public class GridSpawner : MonoBehaviour
             Debug.LogWarning($"Test Activate: Platform {testActivateId} is already activated.");
         }
     }
-}
-
-/// <summary>
-/// Maps a <see cref="PlatformType"/> to its prefab.
-/// </summary>
-[System.Serializable]
-public struct PlatformPrefabEntry
-{
-    public PlatformType type;
-    public GameObject prefab;
 }

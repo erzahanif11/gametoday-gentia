@@ -11,7 +11,7 @@ using DG.Tweening;
 ///   Activated → Stepped on. Chain targets have been triggered.
 /// 
 /// IMPORTANT: Do NOT rely on Awake/Start for initialization.
-/// Call Initialize() from GridSpawner after setting the platformId.
+/// Call Initialize() from TilemapSpawner after setting the platformId.
 /// </summary>
 public class PressurePlatform : MonoBehaviour
 {
@@ -59,7 +59,7 @@ public class PressurePlatform : MonoBehaviour
             originalColor = spriteRenderer.color;
 
         // Do NOT register here — ID is not set yet.
-        // GridSpawner will call Initialize() after assigning the correct ID.
+        // TilemapSpawner will call Initialize() after assigning the correct ID.
     }
 
     private void OnDestroy()
@@ -68,11 +68,11 @@ public class PressurePlatform : MonoBehaviour
             PressurePlatformManager.Instance.Unregister(this);
     }
 
-    // ───────── Initialization (called by GridSpawner) ─────────
+    // ───────── Initialization (called by TilemapSpawner) ─────────
 
     /// <summary>
     /// Sets the platform ID and registers with the manager.
-    /// Must be called by GridSpawner BEFORE ApplyChainRules.
+    /// Must be called by TilemapSpawner BEFORE ApplyChainRules.
     /// </summary>
     public void Initialize(int id)
     {
@@ -87,7 +87,7 @@ public class PressurePlatform : MonoBehaviour
 
     /// <summary>
     /// Applies the initial visibility state (hidden or revealed).
-    /// Must be called by GridSpawner AFTER ApplyChainRules has set startsRevealed.
+    /// Must be called by TilemapSpawner AFTER ApplyChainRules has set startsRevealed.
     /// </summary>
     public void InitializeState()
     {
