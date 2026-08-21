@@ -13,6 +13,9 @@ public class GridLayoutSO : ScriptableObject
     [Tooltip("Flat array backing the 2D grid (row-major). Resized automatically via the context menu or editor script.")]
     public PlatformType[] cells;
 
+    [Tooltip("Custom platform ID per cell (row-major). 0 = no ID. Only relevant for Pressure cells.")]
+    public int[] cellIds;
+
     // ───────── Helpers ─────────
 
     /// <summary>Converts (x, y) to a flat index. Returns -1 if out of bounds.</summary>
@@ -38,6 +41,22 @@ public class GridLayoutSO : ScriptableObject
         cells[i] = type;
     }
 
+    /// <summary>Gets the custom platform ID at (x, y). Returns 0 if out of bounds or not set.</summary>
+    public int GetCellId(int x, int y)
+    {
+        int i = Index(x, y);
+        if (i < 0 || cellIds == null || i >= cellIds.Length) return 0;
+        return cellIds[i];
+    }
+
+    /// <summary>Sets the custom platform ID at (x, y). No-op if out of bounds.</summary>
+    public void SetCellId(int x, int y, int id)
+    {
+        int i = Index(x, y);
+        if (i < 0 || cellIds == null || i >= cellIds.Length) return;
+        cellIds[i] = id;
+    }
+
     /// <summary>Returns true when (x, y) is inside the grid.</summary>
     public bool InBounds(int x, int y) => x >= 0 && x < width && y >= 0 && y < height;
 
@@ -50,31 +69,38 @@ public class GridLayoutSO : ScriptableObject
     [ContextMenu("Resize Grid")]
     public void ResizeGrid()
     {
-        var old = cells;
-        int oldWidth = (old != null && old.Length > 0) ? (cells.Length > 0 ? width : 0) : 0;
+        int total = width * height;
 
-        cells = new PlatformType[width * height];
+        var oldCells = cells;
+        var oldIds = cellIds;
+        int oldWidth = (oldCells != null && oldCells.Length > 0) ? (cells.Length > 0 ? width : 0) : 0;
 
-        if (old == null) return;
+        cells = new PlatformType[total];
+        cellIds = new int[total];
+
+        if (oldCells == null) return;
 
         // Copy overlapping region
         int copyW = Mathf.Min(oldWidth, width);
-        int copyH = Mathf.Min(old.Length / Mathf.Max(oldWidth, 1), height);
+        int copyH = Mathf.Min(oldCells.Length / Mathf.Max(oldWidth, 1), height);
         for (int y = 0; y < copyH; y++)
         {
             for (int x = 0; x < copyW; x++)
             {
                 int srcIdx = y * oldWidth + x;
                 int dstIdx = y * width + x;
-                if (srcIdx < old.Length)
-                    cells[dstIdx] = old[srcIdx];
+                if (srcIdx < oldCells.Length)
+                    cells[dstIdx] = oldCells[srcIdx];
+                if (oldIds != null && srcIdx < oldIds.Length)
+                    cellIds[dstIdx] = oldIds[srcIdx];
             }
         }
     }
 
     private void OnValidate()
     {
-        if (cells == null || cells.Length != width * height)
+        int total = width * height;
+        if (cells == null || cells.Length != total || cellIds == null || cellIds.Length != total)
             ResizeGrid();
     }
 }
