@@ -14,6 +14,7 @@ public class LevelManager : MonoBehaviour
     public LevelState levelState;
 
     private int currentLevelId = 0;
+    private int clearedLevelId = -1;
     private LevelData currentLevelData;
 
     void Awake(){
@@ -24,7 +25,8 @@ public class LevelManager : MonoBehaviour
 
     public void LoadLevel(int levelId){
         LevelData entry = levelDatabase.GetLevel(levelId);
-        if(entry != null){
+        currentLevelId = levelId;
+        if(entry != null && levelId > clearedLevelId){
             currentLevelId = levelId;
             currentLevelData = new LevelData{
                 levelSpiritInfo = entry.levelSpiritInfo,
@@ -43,7 +45,7 @@ public class LevelManager : MonoBehaviour
                 StartLevel();
             }
         } else {
-            Debug.LogError("Level with ID " + levelId + " not found in LevelDatabase.");
+            Debug.LogError("Level with ID " + levelId + " not found in LevelDatabase or it's already cleared.");
         }
     }
 
@@ -56,8 +58,8 @@ public class LevelManager : MonoBehaviour
     public void CompleteLevel(){
         if(levelState != null){
             levelState.SetLevelState(LevelStateEnum.Completed);
+            clearedLevelId = currentLevelId;
             Debug.Log("Current State of Level ID " + currentLevelData.levelId + " is " + levelState.levelState);
-            NextLevel();
         }
     }
 

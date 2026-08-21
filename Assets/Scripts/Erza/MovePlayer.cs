@@ -91,12 +91,13 @@ public class MovePlayer : MonoBehaviour
             if (spiritState != null)
             {
                 spiritState.SetSpiritState(SpiritStateEnum.Captured);
+                Destroy(gameObject);
             }
         }
 
-        if (other.CompareTag("LoadLevel"))
-        {
-            levelManager.LoadLevel(levelManager.GetCurrentLevelId());
-        }
+        // if (other.CompareTag("LoadLevel"))
+        // {
+        //     levelManager.LoadLevel(levelManager.GetCurrentLevelId());
+        // }
     }
 }
