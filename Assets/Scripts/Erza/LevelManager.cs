@@ -18,7 +18,7 @@ public class LevelManager : MonoBehaviour
     private int clearedLevelId = -1;
     private LevelData currentLevelData;
 
-    public event System.Action OnLevelCompleted;
+    public event System.Action<int> OnLevelCompleted;
 
     void Awake(){
         if(levelState == null){
@@ -65,7 +65,7 @@ public class LevelManager : MonoBehaviour
             levelState.SetLevelState(LevelStateEnum.Completed);
             clearedLevelId = currentLevelId;
             Debug.Log("Current State of Level ID " + currentLevelData.levelId + " is " + levelState.levelState);
-            OnLevelCompleted?.Invoke();
+            OnLevelCompleted?.Invoke(clearedLevelId);
         }
     }
 

@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Level X 1
   m_EditorClassIdentifier: Assembly-CSharp::LevelSpiritInfo
   spiritCount: 5
-  minSpawnPosition: {x: 4.8, y: -6}
-  maxSpawnPosition: {x: 8, y: 6}
+  minSpawnPosition: {x: 30, y: -35}
+  maxSpawnPosition: {x: 32, y: -28}

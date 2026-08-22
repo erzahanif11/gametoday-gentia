@@ -10,7 +10,6 @@ public class MoveArea : MonoBehaviour
 
     void Awake(){
         movePlayer = this.GetComponent<MovePlayer>();
-        virtualCamera = FindAnyObjectByType<CinemachineCamera>();
     }
 
     private void OnTriggerEnter2D(Collider2D other)

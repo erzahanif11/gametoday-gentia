@@ -37,9 +37,10 @@ public class SpiritManager : MonoBehaviour
     void HandleSpiritStateChanged(SpiritStateEnum newState, MovePlayer spirit){
         if(newState == SpiritStateEnum.Captured){
             playerManager.RemoveSpirit(spirit);
-            spiritCountText.text = "Spirits: " + (levelSpiritInfo.spiritCount - (playerManager.movePlayers.Count-1)) + "/" + levelSpiritInfo.spiritCount;
+            spiritCountText.text = "Spirits: " + (levelSpiritInfo.spiritCount - (playerManager.movePlayers.Count-1)) + "/" + levelSpiritInfo.spiritCount + "\nCaptured a spirit!";
             if(playerManager.movePlayers.Count <= 1){
                 Debug.Log("All spirits have been captured! Level Complete!");
+                spiritCountText.text = "Current level cleared, please go to the next area";
                 levelManager.CompleteLevel();
             }
             Debug.Log("A spirit has been captured!");
