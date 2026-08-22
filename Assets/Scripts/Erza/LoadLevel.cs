@@ -25,14 +25,12 @@ public class LoadLevel : MonoBehaviour
         }
     }
 
-    void OnTriggerEnter2D(Collider2D other)
+    public void InteractLoadLevel()
     {
-        if(other.CompareTag("Player")){
-            if(levelManager.LoadLevel(levelIndex)){
-                entryDoor.SetActive(true);
-                exitDoor.SetActive(true);
-                StartCoroutine(CameraTransition(spiritAreaCamera));
-            }
+        if(levelManager.LoadLevel(levelIndex)){
+            entryDoor.SetActive(true);
+            exitDoor.SetActive(true);
+            StartCoroutine(CameraTransition(spiritAreaCamera));
         }
     }
 
