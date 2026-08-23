@@ -1,7 +1,8 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public enum MovementMode{
+public enum MovementMode
+{
     Free,
     Grid
 }
@@ -18,14 +19,17 @@ public class MovePlayer : MonoBehaviour
     public SpiritManager spiritManager;
     public LevelManager levelManager;
 
-    void Awake(){
+    void Awake()
+    {
         rb = GetComponent<Rigidbody2D>();
         wallLayerMask = LayerMask.GetMask("Wall");
         spiritState = GetComponent<SpiritState>();
-        if(spiritManager == null){
+        if (spiritManager == null)
+        {
             spiritManager = FindAnyObjectByType<SpiritManager>();
         }
-        if(levelManager == null){
+        if (levelManager == null)
+        {
             levelManager = FindAnyObjectByType<LevelManager>();
         }
     }
@@ -38,18 +42,20 @@ public class MovePlayer : MonoBehaviour
 
     void Update()
     {
-        if(!isControlled){
+        if (!isControlled)
+        {
             return;
         }
 
         float moveSpeed = 5f;
-        
+
         if (movementMode == MovementMode.Free)
         {
             float horizontalInput = MoveAction.action.ReadValue<Vector2>().x;
             float verticalInput = MoveAction.action.ReadValue<Vector2>().y;
             rb.linearVelocity = new Vector2(horizontalInput, verticalInput) * moveSpeed;
-        }else if (movementMode == MovementMode.Grid)
+        }
+        else if (movementMode == MovementMode.Grid)
         {
             float gridSize = 1f;
             float horizontalInput = MoveAction.action.ReadValue<Vector2>().x;
@@ -59,13 +65,13 @@ public class MovePlayer : MonoBehaviour
             Vector3 movement = new Vector3(horizontalInput, verticalInput, 0) * gridSize;
             MoveOneStep(movement);
         }
-        
+
     }
 
     void MoveOneStep(Vector3 movement)
     {
-        if(!MoveAction.action.WasPressedThisFrame()) return;
-        
+        if (!MoveAction.action.WasPressedThisFrame()) return;
+
         Vector2 newPosition = transform.position + movement;
 
         Collider2D hitCollider = Physics2D.OverlapCircle(newPosition, 0.1f, wallLayerMask);

@@ -3,12 +3,21 @@ using UnityEngine;
 using DG.Tweening;
 
 /// <summary>
-/// A pressure platform that reveals chained platforms when stepped on.
+/// A pressure platform that reveals chained platforms when a "spirit" steps on it,
+/// and hides them again when the spirit steps off.
 /// 
 /// States:
 ///   Hidden    → Invisible, collider disabled. Waiting to be revealed.
 ///   Revealed  → Visible, collider enabled. Waiting to be stepped on.
-///   Activated → Stepped on. Chain targets have been triggered.
+///   Activated → A spirit is standing on it. Chain targets are revealed.
+/// 
+/// Behaviour:
+///   - Active (Revealed/Activated) platforms can be walked on.
+///   - Hidden platforms cannot be walked on (collider disabled).
+///   - Stepping ON  → Activate → reveal chain targets (Platform A reveals B, C…).
+///   - Stepping OFF → Deactivate → hide chain targets again (reversible).
+///   - Multiple spirits on the same platform are ref-counted so the platform
+///     only deactivates when ALL spirits have left.
 /// 
 /// IMPORTANT: Do NOT rely on Awake/Start for initialization.
 /// Call Initialize() from TilemapSpawner after setting the platformId.
@@ -27,7 +36,7 @@ public class PressurePlatform : MonoBehaviour
     [Tooltip("IDs of platforms to reveal when this one is activated.")]
     public int[] targetIds;
 
-    [Tooltip("Delay (seconds) before each target is revealed.")]
+    [Tooltip("Delay (seconds) before each target is revealed/hidden.")]
     public float triggerDelay = 0.15f;
 
     [Header("Initial State")]
@@ -37,7 +46,12 @@ public class PressurePlatform : MonoBehaviour
     [Header("Animation")]
     [SerializeField] private float dropDistance = 0.3f;
     [SerializeField] private float revealDuration = 0.4f;
+    [SerializeField] private float hideDuration = 0.3f;
     [SerializeField] private Color activatedTint = new Color(0.6f, 1f, 0.6f, 1f);
+
+    [Header("Detection")]
+    [Tooltip("Size of the overlap box used to detect spirits. Should match the platform's visual size.")]
+    [SerializeField] private Vector2 detectionSize = new Vector2(0.9f, 0.9f);
 
     // ───────── Runtime ─────────
 
@@ -46,7 +60,23 @@ public class PressurePlatform : MonoBehaviour
     private SpriteRenderer spriteRenderer;
     private Collider2D col;
     private Color originalColor;
+    private Vector3 restPosition; // cached final local position (set on reveal)
     private bool initialized = false;
+
+    /// <summary>
+    /// How many "spirit" objects are currently overlapping this platform's detection box.
+    /// The platform deactivates only when this reaches 0.
+    /// </summary>
+    private int activatorCount = 0;
+
+    /// <summary>
+    /// Running chain coroutine — cached so we can stop it if the spirit steps
+    /// off before the chain finishes propagating.
+    /// </summary>
+    private Coroutine chainCoroutine;
+
+    // Reusable buffer for overlap queries (avoids GC allocations)
+    private static readonly Collider2D[] overlapBuffer = new Collider2D[16];
 
     // ───────── Lifecycle ─────────
 
@@ -64,6 +94,9 @@ public class PressurePlatform : MonoBehaviour
 
     private void OnDestroy()
     {
+        DOTween.Kill(transform);
+        if (spriteRenderer != null) DOTween.Kill(spriteRenderer);
+
         if (PressurePlatformManager.Instance != null)
             PressurePlatformManager.Instance.Unregister(this);
     }
@@ -91,28 +124,38 @@ public class PressurePlatform : MonoBehaviour
     /// </summary>
     public void InitializeState()
     {
+        restPosition = transform.localPosition;
+
         if (startsRevealed)
         {
             SetRevealed(animate: false);
         }
         else
         {
-            SetHidden();
+            SetHidden(animate: false);
         }
     }
 
     // ───────── State Transitions ─────────
 
-    /// <summary>Makes the platform invisible and non-interactive.</summary>
-    private void SetHidden()
+    /// <summary>Makes the platform invisible and non-interactive (immediate, no animation).</summary>
+    private void SetHidden(bool animate)
     {
         CurrentState = State.Hidden;
+        activatorCount = 0;
 
-        if (spriteRenderer != null)
-            spriteRenderer.color = new Color(originalColor.r, originalColor.g, originalColor.b, 0f);
+        if (animate && spriteRenderer != null)
+        {
+            PlayHideAnimation();
+        }
+        else
+        {
+            if (spriteRenderer != null)
+                spriteRenderer.color = new Color(originalColor.r, originalColor.g, originalColor.b, 0f);
 
-        if (col != null)
-            col.enabled = false;
+            if (col != null)
+                col.enabled = false;
+        }
     }
 
     /// <summary>
@@ -145,7 +188,7 @@ public class PressurePlatform : MonoBehaviour
 
     /// <summary>
     /// Activates the platform and triggers chain targets.
-    /// Called when the player steps on it.
+    /// Called when a spirit steps on it.
     /// </summary>
     public void Activate()
     {
@@ -153,15 +196,41 @@ public class PressurePlatform : MonoBehaviour
 
         CurrentState = State.Activated;
 
-        // Visual feedback — tint to show it's been used
+        // Visual feedback — tint to show it's active
         if (spriteRenderer != null)
             spriteRenderer.DOColor(activatedTint, 0.2f).SetEase(Ease.OutQuad);
 
-        // Trigger chain reaction
-        StartCoroutine(TriggerChainReaction());
+        // Trigger chain reaction (reveal targets)
+        if (chainCoroutine != null) StopCoroutine(chainCoroutine);
+        chainCoroutine = StartCoroutine(TriggerChainReaction());
     }
 
-    // ───────── Chain Reaction ─────────
+    /// <summary>
+    /// Deactivates the platform: reverts tint to normal revealed color and hides
+    /// all chain targets (recursively). The platform itself stays visible (Revealed).
+    /// </summary>
+    public void Deactivate()
+    {
+        if (CurrentState != State.Activated) return;
+
+        // Stop any in-progress chain reveal
+        if (chainCoroutine != null)
+        {
+            StopCoroutine(chainCoroutine);
+            chainCoroutine = null;
+        }
+
+        CurrentState = State.Revealed;
+
+        // Revert visual tint back to normal
+        if (spriteRenderer != null)
+            spriteRenderer.DOColor(originalColor, 0.2f).SetEase(Ease.OutQuad);
+
+        // Hide chain targets
+        StartCoroutine(HideChainTargets());
+    }
+
+    // ───────── Chain Reaction — Reveal ─────────
 
     private IEnumerator TriggerChainReaction()
     {
@@ -190,14 +259,69 @@ public class PressurePlatform : MonoBehaviour
                     $"PressurePlatform {platformId}: Target ID {targetIds[i]} not found.", this);
             }
         }
+
+        chainCoroutine = null;
+    }
+
+    // ───────── Chain Reaction — Hide ─────────
+
+    /// <summary>
+    /// Hides all chain targets immediately (no delays). Each target is first
+    /// deactivated (if activated) so it will recursively hide its own chain
+    /// targets before being hidden itself. Uses force=true so platforms collapse
+    /// even if a spirit is standing on them (chain dependency broken).
+    /// </summary>
+    private IEnumerator HideChainTargets()
+    {
+        if (targetIds == null || targetIds.Length == 0) yield break;
+
+        var manager = PressurePlatformManager.Instance;
+        if (manager == null) yield break;
+
+        for (int i = 0; i < targetIds.Length; i++)
+        {
+            PressurePlatform target = manager.GetById(targetIds[i]);
+            if (target == null) continue;
+
+            // Force-hide: chain dependency is broken, collapse everything
+            target.Hide(animate: true, force: true);
+        }
+    }
+
+    /// <summary>
+    /// Public entry point to hide this platform (transition to Hidden).
+    /// Called by a parent platform's deactivation chain.
+    /// 
+    /// When <paramref name="force"/> is true, the platform hides even if a spirit
+    /// is standing on it (chain dependency was broken upstream).
+    /// </summary>
+    public void Hide(bool animate = true, bool force = false)
+    {
+        // Only hide from Revealed or Activated states
+        if (CurrentState == State.Hidden) return;
+
+        // Unless forced (chain collapse), don't hide if a spirit is standing on us
+        if (!force && activatorCount > 0) return;
+
+        // If we're activated, deactivate first (hides our own targets recursively)
+        if (CurrentState == State.Activated)
+        {
+            Deactivate();
+        }
+
+        SetHidden(animate);
+
     }
 
     // ───────── Animation ─────────
 
     private void PlayRevealAnimation()
     {
-        Vector3 finalPos = transform.localPosition;
-        Vector3 startPos = finalPos + Vector3.up * dropDistance;
+        // Kill any existing tweens on this object
+        DOTween.Kill(transform);
+        DOTween.Kill(spriteRenderer);
+
+        Vector3 startPos = restPosition + Vector3.up * dropDistance;
 
         // Start state
         transform.localPosition = startPos;
@@ -205,22 +329,71 @@ public class PressurePlatform : MonoBehaviour
 
         // Animate in
         Sequence seq = DOTween.Sequence();
-        seq.Join(transform.DOLocalMove(finalPos, revealDuration).SetEase(Ease.OutCubic));
+        seq.Join(transform.DOLocalMove(restPosition, revealDuration).SetEase(Ease.OutCubic));
         seq.Join(spriteRenderer.DOFade(originalColor.a, revealDuration).SetEase(Ease.OutCubic));
     }
 
-    // ───────── Collision Detection ─────────
-    // Uses trigger collider — the platform prefab needs a BoxCollider2D set to IsTrigger.
-    // Player must have a Rigidbody2D and a Collider2D.
-
-    private void OnTriggerEnter2D(Collider2D other)
+    private void PlayHideAnimation()
     {
-        if (CurrentState != State.Revealed) return;
+        // Kill any existing tweens on this object
+        DOTween.Kill(transform);
+        DOTween.Kill(spriteRenderer);
 
-        // Only react to the player
-        if (other.CompareTag("Player"))
+        Vector3 targetPos = restPosition + Vector3.up * dropDistance;
+
+        Sequence seq = DOTween.Sequence();
+        seq.Join(transform.DOLocalMove(targetPos, hideDuration).SetEase(Ease.InCubic));
+        seq.Join(spriteRenderer.DOFade(0f, hideDuration).SetEase(Ease.InCubic));
+        seq.OnComplete(() =>
+        {
+            // Ensure final state is fully hidden
+            if (col != null) col.enabled = false;
+            transform.localPosition = restPosition; // reset position for next reveal
+        });
+    }
+
+    // ───────── Spirit Detection (FixedUpdate overlap check) ─────────
+    // Uses Physics2D.OverlapBox instead of OnTriggerEnter/Exit because
+    // the spirit uses transform.position (teleportation) for grid movement,
+    // which does not reliably trigger OnTriggerEnter2D/OnTriggerExit2D.
+
+    private void FixedUpdate()
+    {
+        // Only check when the platform is interactive
+        if (CurrentState != State.Revealed && CurrentState != State.Activated) return;
+
+        // Count how many "spirit" tagged objects overlap our detection box
+        int count = Physics2D.OverlapBoxNonAlloc(
+            transform.position, detectionSize, 0f, overlapBuffer);
+
+        int spiritCount = 0;
+        for (int i = 0; i < count; i++)
+        {
+            if (overlapBuffer[i] != null && overlapBuffer[i].CompareTag("spirit"))
+                spiritCount++;
+        }
+
+        int previousCount = activatorCount;
+        activatorCount = spiritCount;
+
+        // Spirit just stepped on → activate
+        if (previousCount == 0 && activatorCount > 0 && CurrentState == State.Revealed)
         {
             Activate();
         }
+        // All spirits stepped off → deactivate
+        else if (previousCount > 0 && activatorCount == 0 && CurrentState == State.Activated)
+        {
+            Deactivate();
+        }
+    }
+
+    // ───────── Debug Gizmo ─────────
+
+    private void OnDrawGizmosSelected()
+    {
+        // Visualize the detection box in the Scene view
+        Gizmos.color = new Color(0f, 1f, 0.5f, 0.3f);
+        Gizmos.DrawWireCube(transform.position, detectionSize);
     }
 }

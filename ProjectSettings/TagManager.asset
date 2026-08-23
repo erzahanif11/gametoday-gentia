@@ -8,6 +8,7 @@ TagManager:
   - GridArea
   - TinyArea
   - LoadLevel
+  - spirit
   layers:
   - Default
   - TransparentFX

@@ -430,4 +430,44 @@ public class TilemapSpawner : MonoBehaviour
             Debug.LogWarning($"Test Activate: Platform {testActivateId} is already activated.");
         }
     }
+
+    /// <summary>
+    /// Deactivates the platform with the ID specified in <see cref="testActivateId"/>.
+    /// This will revert its tint and hide all chain targets (recursively).
+    /// </summary>
+    [ContextMenu("Test Deactivate ID")]
+    private void TestDeactivateById()
+    {
+        if (!Application.isPlaying)
+        {
+            Debug.LogWarning("Test Deactivate: Only works in Play mode.");
+            return;
+        }
+
+        var manager = PressurePlatformManager.Instance;
+        if (manager == null)
+        {
+            Debug.LogWarning("Test Deactivate: No PressurePlatformManager found.");
+            return;
+        }
+
+        PressurePlatform target = manager.GetById(testActivateId);
+        if (target == null)
+        {
+            Debug.LogWarning($"Test Deactivate: Platform ID {testActivateId} not found.");
+            return;
+        }
+
+        if (target.CurrentState == PressurePlatform.State.Activated)
+        {
+            Debug.Log($"Test Deactivate: Deactivating Platform {testActivateId}");
+            target.Deactivate();
+        }
+        else
+        {
+            Debug.LogWarning(
+                $"Test Deactivate: Platform {testActivateId} is not activated (state: {target.CurrentState}).");
+        }
+    }
 }
+
