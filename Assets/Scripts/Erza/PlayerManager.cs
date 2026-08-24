@@ -107,7 +107,9 @@ public class PlayerManager : MonoBehaviour
             return;
         }
         movePlayers[index].isControlled = true;
-        virtualCamera.Follow = movePlayers[index].transform;
+        if(virtualCamera != null){
+            virtualCamera.Follow = movePlayers[index].transform;
+        }
         currentPlayerIndex = index;
     }
 

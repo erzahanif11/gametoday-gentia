@@ -369,7 +369,7 @@ public class PressurePlatform : MonoBehaviour
         int spiritCount = 0;
         for (int i = 0; i < count; i++)
         {
-            if (overlapBuffer[i] != null && overlapBuffer[i].CompareTag("spirit"))
+            if (overlapBuffer[i] != null && overlapBuffer[i].CompareTag("Player"))
                 spiritCount++;
         }
 
