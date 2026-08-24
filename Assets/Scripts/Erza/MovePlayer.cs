@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Tilemaps;
 
 public enum MovementMode
 {
@@ -9,12 +10,15 @@ public enum MovementMode
 
 public class MovePlayer : MonoBehaviour
 {
-    public InputActionReference MoveAction;
+    public InputActionReference moveAction;
     public PlayerMoveMode playerMoveMode;
     public MovementMode movementMode;
     public bool isControlled = false;
     public LayerMask wallLayerMask;
     private Rigidbody2D rb;
+    float moveSpeed = 10f;
+    public Tilemap movementTilemap;
+
     public SpiritState spiritState;
     public SpiritManager spiritManager;
     public LevelManager levelManager;
@@ -36,7 +40,7 @@ public class MovePlayer : MonoBehaviour
 
     void OnEnable()
     {
-        MoveAction.action.Enable();
+        moveAction.action.Enable();
         movementMode = playerMoveMode.movementMode;
     }
 
@@ -47,41 +51,62 @@ public class MovePlayer : MonoBehaviour
             return;
         }
 
-        float moveSpeed = 5f;
-
         if (movementMode == MovementMode.Free)
         {
-            float horizontalInput = MoveAction.action.ReadValue<Vector2>().x;
-            float verticalInput = MoveAction.action.ReadValue<Vector2>().y;
-            rb.linearVelocity = new Vector2(horizontalInput, verticalInput) * moveSpeed;
+            MoveFree();
         }
         else if (movementMode == MovementMode.Grid)
         {
-            float gridSize = 1f;
-            float horizontalInput = MoveAction.action.ReadValue<Vector2>().x;
-            float verticalInput = MoveAction.action.ReadValue<Vector2>().y;
-            rb.linearVelocity = Vector2.zero;
-
-            Vector3 movement = new Vector3(horizontalInput, verticalInput, 0) * gridSize;
-            MoveOneStep(movement);
+            MoveGrid();
         }
 
     }
 
-    void MoveOneStep(Vector3 movement)
-    {
-        if (!MoveAction.action.WasPressedThisFrame()) return;
+    void MoveFree(){
+        float horizontalInput = moveAction.action.ReadValue<Vector2>().x;
+        float verticalInput = moveAction.action.ReadValue<Vector2>().y;
+        rb.linearVelocity = new Vector2(horizontalInput, verticalInput) * moveSpeed;
+    }
 
-        Vector2 newPosition = transform.position + movement;
-
-        Collider2D hitCollider = Physics2D.OverlapCircle(newPosition, 0.1f, wallLayerMask);
-        if (hitCollider != null)
+    void MoveGrid(){
+        if (!moveAction.action.WasPressedThisFrame())
         {
-            Debug.Log("Movement blocked by wall.");
             return;
         }
 
-        transform.position = newPosition;
+        Vector2 input = moveAction.action.ReadValue<Vector2>();
+
+        Vector3Int direction;
+
+        if(Mathf.Abs(input.x) > Mathf.Abs(input.y))
+        {
+            direction  = input.x > 0 ? Vector3Int.right : Vector3Int.left;
+        }
+        else
+        {
+            direction = input.y > 0 ? Vector3Int.up : Vector3Int.down;
+        }
+        
+        MoveOneStep(direction);
+    }
+
+    void MoveOneStep(Vector3Int movement)
+    {
+        if(movementTilemap == null)
+        {
+            Debug.LogWarning("Movement Tilemap is not assigned.");
+            return;
+        }
+
+        Vector3Int currentcell = movementTilemap.WorldToCell(transform.position);
+        Vector3Int targetCell = currentcell + movement;
+        Vector3 targetPosition = movementTilemap.GetCellCenterWorld(targetCell);
+        Collider2D hitCollider = Physics2D.OverlapCircle(targetPosition, 0.1f, wallLayerMask);
+        if (hitCollider != null){
+            Debug.Log("Movement blocked by wall at: " + targetCell);
+            return;
+        }
+        transform.position = targetPosition;
     }
 
     public void SetMovementMode(MovementMode mode)
