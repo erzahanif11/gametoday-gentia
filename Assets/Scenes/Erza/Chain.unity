@@ -668,20 +668,12 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 2314857677476298232, guid: 442175bb09730524bb296d96c2683fdc, type: 3}
-      propertyPath: moveAction
-      value: 
-      objectReference: {fileID: -1680190386980627800, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
-    - target: {fileID: 2314857677476298232, guid: 442175bb09730524bb296d96c2683fdc, type: 3}
       propertyPath: movementTilemap
       value: 
       objectReference: {fileID: 1580027727}
     - target: {fileID: 3136253539565137017, guid: 442175bb09730524bb296d96c2683fdc, type: 3}
       propertyPath: m_Name
       value: Spirit
-      objectReference: {fileID: 0}
-    - target: {fileID: 3136253539565137017, guid: 442175bb09730524bb296d96c2683fdc, type: 3}
-      propertyPath: m_TagString
-      value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 5984234949005122768, guid: 442175bb09730524bb296d96c2683fdc, type: 3}
       propertyPath: m_LocalPosition.x
@@ -722,14 +714,6 @@ PrefabInstance:
     - target: {fileID: 5984234949005122768, guid: 442175bb09730524bb296d96c2683fdc, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7165925032462469383, guid: 442175bb09730524bb296d96c2683fdc, type: 3}
-      propertyPath: m_BodyType
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7165925032462469383, guid: 442175bb09730524bb296d96c2683fdc, type: 3}
-      propertyPath: m_LinearDamping
-      value: 100
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1556,21 +1540,9 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6401815599427467967, guid: c09cc022bcc76fb419e7a870d1e4ae94, type: 3}
-      propertyPath: moveAction
-      value: 
-      objectReference: {fileID: -1680190386980627800, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
-    - target: {fileID: 6401815599427467967, guid: c09cc022bcc76fb419e7a870d1e4ae94, type: 3}
       propertyPath: movementTilemap
       value: 
       objectReference: {fileID: 1580027727}
-    - target: {fileID: 7285709563262230755, guid: c09cc022bcc76fb419e7a870d1e4ae94, type: 3}
-      propertyPath: m_BodyType
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7285709563262230755, guid: c09cc022bcc76fb419e7a870d1e4ae94, type: 3}
-      propertyPath: m_LinearDamping
-      value: 100
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

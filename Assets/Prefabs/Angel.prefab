@@ -124,13 +124,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d3d0eb94af2d754f998f245bc87df51, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MoveSample
-  MoveAction: {fileID: -1680190386980627800, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
+  moveAction: {fileID: -1680190386980627800, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   playerMoveMode: {fileID: 40228903454455416}
   movementMode: 0
   isControlled: 0
   wallLayerMask:
     serializedVersion: 2
     m_Bits: 64
+  movementTilemap: {fileID: 0}
   spiritState: {fileID: 0}
   spiritManager: {fileID: 0}
   levelManager: {fileID: 0}
@@ -180,7 +181,7 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDamping: 0
+  m_LinearDamping: 100
   m_AngularDamping: 0.05
   m_GravityScale: 0
   m_Material: {fileID: 0}
