@@ -123,6 +123,13 @@ public class PlayerManager : MonoBehaviour
         movePlayers[index].isControlled = false;
     }
 
+    public void DisableAllSpirits(){
+        for(int i = 1; i < movePlayers.Count; i++){
+            DisablePlayer(i);
+        }
+        EnablePlayer(0);
+    }
+
     public MovePlayer GetCurrentPlayer(){
         if(currentPlayerIndex < 0 || currentPlayerIndex >= movePlayers.Count){
             return null;

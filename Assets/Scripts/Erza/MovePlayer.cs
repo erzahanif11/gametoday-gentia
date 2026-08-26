@@ -14,14 +14,16 @@ public class MovePlayer : MonoBehaviour
     public PlayerMoveMode playerMoveMode;
     public MovementMode movementMode;
     public bool isControlled = false;
+    public bool isSpirit = false;
     public LayerMask wallLayerMask;
     private Rigidbody2D rb;
-    float moveSpeed = 10f;
+    float moveSpeed = 15f;
     public Tilemap movementTilemap;
 
     public SpiritState spiritState;
     public SpiritManager spiritManager;
     public LevelManager levelManager;
+    public PlayerManager playerManager;
 
     void Awake()
     {
@@ -36,12 +38,33 @@ public class MovePlayer : MonoBehaviour
         {
             levelManager = FindAnyObjectByType<LevelManager>();
         }
+        if (movementTilemap == null)
+        {
+            movementTilemap = FindAnyObjectByType<Tilemap>();
+        }
+        if (playerManager == null)
+        {
+            playerManager = FindAnyObjectByType<PlayerManager>();
+        }
     }
 
     void OnEnable()
     {
         moveAction.action.Enable();
         movementMode = playerMoveMode.movementMode;
+
+        if (levelManager != null)
+        {
+            levelManager.OnLevelCompleted += HandleOnLevelComplete;
+        }
+    }
+
+    void OnDisable()
+    {
+        if (levelManager != null)
+        {
+            levelManager.OnLevelCompleted -= HandleOnLevelComplete;
+        }
     }
 
     void Update()
@@ -60,6 +83,15 @@ public class MovePlayer : MonoBehaviour
             MoveGrid();
         }
 
+    }
+    
+    void HandleOnLevelComplete(int completedLevelIndex)
+    {
+        if(isSpirit)
+        {
+            playerManager.DisableAllSpirits();
+            Destroy(gameObject);
+        }
     }
 
     void MoveFree(){
@@ -122,7 +154,6 @@ public class MovePlayer : MonoBehaviour
             if (spiritState != null)
             {
                 spiritState.SetSpiritState(SpiritStateEnum.Captured);
-                Destroy(gameObject);
             }
         }
 
@@ -130,5 +161,14 @@ public class MovePlayer : MonoBehaviour
         // {
         //     levelManager.LoadLevel(levelManager.GetCurrentLevelId());
         // }
+    }
+
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.CompareTag("Finish"))
+        {
+            Debug.Log("Exited the finish area!");
+            spiritState.SetSpiritState(SpiritStateEnum.Free);
+        }
     }
 }

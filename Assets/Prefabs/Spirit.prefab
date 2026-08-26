@@ -127,6 +127,7 @@ MonoBehaviour:
   playerMoveMode: {fileID: 2595330787432752341}
   movementMode: 0
   isControlled: 0
+  isSpirit: 1
   wallLayerMask:
     serializedVersion: 2
     m_Bits: 64

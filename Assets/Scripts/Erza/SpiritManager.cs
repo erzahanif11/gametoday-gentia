@@ -8,6 +8,8 @@ public class SpiritManager : MonoBehaviour
     private Vector3 spawnPosition;
     public TMPro.TMP_Text spiritCountText;
     public LevelManager levelManager;
+    int capturedSpiritCount = 0;
+    bool levelCompleted = false;
 
     void Awake(){
         if(playerManager == null){
@@ -35,15 +37,25 @@ public class SpiritManager : MonoBehaviour
     }
 
     void HandleSpiritStateChanged(SpiritStateEnum newState, MovePlayer spirit){
+        if(levelCompleted){
+            return;
+        }
+
         if(newState == SpiritStateEnum.Captured){
-            playerManager.RemoveSpirit(spirit);
-            spiritCountText.text = "Spirits: " + (levelSpiritInfo.spiritCount - (playerManager.movePlayers.Count-1)) + "/" + levelSpiritInfo.spiritCount + "\nCaptured a spirit!";
-            if(playerManager.movePlayers.Count <= 1){
+            capturedSpiritCount++;
+            // playerManager.RemoveSpirit(spirit);
+            spiritCountText.text = "Spirits: " + (capturedSpiritCount) + "/" + levelSpiritInfo.spiritCount + "\nCaptured a spirit!";
+            if(capturedSpiritCount >= levelSpiritInfo.spiritCount){
+                levelCompleted = true;
                 Debug.Log("All spirits have been captured! Level Complete!");
-                spiritCountText.text = "Current level cleared, please go to the next area";
+                spiritCountText.text = "All spirits captured!";
                 levelManager.CompleteLevel();
             }
             Debug.Log("A spirit has been captured!");
+        }else if(newState == SpiritStateEnum.Free){
+            capturedSpiritCount = Mathf.Max(0, capturedSpiritCount - 1);
+            spiritCountText.text = "Spirits: " + (capturedSpiritCount) + "/" + levelSpiritInfo.spiritCount + "\nFreed a spirit!";
+            Debug.Log("A spirit has been freed!");
         }
     }
 
@@ -76,6 +88,9 @@ public class SpiritManager : MonoBehaviour
     }
 
     public void SetupLevel(LevelSpiritInfo newLevelSpiritInfo){
+        capturedSpiritCount = 0;
+        levelCompleted = false;
+
         // Clear spirits lama
         int spiritsToRemove = playerManager.movePlayers.Count - 1; // -1 untuk angel
         for(int i = 0; i < spiritsToRemove; i++){
