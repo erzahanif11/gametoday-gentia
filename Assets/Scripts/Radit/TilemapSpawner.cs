@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
 /// <summary>
 /// Reads a <see cref="Tilemap"/> painted in the Scene View and spawns the
@@ -17,9 +20,17 @@ public class TilemapSpawner : MonoBehaviour
     [Tooltip("The Tilemap you painted in the Scene View. It will be hidden at runtime after spawning.")]
     [SerializeField] private Tilemap sourceTilemap;
 
+    [Header("Lever Tilemap (Separate Layer)")]
+    [Tooltip("Optional. A separate Tilemap layer for lever tiles.")]
+    [SerializeField] private Tilemap leverTilemap;
+
     [Header("Chain Reaction")]
     [Tooltip("Optional. Defines which pressure platforms trigger which targets.")]
     [SerializeField] private ChainReactionData chainData;
+
+    [Header("Lever Rules")]
+    [Tooltip("Optional. Defines which levers control which platforms.")]
+    [SerializeField] private LeverData leverData;
 
     [Header("Tile → Platform Mapping")]
     [Tooltip("Map each Tile asset to its PlatformType and spawn prefab. Only one Pressure tile needed.")]
@@ -28,6 +39,10 @@ public class TilemapSpawner : MonoBehaviour
     [Header("Pressure ID Assignment")]
     [Tooltip("Assign a unique pressure ID to each cell position that has a Pressure tile.")]
     [SerializeField] private CellIdEntry[] pressureIdMap;
+
+    [Header("Lever ID Assignment")]
+    [Tooltip("Assign a unique lever ID to each cell position that has a Lever tile on the lever tilemap.")]
+    [SerializeField] private LeverCellIdEntry[] leverIdMap;
 
     [Header("Options")]
     [Tooltip("If true, the source Tilemap's renderer is disabled after spawning so only the prefabs are visible.")]
@@ -38,6 +53,9 @@ public class TilemapSpawner : MonoBehaviour
 
     // All spawned pressure platforms, used for deferred initialization.
     private List<PressurePlatform> spawnedPressurePlatforms = new List<PressurePlatform>();
+
+    // All spawned levers, used for deferred rule application.
+    private List<Lever> spawnedLevers = new List<Lever>();
 
     private void Start()
     {
@@ -54,6 +72,7 @@ public class TilemapSpawner : MonoBehaviour
     {
         ClearGrid();
         spawnedPressurePlatforms.Clear();
+        spawnedLevers.Clear();
 
         if (sourceTilemap == null)
         {
@@ -137,27 +156,47 @@ public class TilemapSpawner : MonoBehaviour
             }
         }
 
-        // ── Phase 2: Apply chain rules (now all platforms are registered) ──
+        // ── Phase 2: Spawn levers from the lever tilemap ──
+        if (leverTilemap != null)
+        {
+            SpawnLeversFromTilemap(tileLookup);
+        }
+
+        // ── Phase 3: Apply chain rules (now all platforms are registered) ──
         if (chainData != null)
         {
             ApplyChainRules();
         }
 
-        // ── Phase 3: Apply initial visibility state AFTER rules are set ──
+        // ── Phase 4: Apply lever rules ──
+        if (leverData != null)
+        {
+            ApplyLeverRules();
+        }
+
+        // ── Phase 5: Apply initial visibility state AFTER rules are set ──
         for (int i = 0; i < spawnedPressurePlatforms.Count; i++)
         {
             spawnedPressurePlatforms[i].InitializeState();
         }
 
-        // ── Phase 4: Hide the source tilemap ──
+        // ── Phase 6: Hide the source tilemaps ──
         if (hideTilemapAfterSpawn)
         {
             TilemapRenderer renderer = sourceTilemap.GetComponent<TilemapRenderer>();
             if (renderer != null)
                 renderer.enabled = false;
+
+            if (leverTilemap != null)
+            {
+                TilemapRenderer leverRenderer = leverTilemap.GetComponent<TilemapRenderer>();
+                if (leverRenderer != null)
+                    leverRenderer.enabled = false;
+            }
         }
 
-        Debug.Log($"TilemapSpawner: Spawned {gridParent.childCount} platforms from Tilemap.", this);
+        int leverCount = spawnedLevers.Count;
+        Debug.Log($"TilemapSpawner: Spawned {gridParent.childCount} objects ({spawnedPressurePlatforms.Count} platforms, {leverCount} levers).", this);
     }
 
     /// <summary>
@@ -284,12 +323,150 @@ public class TilemapSpawner : MonoBehaviour
 
             source.targetIds = rule.targetIds;
             source.triggerDelay = rule.delay;
+            source.persistent = rule.persistent;
 
             // If this source is never a target of another rule, it's an entry point
             if (!allTargetIds.Contains(rule.sourceId))
             {
                 source.startsRevealed = true;
             }
+        }
+    }
+
+    // ───────── Lever Integration ─────────
+
+    /// <summary>
+    /// Spawns lever prefabs from the lever tilemap layer.
+    /// Uses the same tile lookup as the main tilemap — entries with
+    /// <see cref="PlatformType.Lever"/> are matched.
+    /// </summary>
+    private void SpawnLeversFromTilemap(Dictionary<TileBase, TilePlatformEntry> tileLookup)
+    {
+        if (leverTilemap == null) return;
+
+        Dictionary<Vector2Int, int> leverIdLookup = BuildLeverIdLookup();
+
+        BoundsInt bounds = leverTilemap.cellBounds;
+
+        for (int y = bounds.yMin; y < bounds.yMax; y++)
+        {
+            for (int x = bounds.xMin; x < bounds.xMax; x++)
+            {
+                Vector3Int cellPos = new Vector3Int(x, y, 0);
+                TileBase tile = leverTilemap.GetTile(cellPos);
+
+                if (tile == null) continue;
+
+                if (!tileLookup.TryGetValue(tile, out TilePlatformEntry entry))
+                {
+                    Debug.LogWarning(
+                        $"TilemapSpawner: Lever tile '{tile.name}' at ({x},{y}) has no mapping. Skipping.", this);
+                    continue;
+                }
+
+                if (entry.type != PlatformType.Lever)
+                {
+                    Debug.LogWarning(
+                        $"TilemapSpawner: Tile '{tile.name}' on lever tilemap at ({x},{y}) is not mapped as Lever type. Skipping.", this);
+                    continue;
+                }
+
+                if (entry.prefab == null)
+                {
+                    Debug.LogWarning(
+                        $"TilemapSpawner: Lever tile '{tile.name}' mapping has no prefab assigned. Skipping.", this);
+                    continue;
+                }
+
+                // Convert cell position to world position (center of the cell)
+                Vector3 worldPos = leverTilemap.CellToWorld(cellPos)
+                                 + leverTilemap.cellSize * 0.5f;
+
+                GameObject instance = Instantiate(entry.prefab, gridParent);
+                instance.transform.position = worldPos;
+
+                // Read lever ID from the leverIdMap
+                Vector2Int key = new Vector2Int(x, y);
+
+                if (!leverIdLookup.TryGetValue(key, out int lid) || lid <= 0)
+                {
+                    Debug.LogWarning(
+                        $"TilemapSpawner: Lever tile at ({x},{y}) has no ID in leverIdMap. " +
+                        $"Add a LeverCellIdEntry for this position in the Inspector.", this);
+                    continue;
+                }
+
+                Lever lever = instance.GetComponent<Lever>();
+                if (lever != null)
+                {
+                    lever.Initialize(lid);
+                    instance.name = $"Lever_{lid}";
+                    spawnedLevers.Add(lever);
+                }
+                else
+                {
+                    instance.name = $"Lever_{x}_{y}";
+                    Debug.LogWarning(
+                        $"TilemapSpawner: Lever prefab at ({x},{y}) is missing a Lever component.", this);
+                }
+            }
+        }
+    }
+
+    /// <summary>
+    /// Builds a Dictionary mapping cell positions to lever IDs for O(1) lookups.
+    /// </summary>
+    private Dictionary<Vector2Int, int> BuildLeverIdLookup()
+    {
+        var lookup = new Dictionary<Vector2Int, int>();
+
+        if (leverIdMap == null) return lookup;
+
+        for (int i = 0; i < leverIdMap.Length; i++)
+        {
+            LeverCellIdEntry entry = leverIdMap[i];
+
+            if (lookup.ContainsKey(entry.cellPosition))
+            {
+                Debug.LogWarning(
+                    $"TilemapSpawner: Duplicate lever ID at cell ({entry.cellPosition.x},{entry.cellPosition.y}). " +
+                    $"Using the first entry.", this);
+                continue;
+            }
+
+            lookup[entry.cellPosition] = entry.id;
+        }
+
+        return lookup;
+    }
+
+    /// <summary>
+    /// Applies lever rules from <see cref="leverData"/> to all spawned levers.
+    /// </summary>
+    private void ApplyLeverRules()
+    {
+        if (leverData == null || leverData.rules == null) return;
+
+        // Build a lever lookup by ID for quick access
+        var leverLookup = new Dictionary<int, Lever>();
+        for (int i = 0; i < spawnedLevers.Count; i++)
+        {
+            if (!leverLookup.ContainsKey(spawnedLevers[i].leverId))
+                leverLookup[spawnedLevers[i].leverId] = spawnedLevers[i];
+        }
+
+        for (int i = 0; i < leverData.rules.Length; i++)
+        {
+            LeverRule rule = leverData.rules[i];
+
+            if (!leverLookup.TryGetValue(rule.leverId, out Lever lever))
+            {
+                Debug.LogWarning(
+                    $"TilemapSpawner: LeverRule lever ID {rule.leverId} not found.", this);
+                continue;
+            }
+
+            lever.targetIds = rule.targetIds;
         }
     }
 
@@ -469,5 +646,24 @@ public class TilemapSpawner : MonoBehaviour
                 $"Test Deactivate: Platform {testActivateId} is not activated (state: {target.CurrentState}).");
         }
     }
+
+#if UNITY_EDITOR
+    [CustomEditor(typeof(TilemapSpawner))]
+    public class TilemapSpawnerEditor : Editor
+    {
+        public override void OnInspectorGUI()
+        {
+            DrawDefaultInspector();
+
+            TilemapSpawner tilemapSpawner = (TilemapSpawner)target;
+
+            EditorGUILayout.Space();
+            if (GUILayout.Button("Test Full Chain"))
+            {
+                tilemapSpawner.TestFullChain();
+            }
+        }
+    }
+#endif
 }
 

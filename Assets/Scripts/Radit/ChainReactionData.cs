@@ -42,4 +42,8 @@ public struct ChainRule
 
     [Tooltip("Delay (seconds) before targets are revealed.")]
     public float delay;
+
+    [Tooltip("If true, the SOURCE platform stays visible permanently once activated. " +
+             "It will not disappear when its parent platform is deactivated.")]
+    public bool persistent;
 }

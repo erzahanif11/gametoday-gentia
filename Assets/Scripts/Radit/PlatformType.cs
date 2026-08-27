@@ -5,5 +5,6 @@ public enum PlatformType
 {
     Empty,
     Normal,
-    Pressure
+    Pressure,
+    Lever
 }

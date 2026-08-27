@@ -16,21 +16,28 @@ MonoBehaviour:
   - sourceId: 1
     targetIds: 02000000
     delay: 0.15
+    persistent: 1
   - sourceId: 2
     targetIds: 03000000
     delay: 0.15
+    persistent: 1
   - sourceId: 3
     targetIds: 04000000
     delay: 0.15
+    persistent: 1
   - sourceId: 4
     targetIds: 05000000
     delay: 0.15
+    persistent: 1
   - sourceId: 5
     targetIds: 06000000
     delay: 0.15
+    persistent: 1
   - sourceId: 6
     targetIds: 07000000
     delay: 0.15
+    persistent: 1
   - sourceId: 7
     targetIds: 08000000
     delay: 0.15
+    persistent: 1

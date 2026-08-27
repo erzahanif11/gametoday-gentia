@@ -31,3 +31,17 @@ public struct CellIdEntry
     [Tooltip("The unique pressure platform ID for this cell.")]
     public int id;
 }
+
+/// <summary>
+/// Maps a cell position on the lever Tilemap to a lever ID.
+/// Used to assign unique IDs to Lever tiles painted at specific positions.
+/// </summary>
+[System.Serializable]
+public struct LeverCellIdEntry
+{
+    [Tooltip("Cell position (x, y) on the lever Tilemap where a Lever tile is painted.")]
+    public Vector2Int cellPosition;
+
+    [Tooltip("The unique lever ID for this cell.")]
+    public int id;
+}
