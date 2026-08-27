@@ -765,7 +765,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TilemapSpawner
   sourceTilemap: {fileID: 1580027727}
+  leverTilemap: {fileID: 0}
   chainData: {fileID: 11400000, guid: f0228040feee47f4296fa3cc5b42807d, type: 2}
+  leverData: {fileID: 0}
   tileMappings:
   - tile: {fileID: 11400000, guid: ce85002d9e03343499eb98ac3c2f5a6d, type: 2}
     type: 2
@@ -790,6 +792,7 @@ MonoBehaviour:
     id: 7
   - cellPosition: {x: -3, y: 1}
     id: 8
+  leverIdMap: []
   hideTilemapAfterSpawn: 1
   testActivateId: 1
   testChainDelay: 0.5
@@ -1432,6 +1435,12 @@ Tilemap:
   - serializedVersion: 2
     m_RefCount: 12
     m_Data: {fileID: 11400000, guid: 9d08ec88cba3b194b892107f0246ed30, type: 2}
+  - serializedVersion: 2
+    m_RefCount: 0
+    m_Data: {fileID: 0}
+  - serializedVersion: 2
+    m_RefCount: 0
+    m_Data: {fileID: 11400000, guid: 08585bf4b4be7d346bf636c9a9f9abed, type: 2}
   m_TileSpriteArray:
   - serializedVersion: 2
     m_RefCount: 8
@@ -1439,6 +1448,12 @@ Tilemap:
   - serializedVersion: 2
     m_RefCount: 12
     m_Data: {fileID: -8277231129068163290, guid: cf249c2cb3d9f1e418a22460e0987f8f, type: 3}
+  - serializedVersion: 2
+    m_RefCount: 0
+    m_Data: {fileID: 21300000, guid: c7679236f980f044fbc3f565d90a01ad, type: 3}
+  - serializedVersion: 2
+    m_RefCount: 0
+    m_Data: {fileID: 21300000, guid: 87295c4d27f53b2448502b9c18bd9672, type: 3}
   m_TileMatrixArray:
   - serializedVersion: 2
     m_RefCount: 20
@@ -1467,7 +1482,7 @@ Tilemap:
   m_AnimationFrameRate: 1
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Origin: {x: -5, y: -3, z: 0}
-  m_Size: {x: 8, y: 7, z: 1}
+  m_Size: {x: 13, y: 7, z: 1}
   m_TileAnchor: {x: 0.5, y: 0.5, z: 0}
   m_TileOrientation: 0
   m_TileOrientationMatrix:

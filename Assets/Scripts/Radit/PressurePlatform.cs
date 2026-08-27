@@ -43,6 +43,11 @@ public class PressurePlatform : MonoBehaviour
     [Tooltip("If true, platform starts visible and ready to be stepped on.")]
     public bool startsRevealed = false;
 
+    [Header("Persistence")]
+    [Tooltip("If true, this platform stays visible once revealed. " +
+             "It will NOT disappear when the parent platform is deactivated.")]
+    public bool persistent = false;
+
     [Header("Animation")]
     [SerializeField] private float dropDistance = 0.3f;
     [SerializeField] private float revealDuration = 0.4f;
@@ -213,6 +218,9 @@ public class PressurePlatform : MonoBehaviour
     {
         if (CurrentState != State.Activated) return;
 
+        // Persistent platforms never deactivate — they stay Activated permanently
+        if (persistent) return;
+
         // Stop any in-progress chain reveal
         if (chainCoroutine != null)
         {
@@ -300,17 +308,24 @@ public class PressurePlatform : MonoBehaviour
         // Only hide from Revealed or Activated states
         if (CurrentState == State.Hidden) return;
 
+        // Persistent platforms refuse to hide unless force is true (e.g. level reset)
+        if (persistent && !force) return;
+
         // Unless forced (chain collapse), don't hide if a spirit is standing on us
         if (!force && activatorCount > 0) return;
 
         // If we're activated, deactivate first (hides our own targets recursively)
         if (CurrentState == State.Activated)
         {
+            // For persistent platforms being force-hidden, temporarily disable
+            // persistence so Deactivate() can proceed
+            bool wasPersistent = persistent;
+            persistent = false;
             Deactivate();
+            persistent = wasPersistent;
         }
 
         SetHidden(animate);
-
     }
 
     // ───────── Animation ─────────
