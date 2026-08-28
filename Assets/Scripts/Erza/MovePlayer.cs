@@ -24,12 +24,14 @@ public class MovePlayer : MonoBehaviour
     public SpiritManager spiritManager;
     public LevelManager levelManager;
     public PlayerManager playerManager;
+    public PlayerIndicator playerIndicator;
 
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         wallLayerMask = LayerMask.GetMask("Wall");
         spiritState = GetComponent<SpiritState>();
+        playerIndicator = GetComponent<PlayerIndicator>();
         if (spiritManager == null)
         {
             spiritManager = FindAnyObjectByType<SpiritManager>();
@@ -46,6 +48,10 @@ public class MovePlayer : MonoBehaviour
         {
             playerManager = FindAnyObjectByType<PlayerManager>();
         }
+    }
+
+    void Start(){
+        playerIndicator.toggleIndicator(isControlled);
     }
 
     void OnEnable()
@@ -144,6 +150,15 @@ public class MovePlayer : MonoBehaviour
             return;
         }
         transform.position = targetPosition;
+    }
+
+    public void SetControlled(bool controlled)
+    {
+        isControlled = controlled;
+        if(playerIndicator != null)
+        {
+            playerIndicator.toggleIndicator(controlled);
+        }
     }
 
     public void SetMovementMode(MovementMode mode)
