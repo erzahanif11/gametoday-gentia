@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 2019951512868913654}
   - component: {fileID: 7165925032462469383}
   - component: {fileID: 8191750897296069368}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Spirit
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -135,6 +135,7 @@ MonoBehaviour:
   spiritState: {fileID: 0}
   spiritManager: {fileID: 0}
   levelManager: {fileID: 0}
+  playerManager: {fileID: 0}
 --- !u!114 &301876068090773552
 MonoBehaviour:
   m_ObjectHideFlags: 0

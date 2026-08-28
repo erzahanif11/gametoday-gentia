@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 2737463002498962010}
   - component: {fileID: 7285709563262230755}
   - component: {fileID: 6393514476624421253}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Angel
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -128,6 +128,7 @@ MonoBehaviour:
   playerMoveMode: {fileID: 40228903454455416}
   movementMode: 0
   isControlled: 0
+  isSpirit: 0
   wallLayerMask:
     serializedVersion: 2
     m_Bits: 64
@@ -135,6 +136,7 @@ MonoBehaviour:
   spiritState: {fileID: 0}
   spiritManager: {fileID: 0}
   levelManager: {fileID: 0}
+  playerManager: {fileID: 0}
 --- !u!114 &7371084483682240527
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -168,6 +170,10 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   interactAction: {fileID: 1781555164194001046, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
+  promptOffsetY: 1.2
+  promptFontSize: 24
+  promptColor: {r: 1, g: 1, b: 1, a: 1}
+  promptBackgroundColor: {r: 0, g: 0, b: 0, a: 0.6}
 --- !u!50 &7285709563262230755
 Rigidbody2D:
   serializedVersion: 5
@@ -271,7 +277,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2257217504545320250}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: InteractPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
