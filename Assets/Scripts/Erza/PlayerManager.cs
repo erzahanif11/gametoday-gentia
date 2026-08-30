@@ -106,7 +106,7 @@ public class PlayerManager : MonoBehaviour
         if (movePlayers[index] == null){
             return;
         }
-        movePlayers[index].isControlled = true;
+        movePlayers[index].SetControlled(true);
         if(virtualCamera != null){
             virtualCamera.Follow = movePlayers[index].transform;
         }
@@ -120,7 +120,7 @@ public class PlayerManager : MonoBehaviour
         if (movePlayers[index] == null){
             return;
         }
-        movePlayers[index].isControlled = false;
+        movePlayers[index].SetControlled(false);
     }
 
     public void DisableAllSpirits(){
@@ -142,7 +142,7 @@ public class PlayerManager : MonoBehaviour
             return;
         }
         movePlayers.Add(spirit);
-        spirit.isControlled = false;
+        spirit.SetControlled(false);
         Debug.Log("Added new spirit. Total spirits: " + (movePlayers.Count - 1));
     }
 

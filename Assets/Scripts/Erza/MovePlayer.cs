@@ -24,12 +24,14 @@ public class MovePlayer : MonoBehaviour
     public SpiritManager spiritManager;
     public LevelManager levelManager;
     public PlayerManager playerManager;
+    public PlayerIndicator playerIndicator;
 
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         wallLayerMask = LayerMask.GetMask("Wall");
         spiritState = GetComponent<SpiritState>();
+        playerIndicator = GetComponent<PlayerIndicator>();
         if (spiritManager == null)
         {
             spiritManager = FindAnyObjectByType<SpiritManager>();
@@ -46,6 +48,10 @@ public class MovePlayer : MonoBehaviour
         {
             playerManager = FindAnyObjectByType<PlayerManager>();
         }
+    }
+
+    void Start(){
+        playerIndicator.toggleIndicator(isControlled);
     }
 
     void OnEnable()
@@ -134,11 +140,25 @@ public class MovePlayer : MonoBehaviour
         Vector3Int targetCell = currentcell + movement;
         Vector3 targetPosition = movementTilemap.GetCellCenterWorld(targetCell);
         Collider2D hitCollider = Physics2D.OverlapCircle(targetPosition, 0.1f, wallLayerMask);
+        Collider2D playerCollider = Physics2D.OverlapCircle(targetPosition, 0.1f, LayerMask.GetMask("Player"));
         if (hitCollider != null){
             Debug.Log("Movement blocked by wall at: " + targetCell);
             return;
         }
+        if (playerCollider != null){
+            Debug.Log("Movement blocked by player at: " + targetCell);
+            return;
+        }
         transform.position = targetPosition;
+    }
+
+    public void SetControlled(bool controlled)
+    {
+        isControlled = controlled;
+        if(playerIndicator != null)
+        {
+            playerIndicator.toggleIndicator(controlled);
+        }
     }
 
     public void SetMovementMode(MovementMode mode)
