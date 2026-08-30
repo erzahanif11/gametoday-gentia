@@ -156,7 +156,10 @@ public class PressurePlatform : MonoBehaviour
         else
         {
             if (spriteRenderer != null)
+            {
                 spriteRenderer.color = new Color(originalColor.r, originalColor.g, originalColor.b, 0f);
+                spriteRenderer.enabled = false;
+            }
 
             if (col != null)
                 col.enabled = false;
@@ -180,6 +183,9 @@ public class PressurePlatform : MonoBehaviour
 
         if (col != null)
             col.enabled = true;
+            
+        if (spriteRenderer != null)
+            spriteRenderer.enabled = true;
 
         if (animate && spriteRenderer != null)
         {
@@ -328,41 +334,54 @@ public class PressurePlatform : MonoBehaviour
         SetHidden(animate);
     }
 
+    private Sequence currentSequence;
+
     // ───────── Animation ─────────
 
     private void PlayRevealAnimation()
     {
+        if (currentSequence != null) currentSequence.Kill();
+
         // Kill any existing tweens on this object
         DOTween.Kill(transform);
         DOTween.Kill(spriteRenderer);
+
+        if (spriteRenderer != null) spriteRenderer.enabled = true;
 
         Vector3 startPos = restPosition + Vector3.up * dropDistance;
 
         // Start state
         transform.localPosition = startPos;
-        spriteRenderer.color = new Color(originalColor.r, originalColor.g, originalColor.b, 0f);
+        if (spriteRenderer != null)
+            spriteRenderer.color = new Color(originalColor.r, originalColor.g, originalColor.b, 0f);
 
         // Animate in
-        Sequence seq = DOTween.Sequence();
-        seq.Join(transform.DOLocalMove(restPosition, revealDuration).SetEase(Ease.OutCubic));
-        seq.Join(spriteRenderer.DOFade(originalColor.a, revealDuration).SetEase(Ease.OutCubic));
+        currentSequence = DOTween.Sequence();
+        currentSequence.Join(transform.DOLocalMove(restPosition, revealDuration).SetEase(Ease.OutCubic));
+        if (spriteRenderer != null)
+            currentSequence.Join(spriteRenderer.DOFade(originalColor.a, revealDuration).SetEase(Ease.OutCubic));
     }
 
     private void PlayHideAnimation()
     {
+        if (currentSequence != null) currentSequence.Kill();
+
         // Kill any existing tweens on this object
         DOTween.Kill(transform);
         DOTween.Kill(spriteRenderer);
 
         Vector3 targetPos = restPosition + Vector3.up * dropDistance;
 
-        Sequence seq = DOTween.Sequence();
-        seq.Join(transform.DOLocalMove(targetPos, hideDuration).SetEase(Ease.InCubic));
-        seq.Join(spriteRenderer.DOFade(0f, hideDuration).SetEase(Ease.InCubic));
-        seq.OnComplete(() =>
+        currentSequence = DOTween.Sequence();
+        currentSequence.Join(transform.DOLocalMove(targetPos, hideDuration).SetEase(Ease.InCubic));
+        if (spriteRenderer != null)
+            currentSequence.Join(spriteRenderer.DOFade(0f, hideDuration).SetEase(Ease.InCubic));
+            
+        currentSequence.OnComplete(() =>
         {
             // Ensure final state is fully hidden
             if (col != null) col.enabled = false;
+            if (spriteRenderer != null) spriteRenderer.enabled = false;
             transform.localPosition = restPosition; // reset position for next reveal
         });
     }
