@@ -91,7 +91,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 10
   m_MaskInteraction: 0
-  m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
+  m_Sprite: {fileID: -1431961904312557597, guid: 9d328b45973914b44bf19768fac1f4c3, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -114,7 +114,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7633156da4f618840869ee7483e1272f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerIndicator
-  indicator: {fileID: 0}
+  indicator: {fileID: 3426470066223939510}
 --- !u!114 &40228903454455416
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -256,7 +256,7 @@ PolygonCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
+    oldSize: {x: 1.3412501, y: 1.7638732}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0

@@ -1,19 +1,16 @@
 fileFormatVersion: 2
-guid: 5f13a675b44a7104caf1891ab2ceebde
+guid: ac8c459af906bbc4c9f447a0d2a54904
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 93810155211459885
-    second: malaikat kerasukan_0
+      213: 4993474000431812188
+    second: gerak kanan kiri roh sprite besar(malaikat)_0
   - first:
-      213: 3695235486378777744
-    second: malaikat kerasukan_1
+      213: -8064049792747335637
+    second: gerak kanan kiri roh sprite besar(malaikat)_1
   - first:
-      213: 6859306731301932386
-    second: malaikat kerasukan_2
-  - first:
-      213: 8356257491594777524
-    second: malaikat kerasukan_3
+      213: -5687225298811805194
+    second: gerak kanan kiri roh sprite besar(malaikat)_2
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -60,7 +57,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 1000
+  spritePixelsToUnits: 1350
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -109,89 +106,67 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: malaikat kerasukan_0
+      name: gerak kanan kiri roh sprite besar(malaikat)_0
       rect:
         serializedVersion: 2
-        x: 31
-        y: 0
-        width: 2198
-        height: 1619
+        x: 377
+        y: 152
+        width: 955
+        height: 1435
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: d2d04b1d6d74d4100800000000000000
-      internalID: 93810155211459885
+      spriteID: c5e03e695226c4540800000000000000
+      internalID: 4993474000431812188
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: malaikat kerasukan_1
+      name: gerak kanan kiri roh sprite besar(malaikat)_1
       rect:
         serializedVersion: 2
-        x: 2534
-        y: 0
-        width: 2198
-        height: 1648
+        x: 1878
+        y: 151
+        width: 966
+        height: 1475
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 09c560fb81d184330800000000000000
-      internalID: 3695235486378777744
+      spriteID: b209b3c407db61090800000000000000
+      internalID: -8064049792747335637
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: malaikat kerasukan_2
+      name: gerak kanan kiri roh sprite besar(malaikat)_2
       rect:
         serializedVersion: 2
-        x: 5022
-        y: 0
-        width: 2198
-        height: 1704
+        x: 3605
+        y: 155
+        width: 1043
+        height: 1460
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 26d82b44127213f50800000000000000
-      internalID: 6859306731301932386
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: malaikat kerasukan_3
-      rect:
-        serializedVersion: 2
-        x: 7534
-        y: 0
-        width: 2198
-        height: 1648
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 4b3143e4ae367f370800000000000000
-      internalID: 8356257491594777524
+      spriteID: 6f125b219bae211b0800000000000000
+      internalID: -5687225298811805194
       vertices: []
       indices: 
       edges: []
@@ -200,7 +175,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 73afe31916c146a49ae4d338d3a7b86c
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -210,10 +185,9 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      malaikat kerasukan_0: 93810155211459885
-      malaikat kerasukan_1: 3695235486378777744
-      malaikat kerasukan_2: 6859306731301932386
-      malaikat kerasukan_3: 8356257491594777524
+      gerak kanan kiri roh sprite besar(malaikat)_0: 4993474000431812188
+      gerak kanan kiri roh sprite besar(malaikat)_1: -8064049792747335637
+      gerak kanan kiri roh sprite besar(malaikat)_2: -5687225298811805194
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
