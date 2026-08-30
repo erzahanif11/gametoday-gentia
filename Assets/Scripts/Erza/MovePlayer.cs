@@ -139,6 +139,25 @@ public class MovePlayer : MonoBehaviour
         Vector3Int currentcell = movementTilemap.WorldToCell(transform.position);
         Vector3Int targetCell = currentcell + movement;
         Vector3 targetPosition = movementTilemap.GetCellCenterWorld(targetCell);
+
+        // Block movement if there is no tile (empty gap)
+        if (!movementTilemap.HasTile(targetCell))
+        {
+            Debug.Log("Movement blocked by empty space at: " + targetCell);
+            return;
+        }
+
+        // Block movement if there is a hidden pressure platform
+        if (PressurePlatformManager.Instance != null)
+        {
+            PressurePlatform platform = PressurePlatformManager.Instance.GetByPosition(targetPosition);
+            if (platform != null && platform.CurrentState == PressurePlatform.State.Hidden)
+            {
+                Debug.Log("Movement blocked by hidden platform at: " + targetCell);
+                return;
+            }
+        }
+
         Collider2D hitCollider = Physics2D.OverlapCircle(targetPosition, 0.1f, wallLayerMask);
         Collider2D playerCollider = Physics2D.OverlapCircle(targetPosition, 0.1f, LayerMask.GetMask("Player"));
         if (hitCollider != null){

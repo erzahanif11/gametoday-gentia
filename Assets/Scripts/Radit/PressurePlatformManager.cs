@@ -72,4 +72,17 @@ public class PressurePlatformManager : MonoBehaviour
     {
         registry.Clear();
     }
+
+    /// <summary>Returns the platform at a specific world position, or null.</summary>
+    public PressurePlatform GetByPosition(Vector2 position)
+    {
+        foreach (var platform in registry.Values)
+        {
+            if (Vector2.Distance(platform.transform.position, position) < 0.1f)
+            {
+                return platform;
+            }
+        }
+        return null;
+    }
 }
