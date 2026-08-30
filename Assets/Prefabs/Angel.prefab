@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 2737463002498962010}
   - component: {fileID: 7285709563262230755}
   - component: {fileID: 6393514476624421253}
+  - component: {fileID: 624353201469706505}
   m_Layer: 3
   m_Name: Angel
   m_TagString: Player
@@ -284,6 +285,28 @@ PolygonCollider2D:
       - {x: 0.29296875, y: 0.40234375}
       - {x: 0.15234375, y: 0.47265625}
   m_UseDelaunayMesh: 1
+--- !u!95 &624353201469706505
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2138531663021260077}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 00fab31cb157b1f4d8661b359864752b, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &3426470066223939510
 GameObject:
   m_ObjectHideFlags: 0

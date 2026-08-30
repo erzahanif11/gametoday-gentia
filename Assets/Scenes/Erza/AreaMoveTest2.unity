@@ -7203,6 +7203,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Angel
       objectReference: {fileID: 0}
+    - target: {fileID: 2257217504545320250, guid: c09cc022bcc76fb419e7a870d1e4ae94, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.005
+      objectReference: {fileID: 0}
     - target: {fileID: 5074893262297760820, guid: c09cc022bcc76fb419e7a870d1e4ae94, type: 3}
       propertyPath: m_LocalPosition.x
       value: -35.73
@@ -7242,6 +7246,18 @@ PrefabInstance:
     - target: {fileID: 5074893262297760820, guid: c09cc022bcc76fb419e7a870d1e4ae94, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5597174603910501352, guid: c09cc022bcc76fb419e7a870d1e4ae94, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -1431961904312557597, guid: 9d328b45973914b44bf19768fac1f4c3, type: 3}
+    - target: {fileID: 6393514476624421253, guid: c09cc022bcc76fb419e7a870d1e4ae94, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.x
+      value: 1.3412501
+      objectReference: {fileID: 0}
+    - target: {fileID: 6393514476624421253, guid: c09cc022bcc76fb419e7a870d1e4ae94, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.y
+      value: 1.7638732
       objectReference: {fileID: 0}
     - target: {fileID: 6401815599427467967, guid: c09cc022bcc76fb419e7a870d1e4ae94, type: 3}
       propertyPath: movementTilemap
