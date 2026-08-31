@@ -26,11 +26,14 @@ public class MovePlayer : MonoBehaviour
     public PlayerManager playerManager;
     public PlayerIndicator playerIndicator;
 
+    public Animator animator;
+
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         wallLayerMask = LayerMask.GetMask("Wall");
         spiritState = GetComponent<SpiritState>();
+        animator = GetComponent<Animator>();
         playerIndicator = GetComponent<PlayerIndicator>();
         if (spiritManager == null)
         {
@@ -104,6 +107,8 @@ public class MovePlayer : MonoBehaviour
         float horizontalInput = moveAction.action.ReadValue<Vector2>().x;
         float verticalInput = moveAction.action.ReadValue<Vector2>().y;
         rb.linearVelocity = new Vector2(horizontalInput, verticalInput) * moveSpeed;
+        animator.SetFloat("HorizontalInput", horizontalInput);
+        animator.SetFloat("VerticalInput", verticalInput);
     }
 
     void MoveGrid(){
