@@ -156,6 +156,12 @@ public class PlayerInteract : MonoBehaviour
     {
         if (promptRoot == null) return;
 
+        if (string.IsNullOrEmpty(text))
+        {
+            HidePrompt();
+            return;
+        }
+
         promptText.text = text;
 
         if (!promptRoot.activeSelf)

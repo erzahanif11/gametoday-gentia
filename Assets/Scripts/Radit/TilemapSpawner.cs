@@ -97,6 +97,7 @@ public class TilemapSpawner : MonoBehaviour
         // Build lookups
         Dictionary<TileBase, TilePlatformEntry> tileLookup = BuildTileLookup();
         Dictionary<Vector2Int, int> idLookup = BuildIdLookup();
+        Dictionary<Vector2Int, PressurePlatform> platformByCell = new Dictionary<Vector2Int, PressurePlatform>();
 
         // ── Phase 1: Iterate tilemap and spawn prefabs ──
         BoundsInt bounds = sourceTilemap.cellBounds;
@@ -151,6 +152,7 @@ public class TilemapSpawner : MonoBehaviour
                         pp.Initialize(pressureId);
                         instance.name = $"Pressure_{pressureId}";
                         spawnedPressurePlatforms.Add(pp);
+                        platformByCell[key] = pp;
                     }
                 }
             }
@@ -159,7 +161,7 @@ public class TilemapSpawner : MonoBehaviour
         // ── Phase 2: Spawn levers from the lever tilemap ──
         if (leverTilemap != null)
         {
-            SpawnLeversFromTilemap(tileLookup);
+            SpawnLeversFromTilemap(tileLookup, platformByCell);
         }
 
         // ── Phase 3: Apply chain rules (now all platforms are registered) ──
@@ -340,7 +342,7 @@ public class TilemapSpawner : MonoBehaviour
     /// Uses the same tile lookup as the main tilemap — entries with
     /// <see cref="PlatformType.Lever"/> are matched.
     /// </summary>
-    private void SpawnLeversFromTilemap(Dictionary<TileBase, TilePlatformEntry> tileLookup)
+    private void SpawnLeversFromTilemap(Dictionary<TileBase, TilePlatformEntry> tileLookup, Dictionary<Vector2Int, PressurePlatform> platformByCell)
     {
         if (leverTilemap == null) return;
 
@@ -402,6 +404,14 @@ public class TilemapSpawner : MonoBehaviour
                     lever.Initialize(lid);
                     instance.name = $"Lever_{lid}";
                     spawnedLevers.Add(lever);
+
+                    // If there is a pressure platform on this exact cell, attach the lever to it
+                    if (platformByCell.TryGetValue(key, out PressurePlatform pp))
+                    {
+                        lever.transform.SetParent(pp.transform);
+                        lever.transform.localPosition = Vector3.zero;
+                        lever.parentPlatform = pp;
+                    }
                 }
                 else
                 {
@@ -467,6 +477,29 @@ public class TilemapSpawner : MonoBehaviour
             }
 
             lever.targetIds = rule.targetIds;
+            lever.offTargetIds = rule.offTargetIds;
+
+            // Set initial visibility of targets based on lever's initial state
+            var manager = PressurePlatformManager.Instance;
+            if (manager != null)
+            {
+                if (lever.offTargetIds != null && !lever.isOn)
+                {
+                    for (int j = 0; j < lever.offTargetIds.Length; j++)
+                    {
+                        var target = manager.GetById(lever.offTargetIds[j]);
+                        if (target != null) target.startsRevealed = true;
+                    }
+                }
+                if (lever.targetIds != null && lever.isOn)
+                {
+                    for (int j = 0; j < lever.targetIds.Length; j++)
+                    {
+                        var target = manager.GetById(lever.targetIds[j]);
+                        if (target != null) target.startsRevealed = true;
+                    }
+                }
+            }
         }
     }
 
