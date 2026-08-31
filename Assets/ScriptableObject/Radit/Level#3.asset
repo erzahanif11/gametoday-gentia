@@ -1,0 +1,55 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f0d93606304d0347a333043dd608305, type: 3}
+  m_Name: Level#3
+  m_EditorClassIdentifier: Assembly-CSharp::ChainReactionData
+  rules:
+  - sourceId: 1
+    targetIds: 02000000
+    delay: 0.15
+    persistent: 1
+  - sourceId: 4
+    targetIds: 05000000
+    delay: 0.15
+    persistent: 0
+  - sourceId: 5
+    targetIds: 06000000
+    delay: 0.15
+    persistent: 0
+  - sourceId: 6
+    targetIds: 07000000
+    delay: 0.15
+    persistent: 0
+  - sourceId: 7
+    targetIds: 08000000
+    delay: 0.15
+    persistent: 0
+  - sourceId: 8
+    targetIds: 09000000
+    delay: 0.15
+    persistent: 0
+  - sourceId: 10
+    targetIds: 0b000000
+    delay: 0.15
+    persistent: 0
+  - sourceId: 11
+    targetIds: 0c000000
+    delay: 0.15
+    persistent: 0
+  - sourceId: 12
+    targetIds: 0d000000
+    delay: 0.15
+    persistent: 0
+  - sourceId: 13
+    targetIds: 0e000000
+    delay: 0.15
+    persistent: 0
