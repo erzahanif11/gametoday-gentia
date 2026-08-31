@@ -38,6 +38,9 @@ public struct LeverRule
     [Tooltip("ID of the lever that triggers this rule.")]
     public int leverId;
 
-    [Tooltip("IDs of pressure platforms to reveal/hide when this lever is toggled.")]
+    [Tooltip("IDs of pressure platforms to reveal when ON (and hide when OFF).")]
     public int[] targetIds;
+
+    [Tooltip("IDs of pressure platforms to reveal when OFF (and hide when ON).")]
+    public int[] offTargetIds;
 }

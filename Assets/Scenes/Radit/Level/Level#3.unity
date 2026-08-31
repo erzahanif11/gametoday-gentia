@@ -2930,8 +2930,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::TilemapSpawner
   sourceTilemap: {fileID: 577211326}
   leverTilemap: {fileID: 111414918}
-  chainData: {fileID: 0}
-  leverData: {fileID: 0}
+  chainData: {fileID: 11400000, guid: 123aff2170a77df46a904f23be86d6c7, type: 2}
+  leverData: {fileID: 11400000, guid: abdf3fb3a6764af4581271147cf44c6c, type: 2}
   tileMappings:
   - tile: {fileID: 11400000, guid: ce85002d9e03343499eb98ac3c2f5a6d, type: 2}
     type: 2
@@ -2939,8 +2939,38 @@ MonoBehaviour:
   - tile: {fileID: 11400000, guid: 33d5e28ea093b5a48a49163eecc57bb3, type: 2}
     type: 3
     prefab: {fileID: 3244444532495868820, guid: 5da271ebf68eff646b8d03af3f69ac6e, type: 3}
-  pressureIdMap: []
-  leverIdMap: []
+  pressureIdMap:
+  - cellPosition: {x: 2, y: 2}
+    id: 1
+  - cellPosition: {x: 1, y: 2}
+    id: 3
+  - cellPosition: {x: 0, y: 1}
+    id: 4
+  - cellPosition: {x: 2, y: -1}
+    id: 5
+  - cellPosition: {x: 1, y: -1}
+    id: 6
+  - cellPosition: {x: 0, y: -1}
+    id: 7
+  - cellPosition: {x: -1, y: 1}
+    id: 8
+  - cellPosition: {x: 2, y: 1}
+    id: 9
+  - cellPosition: {x: -1, y: -1}
+    id: 10
+  - cellPosition: {x: -1, y: 0}
+    id: 11
+  - cellPosition: {x: -2, y: 0}
+    id: 12
+  - cellPosition: {x: -3, y: 0}
+    id: 13
+  - cellPosition: {x: -4, y: 0}
+    id: 14
+  leverIdMap:
+  - cellPosition: {x: -6, y: -3}
+    id: 2
+  - cellPosition: {x: 2, y: 1}
+    id: 9
   hideTilemapAfterSpawn: 1
   testActivateId: 1
   testChainDelay: 0.5
@@ -2972,7 +3002,7 @@ SceneRoots:
   - {fileID: 1727332750}
   - {fileID: 1284351477}
   - {fileID: 1485277518}
-  - {fileID: 1974916346}
   - {fileID: 281302729}
   - {fileID: 1884007166}
+  - {fileID: 1974916346}
   - {fileID: 1198958238}

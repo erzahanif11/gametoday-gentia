@@ -23,8 +23,11 @@ public class Lever : MonoBehaviour, IInteractable
     public int leverId;
 
     [Header("Targets")]
-    [Tooltip("IDs of pressure platforms to reveal/hide when toggled.")]
+    [Tooltip("IDs of pressure platforms to reveal when ON, hide when OFF.")]
     public int[] targetIds;
+
+    [Tooltip("IDs of pressure platforms to reveal when OFF, hide when ON.")]
+    public int[] offTargetIds;
 
     [Header("State")]
     [Tooltip("Current toggle state. True = ON (targets revealed).")]
@@ -38,13 +41,30 @@ public class Lever : MonoBehaviour, IInteractable
     // ───────── Runtime ─────────
 
     private SpriteRenderer spriteRenderer;
+    private Collider2D col;
     private bool initialized = false;
+
+    [HideInInspector] public PressurePlatform parentPlatform;
 
     // ───────── Lifecycle ─────────
 
     private void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
+        col = GetComponent<Collider2D>();
+    }
+
+    private void Update()
+    {
+        if (parentPlatform != null)
+        {
+            bool platformVisible = (parentPlatform.CurrentState != PressurePlatform.State.Hidden);
+            if (spriteRenderer.enabled != platformVisible)
+            {
+                spriteRenderer.enabled = platformVisible;
+                if (col != null) col.enabled = platformVisible;
+            }
+        }
     }
 
     // ───────── Initialization (called by TilemapSpawner) ─────────
@@ -71,24 +91,26 @@ public class Lever : MonoBehaviour, IInteractable
 
         if (isOn)
         {
-            RevealTargets();
+            RevealTargets(targetIds);
+            HideTargets(offTargetIds);
         }
         else
         {
-            HideTargets();
+            HideTargets(targetIds);
+            RevealTargets(offTargetIds);
         }
     }
 
     public string GetInteractText()
     {
-        return isOn ? "(F) Reset Lever" : "(F) Pull Lever";
+        return "";
     }
 
     // ───────── Target Management ─────────
 
-    private void RevealTargets()
+    private void RevealTargets(int[] targets)
     {
-        if (targetIds == null || targetIds.Length == 0) return;
+        if (targets == null || targets.Length == 0) return;
 
         var manager = PressurePlatformManager.Instance;
         if (manager == null)
@@ -97,9 +119,9 @@ public class Lever : MonoBehaviour, IInteractable
             return;
         }
 
-        for (int i = 0; i < targetIds.Length; i++)
+        for (int i = 0; i < targets.Length; i++)
         {
-            PressurePlatform target = manager.GetById(targetIds[i]);
+            PressurePlatform target = manager.GetById(targets[i]);
             if (target != null)
             {
                 target.Reveal(animate: true);
@@ -107,21 +129,21 @@ public class Lever : MonoBehaviour, IInteractable
             else
             {
                 Debug.LogWarning(
-                    $"Lever {leverId}: Target platform ID {targetIds[i]} not found.", this);
+                    $"Lever {leverId}: Target platform ID {targets[i]} not found.", this);
             }
         }
     }
 
-    private void HideTargets()
+    private void HideTargets(int[] targets)
     {
-        if (targetIds == null || targetIds.Length == 0) return;
+        if (targets == null || targets.Length == 0) return;
 
         var manager = PressurePlatformManager.Instance;
         if (manager == null) return;
 
-        for (int i = 0; i < targetIds.Length; i++)
+        for (int i = 0; i < targets.Length; i++)
         {
-            PressurePlatform target = manager.GetById(targetIds[i]);
+            PressurePlatform target = manager.GetById(targets[i]);
             if (target == null) continue;
 
             // Force-hide: lever controls visibility directly
