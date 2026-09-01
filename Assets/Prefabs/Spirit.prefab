@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 301876068090773552}
   - component: {fileID: 2019951512868913654}
   - component: {fileID: 7165925032462469383}
-  - component: {fileID: 8191750897296069368}
+  - component: {fileID: 6497586372738641792}
   - component: {fileID: 2758610066712257539}
   m_Layer: 3
   m_Name: Spirit
@@ -153,6 +153,7 @@ MonoBehaviour:
   levelManager: {fileID: 0}
   playerManager: {fileID: 0}
   playerIndicator: {fileID: 0}
+  animator: {fileID: 0}
 --- !u!114 &301876068090773552
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -208,7 +209,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!60 &8191750897296069368
+--- !u!60 &6497586372738641792
 PolygonCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -246,7 +247,7 @@ PolygonCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.59000003, y: 1.2150849}
+    oldSize: {x: 0.3496296, y: 0.7200503}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -254,26 +255,17 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 0, y: 0.5}
-      - {x: -0.15234375, y: 0.47265625}
-      - {x: -0.29296875, y: 0.40234375}
-      - {x: -0.40234375, y: 0.29296875}
-      - {x: -0.47265625, y: 0.15234375}
-      - {x: -0.5, y: 0}
-      - {x: -0.47265625, y: -0.15234375}
-      - {x: -0.40234375, y: -0.29296875}
-      - {x: -0.29296875, y: -0.40234375}
-      - {x: -0.15234375, y: -0.47265625}
-      - {x: 0, y: -0.5}
-      - {x: 0.15234375, y: -0.47265625}
-      - {x: 0.29296875, y: -0.40234375}
-      - {x: 0.40234375, y: -0.29296875}
-      - {x: 0.47265625, y: -0.15234375}
-      - {x: 0.5, y: 0}
-      - {x: 0.47265625, y: 0.15234375}
-      - {x: 0.40234375, y: 0.29296875}
-      - {x: 0.29296875, y: 0.40234375}
-      - {x: 0.15234375, y: 0.47265625}
+    - - {x: 0.055856466, y: 0.34202826}
+      - {x: -0.06936817, y: 0.28157827}
+      - {x: -0.099999994, y: 0.044999998}
+      - {x: -0.15326318, y: 0.0038945992}
+      - {x: -0.15731567, y: -0.07047366}
+      - {x: -0.16426271, y: -0.25494686}
+      - {x: -0.079476595, y: -0.34515196}
+      - {x: 0.07210523, y: -0.34694654}
+      - {x: 0.1653677, y: -0.24205208}
+      - {x: 0.146, y: 0.055}
+      - {x: 0.1298943, y: 0.12421045}
   m_UseDelaunayMesh: 1
 --- !u!95 &2758610066712257539
 Animator:
