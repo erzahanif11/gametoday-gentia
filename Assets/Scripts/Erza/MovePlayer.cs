@@ -174,6 +174,8 @@ public class MovePlayer : MonoBehaviour
             return;
         }
         transform.position = targetPosition;
+        animator.SetFloat("HorizontalInput", 0f);
+        animator.SetFloat("VerticalInput", 0f);
     }
 
     public void SetControlled(bool controlled)
@@ -182,6 +184,14 @@ public class MovePlayer : MonoBehaviour
         if(playerIndicator != null)
         {
             playerIndicator.toggleIndicator(controlled);
+        }
+        if(animator != null)
+        {
+            animator.SetBool("IsControlled", controlled);
+            if(controlled)
+            {
+                animator.SetTrigger("Rasuk");
+            }
         }
     }
 
