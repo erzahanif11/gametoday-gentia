@@ -1850,7 +1850,7 @@ PrefabInstance:
     - target: {fileID: 2737463002498962010, guid: c09cc022bcc76fb419e7a870d1e4ae94, type: 3}
       propertyPath: interactAction
       value: 
-      objectReference: {fileID: 1120369429361536294, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
+      objectReference: {fileID: 1781555164194001046, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
     - target: {fileID: 5074893262297760820, guid: c09cc022bcc76fb419e7a870d1e4ae94, type: 3}
       propertyPath: m_LocalPosition.x
       value: -5.76
@@ -1936,7 +1936,7 @@ MonoBehaviour:
   interactLayer:
     serializedVersion: 2
     m_Bits: 128
-  interactAction: {fileID: 1120369429361536294, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
+  interactAction: {fileID: 1781555164194001046, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   promptOffsetY: 1.2
   promptFontSize: 24
   promptColor: {r: 1, g: 1, b: 1, a: 1}
@@ -1970,11 +1970,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerInteract
   interactPoint: {fileID: 130617900}
-  interactRadius: 0.5
+  interactRadius: 0.01
   interactLayer:
     serializedVersion: 2
     m_Bits: 128
-  interactAction: {fileID: 1120369429361536294, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
+  interactAction: {fileID: 1781555164194001046, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   promptOffsetY: 1.2
   promptFontSize: 24
   promptColor: {r: 1, g: 1, b: 1, a: 1}
@@ -2135,7 +2135,7 @@ MonoBehaviour:
   interactLayer:
     serializedVersion: 2
     m_Bits: 128
-  interactAction: {fileID: 1120369429361536294, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
+  interactAction: {fileID: 1781555164194001046, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   promptOffsetY: 1.2
   promptFontSize: 24
   promptColor: {r: 1, g: 1, b: 1, a: 1}
@@ -2554,7 +2554,7 @@ MonoBehaviour:
   interactLayer:
     serializedVersion: 2
     m_Bits: 128
-  interactAction: {fileID: 1120369429361536294, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
+  interactAction: {fileID: 1781555164194001046, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   promptOffsetY: 1.2
   promptFontSize: 24
   promptColor: {r: 1, g: 1, b: 1, a: 1}
