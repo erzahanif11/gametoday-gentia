@@ -34,15 +34,20 @@ public class Lever : MonoBehaviour, IInteractable
     public bool isOn = false;
 
     [Header("Visuals")]
+    [Tooltip("Sprite to display when the lever is ON.")]
+    [SerializeField] private Sprite onSprite;
+    [Tooltip("Sprite to display when the lever is OFF.")]
+    [SerializeField] private Sprite offSprite;
     [SerializeField] private Color onTint = new Color(0.5f, 1f, 0.5f, 1f);
     [SerializeField] private Color offTint = new Color(1f, 1f, 1f, 1f);
-    [SerializeField] private float flipDuration = 0.3f;
+    [SerializeField] private float tweenDuration = 0.3f;
 
     // ───────── Runtime ─────────
 
     private SpriteRenderer spriteRenderer;
     private Collider2D col;
     private bool initialized = false;
+    private bool playerInRange = false;
 
     [HideInInspector] public PressurePlatform parentPlatform;
 
@@ -52,6 +57,9 @@ public class Lever : MonoBehaviour, IInteractable
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
         col = GetComponent<Collider2D>();
+
+        // Ensure the collider acts as a trigger for interaction detection
+        if (col != null) col.isTrigger = true;
     }
 
     private void Update()
@@ -81,10 +89,26 @@ public class Lever : MonoBehaviour, IInteractable
         ApplyVisualState(animate: false);
     }
 
+    // ───────── Trigger Detection ─────────
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("Player"))
+            playerInRange = true;
+    }
+
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.CompareTag("Player"))
+            playerInRange = false;
+    }
+
     // ───────── IInteractable ─────────
 
     public void Interact()
     {
+        if (!playerInRange) return;
+
         isOn = !isOn;
 
         ApplyVisualState(animate: true);
@@ -157,24 +181,23 @@ public class Lever : MonoBehaviour, IInteractable
     {
         if (spriteRenderer == null) return;
 
-        Color targetColor = isOn ? onTint : offTint;
+        // Swap sprite based on state
+        Sprite targetSprite = isOn ? onSprite : offSprite;
+        if (targetSprite != null)
+        {
+            spriteRenderer.sprite = targetSprite;
+        }
 
-        // Flip sprite horizontally to indicate lever direction
-        Vector3 targetScale = transform.localScale;
-        targetScale.x = isOn ? -Mathf.Abs(targetScale.x) : Mathf.Abs(targetScale.x);
+        Color targetColor = isOn ? onTint : offTint;
 
         if (animate)
         {
             DOTween.Kill(spriteRenderer);
-            DOTween.Kill(transform);
-
-            spriteRenderer.DOColor(targetColor, flipDuration).SetEase(Ease.OutQuad);
-            transform.DOScaleX(targetScale.x, flipDuration).SetEase(Ease.OutBack);
+            spriteRenderer.DOColor(targetColor, tweenDuration).SetEase(Ease.OutQuad);
         }
         else
         {
             spriteRenderer.color = targetColor;
-            transform.localScale = targetScale;
         }
     }
 
