@@ -17,7 +17,7 @@ public class MoveArea : MonoBehaviour
         movePlayer = this.GetComponent<MovePlayer>();
         if (movementTilemap == null)
         {
-            movementTilemap = FindAnyObjectByType<Tilemap>();
+            movementTilemap = GameObject.FindGameObjectWithTag("Platform").GetComponent<Tilemap>();
         }
     }
 
