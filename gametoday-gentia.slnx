@@ -1,6 +1,6 @@
 ﻿<Solution>
   <Project Path="Unity.Cinemachine.Editor.csproj" />
   <Project Path="Unity.Cinemachine.csproj" />
-  <Project Path="Assembly-CSharp-firstpass.csproj" />
   <Project Path="Assembly-CSharp.csproj" />
+  <Project Path="Assembly-CSharp-firstpass.csproj" />
 </Solution>

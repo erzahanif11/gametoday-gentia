@@ -9,6 +9,7 @@ TagManager:
   - TinyArea
   - LoadLevel
   - spirit
+  - Platform
   layers:
   - Default
   - TransparentFX
