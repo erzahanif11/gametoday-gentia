@@ -329,6 +329,8 @@ MonoBehaviour:
   virtualCamera: {fileID: 758059631}
   cameraZoomInSize: 3
   cameraZoomOutSize: 5
+  movementTilemap: {fileID: 0}
+  snapDuration: 0.2
 --- !u!114 &377046266
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -341,16 +343,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d3d0eb94af2d754f998f245bc87df51, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MoveSample
-  MoveAction: {fileID: -1680190386980627800, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
+  moveAction: {fileID: 0}
   playerMoveMode: {fileID: 377046267}
   movementMode: 0
   isControlled: 1
+  isSpirit: 0
   wallLayerMask:
     serializedVersion: 2
     m_Bits: 64
+  movementTilemap: {fileID: 0}
   spiritState: {fileID: 0}
   spiritManager: {fileID: 0}
   levelManager: {fileID: 0}
+  playerManager: {fileID: 0}
+  playerIndicator: {fileID: 0}
+  animator: {fileID: 0}
 --- !u!114 &377046267
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -624,7 +631,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TilemapSpawner
   sourceTilemap: {fileID: 1580027727}
+  leverTilemap: {fileID: 0}
   chainData: {fileID: 11400000, guid: f0228040feee47f4296fa3cc5b42807d, type: 2}
+  leverData: {fileID: 0}
   tileMappings:
   - tile: {fileID: 11400000, guid: ce85002d9e03343499eb98ac3c2f5a6d, type: 2}
     type: 2
@@ -649,6 +658,7 @@ MonoBehaviour:
     id: 7
   - cellPosition: {x: -3, y: 1}
     id: 8
+  leverIdMap: []
   hideTilemapAfterSpawn: 1
   testActivateId: 1
   testChainDelay: 0.5
@@ -783,6 +793,8 @@ MonoBehaviour:
   virtualCamera: {fileID: 758059631}
   cameraZoomInSize: 3
   cameraZoomOutSize: 5
+  movementTilemap: {fileID: 0}
+  snapDuration: 0.2
 --- !u!114 &1153698903
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -795,16 +807,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d3d0eb94af2d754f998f245bc87df51, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MoveSample
-  MoveAction: {fileID: -1680190386980627800, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
+  moveAction: {fileID: 0}
   playerMoveMode: {fileID: 1153698904}
   movementMode: 0
   isControlled: 0
+  isSpirit: 0
   wallLayerMask:
     serializedVersion: 2
     m_Bits: 64
+  movementTilemap: {fileID: 0}
   spiritState: {fileID: 0}
   spiritManager: {fileID: 0}
   levelManager: {fileID: 0}
+  playerManager: {fileID: 0}
+  playerIndicator: {fileID: 0}
+  animator: {fileID: 0}
 --- !u!114 &1153698904
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1099,6 +1116,8 @@ MonoBehaviour:
   virtualCamera: {fileID: 758059631}
   cameraZoomInSize: 3
   cameraZoomOutSize: 5
+  movementTilemap: {fileID: 0}
+  snapDuration: 0.2
 --- !u!114 &1350964705
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1111,16 +1130,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d3d0eb94af2d754f998f245bc87df51, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MoveSample
-  MoveAction: {fileID: -1680190386980627800, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
+  moveAction: {fileID: 0}
   playerMoveMode: {fileID: 1350964706}
   movementMode: 0
   isControlled: 0
+  isSpirit: 0
   wallLayerMask:
     serializedVersion: 2
     m_Bits: 64
+  movementTilemap: {fileID: 0}
   spiritState: {fileID: 0}
   spiritManager: {fileID: 0}
   levelManager: {fileID: 0}
+  playerManager: {fileID: 0}
+  playerIndicator: {fileID: 0}
+  animator: {fileID: 0}
 --- !u!114 &1350964706
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1740,6 +1764,63 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!1001 &1925855726
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 6430088802124752327, guid: 89d653560d2e01b4291cf63fd88a43e7, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -2.14919
+      objectReference: {fileID: 0}
+    - target: {fileID: 6430088802124752327, guid: 89d653560d2e01b4291cf63fd88a43e7, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 274
+      objectReference: {fileID: 0}
+    - target: {fileID: 6430088802124752327, guid: 89d653560d2e01b4291cf63fd88a43e7, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6430088802124752327, guid: 89d653560d2e01b4291cf63fd88a43e7, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6430088802124752327, guid: 89d653560d2e01b4291cf63fd88a43e7, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6430088802124752327, guid: 89d653560d2e01b4291cf63fd88a43e7, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6430088802124752327, guid: 89d653560d2e01b4291cf63fd88a43e7, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6430088802124752327, guid: 89d653560d2e01b4291cf63fd88a43e7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6430088802124752327, guid: 89d653560d2e01b4291cf63fd88a43e7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6430088802124752327, guid: 89d653560d2e01b4291cf63fd88a43e7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7917476810462893405, guid: 89d653560d2e01b4291cf63fd88a43e7, type: 3}
+      propertyPath: m_Name
+      value: Pause Manager
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 89d653560d2e01b4291cf63fd88a43e7, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -1753,3 +1834,4 @@ SceneRoots:
   - {fileID: 1153698906}
   - {fileID: 758059632}
   - {fileID: 316939168}
+  - {fileID: 1925855726}
