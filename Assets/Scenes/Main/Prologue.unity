@@ -434,18 +434,18 @@ MonoBehaviour:
       into memory."
 
       "All that remained was a world slowly returning to nature." '
-    background: {fileID: 0}
+    background: {fileID: 21300000, guid: 1080f5560b3f96e4189356aafab46b53, type: 3}
   - line: '"Yet some souls still remained."
 
       "Unable to find their way home."'
-    background: {fileID: 0}
+    background: {fileID: 21300000, guid: d2b7d23795ea1da42bce55b2be1ffd28, type: 3}
   - line: '"And so, an angel was sent to Earth."
 
       "With only one task."
 
       "Bring
       them home."'
-    background: {fileID: 0}
+    background: {fileID: 21300000, guid: e31803ccf9c0d794084fc307e60a088b, type: 3}
   typingSpeed: 0.05
 --- !u!4 &805290983
 Transform:

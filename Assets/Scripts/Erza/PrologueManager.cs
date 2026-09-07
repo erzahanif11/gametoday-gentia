@@ -47,7 +47,7 @@ public class PrologueManager : MonoBehaviour
     void ShowLine(){
         MonologueLine line = monologueLines[currentLineIndex];
         if (line.background != null){
-            backgroundImage.sprite = line.background;
+            StartCoroutine(fadeBackground(line.background, 0.5f));
         }
         StartCoroutine(TypeLine(line.line));
     }
@@ -66,6 +66,7 @@ public class PrologueManager : MonoBehaviour
         currentLineIndex++;
         if (currentLineIndex < monologueLines.Length){
             ShowLine();
+            
         } else {
             EndMonologue();
         }
@@ -73,5 +74,19 @@ public class PrologueManager : MonoBehaviour
 
     void EndMonologue(){
         monologueBox.SetActive(false);
+    }
+
+    IEnumerator fadeBackground(Sprite newSprite, float duration){
+        float elapsedTime = 0f;
+        Sprite originalSprite = backgroundImage.sprite;
+        while (elapsedTime < duration){
+            elapsedTime += Time.deltaTime;
+            float t = Mathf.Clamp01(elapsedTime / duration);
+            backgroundImage.sprite = newSprite;
+            backgroundImage.color = new Color(1f, 1f, 1f, t);
+            yield return null;
+        }
+        backgroundImage.sprite = newSprite;
+        backgroundImage.color = Color.white;
     }
 }
