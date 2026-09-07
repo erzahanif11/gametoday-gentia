@@ -1,0 +1,100 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f0d93606304d0347a333043dd608305, type: 3}
+  m_Name: Level#4
+  m_EditorClassIdentifier: Assembly-CSharp::ChainReactionData
+  rules:
+  - sourceId: 1
+    targetIds:
+    - 2
+    delay: 0.15
+    persistent: 1
+  - sourceId: 2
+    targetIds:
+    - 3
+    - 4
+    delay: 0.15
+    persistent: 1
+  - sourceId: 4
+    targetIds:
+    - 5
+    delay: 0.15
+    persistent: 1
+  - sourceId: 3
+    targetIds:
+    - 6
+    delay: 0.15
+    persistent: 1
+  - sourceId: 6
+    targetIds:
+    - 7
+    delay: 0.15
+    persistent: 0
+  - sourceId: 7
+    targetIds:
+    - 11
+    delay: 0.15
+    persistent: 1
+  - sourceId: 10
+    targetIds:
+    - 12
+    delay: 0.15
+    persistent: 1
+  - sourceId: 12
+    targetIds:
+    - 13
+    delay: 0.15
+    persistent: 1
+  - sourceId: 13
+    targetIds:
+    - 14
+    delay: 0.15
+    persistent: 1
+  - sourceId: 14
+    targetIds:
+    - 151
+    delay: 0.15
+    persistent: 1
+  - sourceId: 151
+    targetIds:
+    - 161
+    - 162
+    delay: 0.15
+    persistent: 1
+  - sourceId: 17
+    targetIds:
+    - 18
+    delay: 0.15
+    persistent: 1
+  - sourceId: 18
+    targetIds:
+    - 19
+    delay: 0.15
+    persistent: 1
+  - sourceId: 19
+    targetIds:
+    - 20
+    delay: 0.15
+    persistent: 1
+  - sourceId: 22
+    targetIds:
+    - 23
+    - 24
+    delay: 0.15
+    persistent: 0
+  - sourceId: 21
+    targetIds:
+    - 25
+    - 27
+    - 28
+    delay: 0.15
+    persistent: 1

@@ -4,10 +4,13 @@ using UnityEngine.UI;
 
 public class PlayerInteract : MonoBehaviour
 {
-    public Transform interactPoint;
+    [Tooltip("List of points to check for interaction.")]
+    public Transform[] interactPoints;
     public float interactRadius = 0.5f;
     public LayerMask interactLayer;
     public InputActionReference interactAction;
+
+    private Transform activeInteractPoint;
 
     [Header("Floating Prompt")]
     [Tooltip("Vertical offset above the interact point for the floating prompt.")]
@@ -51,31 +54,46 @@ public class PlayerInteract : MonoBehaviour
 
     private void LateUpdate()
     {
-        // Keep prompt positioned above interact point
-        if (promptRoot != null && promptRoot.activeSelf && interactPoint != null)
+        // Keep prompt positioned above the active interact point
+        if (promptRoot != null && promptRoot.activeSelf && activeInteractPoint != null)
         {
-            promptRoot.transform.position = interactPoint.position + Vector3.up * promptOffsetY;
+            promptRoot.transform.position = activeInteractPoint.position + Vector3.up * promptOffsetY;
         }
     }
 
     void CheckInteract()
     {
-        Collider2D hit = Physics2D.OverlapCircle(
-            interactPoint.position, interactRadius, interactLayer
-        );
-
-        if (hit != null)
+        if (interactPoints == null || interactPoints.Length == 0)
         {
-            IInteractable interactable = hit.GetComponent<IInteractable>();
-            if (interactable != null)
+            currentInteractable = null;
+            activeInteractPoint = null;
+            HidePrompt();
+            return;
+        }
+
+        foreach (var point in interactPoints)
+        {
+            if (point == null) continue;
+
+            Collider2D hit = Physics2D.OverlapCircle(
+                point.position, interactRadius, interactLayer
+            );
+
+            if (hit != null)
             {
-                currentInteractable = interactable;
-                ShowPrompt(interactable.GetInteractText());
-                return;
+                IInteractable interactable = hit.GetComponent<IInteractable>();
+                if (interactable != null)
+                {
+                    currentInteractable = interactable;
+                    activeInteractPoint = point;
+                    ShowPrompt(interactable.GetInteractText());
+                    return;
+                }
             }
         }
 
         currentInteractable = null;
+        activeInteractPoint = null;
         HidePrompt();
     }
 
