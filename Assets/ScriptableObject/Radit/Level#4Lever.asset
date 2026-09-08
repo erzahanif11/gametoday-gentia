@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b577228b7ffaf9d499f9fac5c2049713, type: 3}
+  m_Name: Level#4Lever
+  m_EditorClassIdentifier: Assembly-CSharp::LeverData
+  rules:
+  - leverId: 8
+    targetIds:
+    - 9
+    offTargetIds: []
+  - leverId: 152
+    targetIds: []
+    offTargetIds:
+    - 12
+  - leverId: 161
+    targetIds:
+    - 17
+    offTargetIds: []
+  - leverId: 20
+    targetIds:
+    - 7
+    - 21
+    - 22
+    offTargetIds: []
+  - leverId: 27
+    targetIds:
+    - 23
+    offTargetIds:
+    - 9
+    - 24

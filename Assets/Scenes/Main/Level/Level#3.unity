@@ -333,6 +333,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 301876068090773552, guid: 442175bb09730524bb296d96c2683fdc, type: 3}
+      propertyPath: movementTilemap
+      value: 
+      objectReference: {fileID: 577211326}
     - target: {fileID: 2314857677476298232, guid: 442175bb09730524bb296d96c2683fdc, type: 3}
       propertyPath: moveAction
       value: 
@@ -433,7 +437,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c97469538ae56f4abedf49f094c461d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerInteract
-  interactPoint: {fileID: 47987173}
+  interactPoints:
+  - {fileID: 47987173}
+  - {fileID: 1727332750}
   interactRadius: 0.5
   interactLayer:
     serializedVersion: 2
@@ -456,7 +462,7 @@ GameObject:
   - component: {fileID: 577211325}
   m_Layer: 0
   m_Name: Platform
-  m_TagString: Untagged
+  m_TagString: GridArea
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2469,6 +2475,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 301876068090773552, guid: 442175bb09730524bb296d96c2683fdc, type: 3}
+      propertyPath: movementTilemap
+      value: 
+      objectReference: {fileID: 577211326}
     - target: {fileID: 2314857677476298232, guid: 442175bb09730524bb296d96c2683fdc, type: 3}
       propertyPath: movementTilemap
       value: 
@@ -2553,7 +2563,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c97469538ae56f4abedf49f094c461d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerInteract
-  interactPoint: {fileID: 47987173}
+  interactPoints:
+  - {fileID: 47987173}
+  - {fileID: 1727332750}
   interactRadius: 0.5
   interactLayer:
     serializedVersion: 2
@@ -2583,6 +2595,18 @@ PrefabInstance:
       propertyPath: interactAction
       value: 
       objectReference: {fileID: 1120369429361536294, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
+    - target: {fileID: 2737463002498962010, guid: c09cc022bcc76fb419e7a870d1e4ae94, type: 3}
+      propertyPath: interactPoints.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2737463002498962010, guid: c09cc022bcc76fb419e7a870d1e4ae94, type: 3}
+      propertyPath: 'interactPoints.Array.data[0]'
+      value: 
+      objectReference: {fileID: 47987173}
+    - target: {fileID: 2737463002498962010, guid: c09cc022bcc76fb419e7a870d1e4ae94, type: 3}
+      propertyPath: 'interactPoints.Array.data[1]'
+      value: 
+      objectReference: {fileID: 1727332750}
     - target: {fileID: 5074893262297760820, guid: c09cc022bcc76fb419e7a870d1e4ae94, type: 3}
       propertyPath: m_LocalPosition.x
       value: -5.76
@@ -2627,6 +2651,10 @@ PrefabInstance:
       propertyPath: movementTilemap
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 7371084483682240527, guid: c09cc022bcc76fb419e7a870d1e4ae94, type: 3}
+      propertyPath: movementTilemap
+      value: 
+      objectReference: {fileID: 577211326}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2663,7 +2691,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c97469538ae56f4abedf49f094c461d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerInteract
-  interactPoint: {fileID: 47987173}
+  interactPoints: []
   interactRadius: 0.5
   interactLayer:
     serializedVersion: 2
@@ -2769,6 +2797,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 301876068090773552, guid: 442175bb09730524bb296d96c2683fdc, type: 3}
+      propertyPath: movementTilemap
+      value: 
+      objectReference: {fileID: 577211326}
     - target: {fileID: 2314857677476298232, guid: 442175bb09730524bb296d96c2683fdc, type: 3}
       propertyPath: moveAction
       value: 
@@ -2869,7 +2901,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c97469538ae56f4abedf49f094c461d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerInteract
-  interactPoint: {fileID: 47987173}
+  interactPoints:
+  - {fileID: 47987173}
+  - {fileID: 1727332750}
   interactRadius: 0.5
   interactLayer:
     serializedVersion: 2
