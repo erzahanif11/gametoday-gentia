@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1915193457935438312}
   - component: {fileID: 1411322740513866977}
+  - component: {fileID: 4814472764160568116}
   m_Layer: 0
   m_Name: Audio Manager
   m_TagString: Untagged
@@ -65,6 +66,19 @@ MonoBehaviour:
   puzzleCompleteSFX: {fileID: 8300000, guid: 9f2667d3664f3d64bb76f9f5a8a257e3, type: 3}
   spiritCaptured: {fileID: 8300000, guid: c9fd4494fc354384fad92ae5b0be5def, type: 3}
   softWindAmbient: {fileID: 8300000, guid: 7c887a6f43865d543919c1f740ff7ce8, type: 3}
+--- !u!114 &4814472764160568116
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 275571996018248793}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 138543e2c87b8ae43bde4a3bf17b2da1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AudioAssigner
+  audioManager: {fileID: 1411322740513866977}
 --- !u!1 &2954161923156485624
 GameObject:
   m_ObjectHideFlags: 0
