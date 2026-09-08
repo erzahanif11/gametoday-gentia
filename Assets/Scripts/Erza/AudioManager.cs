@@ -29,6 +29,11 @@ public class AudioManager : MonoBehaviour
     [Header("Ambient")]
     public AudioClip softWindAmbient;
 
+    [Header("Volume Settings")]
+    public float masterVolume = 1f;
+    public float musicVolume = 1f;
+    public float sfxVolume = 1f;
+
     public static AudioManager Instance { get; private set; }
 
     void OnEnable()
