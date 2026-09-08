@@ -15,10 +15,17 @@ public class MovePlayer : MonoBehaviour
     public MovementMode movementMode;
     public bool isControlled = false;
     public bool isSpirit = false;
+
+    [Header("Layer Masks")]
     public LayerMask wallLayerMask;
+
+    [Header("Tilemaps")]
+    public Tilemap movementTilemap;
+    [Tooltip("Tilemap layer that triggers Free Move mode when stepped on.")]
+    public Tilemap dropOffTilemap; // ADDED: New Tilemap reference for drop-off zones
+
     private Rigidbody2D rb;
     float moveSpeed = 15f;
-    public Tilemap movementTilemap;
 
     public SpiritState spiritState;
     public SpiritManager spiritManager;
@@ -31,29 +38,22 @@ public class MovePlayer : MonoBehaviour
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
-        wallLayerMask = LayerMask.GetMask("Wall");
+
+        // Ensure Wall and Interactable (Lever) layers are detected as obstacles
+        wallLayerMask = LayerMask.GetMask("Wall", "Interactable");
+
         spiritState = GetComponent<SpiritState>();
         animator = GetComponent<Animator>();
         playerIndicator = GetComponent<PlayerIndicator>();
-        if (spiritManager == null)
-        {
-            spiritManager = FindAnyObjectByType<SpiritManager>();
-        }
-        if (levelManager == null)
-        {
-            levelManager = FindAnyObjectByType<LevelManager>();
-        }
-        if (movementTilemap == null)
-        {
-            movementTilemap = FindAnyObjectByType<Tilemap>();
-        }
-        if (playerManager == null)
-        {
-            playerManager = FindAnyObjectByType<PlayerManager>();
-        }
+
+        if (spiritManager == null) spiritManager = FindAnyObjectByType<SpiritManager>();
+        if (levelManager == null) levelManager = FindAnyObjectByType<LevelManager>();
+        if (movementTilemap == null) movementTilemap = FindAnyObjectByType<Tilemap>();
+        if (playerManager == null) playerManager = FindAnyObjectByType<PlayerManager>();
     }
 
-    void Start(){
+    void Start()
+    {
         playerIndicator.toggleIndicator(isControlled);
     }
 
@@ -78,10 +78,7 @@ public class MovePlayer : MonoBehaviour
 
     void Update()
     {
-        if (!isControlled)
-        {
-            return;
-        }
+        if (!isControlled) return;
 
         if (movementMode == MovementMode.Free)
         {
@@ -91,19 +88,19 @@ public class MovePlayer : MonoBehaviour
         {
             MoveGrid();
         }
-
     }
-    
+
     void HandleOnLevelComplete(int completedLevelIndex)
     {
-        if(isSpirit)
+        if (isSpirit)
         {
             playerManager.DisableAllSpirits();
             Destroy(gameObject);
         }
     }
 
-    void MoveFree(){
+    void MoveFree()
+    {
         float horizontalInput = moveAction.action.ReadValue<Vector2>().x;
         float verticalInput = moveAction.action.ReadValue<Vector2>().y;
         rb.linearVelocity = new Vector2(horizontalInput, verticalInput) * moveSpeed;
@@ -111,31 +108,28 @@ public class MovePlayer : MonoBehaviour
         animator.SetFloat("VerticalInput", verticalInput);
     }
 
-    void MoveGrid(){
-        if (!moveAction.action.WasPressedThisFrame())
-        {
-            return;
-        }
+    void MoveGrid()
+    {
+        if (!moveAction.action.WasPressedThisFrame()) return;
 
         Vector2 input = moveAction.action.ReadValue<Vector2>();
-
         Vector3Int direction;
 
-        if(Mathf.Abs(input.x) > Mathf.Abs(input.y))
+        if (Mathf.Abs(input.x) > Mathf.Abs(input.y))
         {
-            direction  = input.x > 0 ? Vector3Int.right : Vector3Int.left;
+            direction = input.x > 0 ? Vector3Int.right : Vector3Int.left;
         }
         else
         {
             direction = input.y > 0 ? Vector3Int.up : Vector3Int.down;
         }
-        
+
         MoveOneStep(direction);
     }
 
     void MoveOneStep(Vector3Int movement)
     {
-        if(movementTilemap == null)
+        if (movementTilemap == null)
         {
             Debug.LogWarning("Movement Tilemap is not assigned.");
             return;
@@ -145,64 +139,81 @@ public class MovePlayer : MonoBehaviour
         Vector3Int targetCell = currentcell + movement;
         Vector3 targetPosition = movementTilemap.GetCellCenterWorld(targetCell);
 
-        bool hasTile = movementTilemap.HasTile(targetCell);
         bool hasVisiblePlatform = false;
-        bool hasHiddenPlatform = false;
+        bool isDropOffZone = false; // ADDED: Check for drop-off zone
 
+        // 1. Check if the target cell is a Drop-Off Tile
+        if (dropOffTilemap != null && dropOffTilemap.HasTile(targetCell))
+        {
+            isDropOffZone = true;
+        }
+
+        // 2. Check Pressure Platform Manager
         if (PressurePlatformManager.Instance != null)
         {
             PressurePlatform platform = PressurePlatformManager.Instance.GetByPosition(targetPosition);
+
             if (platform != null)
             {
                 if (platform.CurrentState == PressurePlatform.State.Hidden)
                 {
-                    hasHiddenPlatform = true;
+                    Debug.Log("Movement blocked by hidden platform at: " + targetCell);
+                    return; // Fail: Platform exists but is hidden
                 }
                 else
                 {
-                    hasVisiblePlatform = true;
+                    hasVisiblePlatform = true; // Success: Platform exists and is visible
                 }
             }
         }
 
-        if (hasHiddenPlatform)
-        {
-            Debug.Log("Movement blocked by hidden platform at: " + targetCell);
-            return;
-        }
-
-        if (!hasTile && !hasVisiblePlatform)
+        // 3. Block movement if there is NO visible platform AND it is NOT a drop-off zone
+        if (!hasVisiblePlatform && !isDropOffZone)
         {
             Debug.Log("Movement blocked by empty space at: " + targetCell);
             return;
         }
 
+        // 4. Check for obstacles (Walls, Levers, etc.)
         Collider2D hitCollider = Physics2D.OverlapCircle(targetPosition, 0.1f, wallLayerMask);
+        if (hitCollider != null)
+        {
+            Debug.Log("Movement blocked by wall/interactable at: " + targetCell);
+            return;
+        }
+
+        // 5. Check if occupied by another player
         Collider2D playerCollider = Physics2D.OverlapCircle(targetPosition, 0.1f, LayerMask.GetMask("Player"));
-        if (hitCollider != null){
-            Debug.Log("Movement blocked by wall at: " + targetCell);
+        if (playerCollider != null)
+        {
+            Debug.Log("Movement blocked by another player at: " + targetCell);
             return;
         }
-        if (playerCollider != null){
-            Debug.Log("Movement blocked by player at: " + targetCell);
-            return;
-        }
+
+        // 6. ALL CLEAR: Move the player
         transform.position = targetPosition;
         animator.SetFloat("HorizontalInput", 0f);
         animator.SetFloat("VerticalInput", 0f);
+
+        // 7. ADDED: Switch to Free mode if stepped on Drop-Off Zone
+        if (isDropOffZone)
+        {
+            Debug.Log("Stepped on Drop-Off layer! Switching to Free Move mode.");
+            SetMovementMode(MovementMode.Free);
+        }
     }
 
     public void SetControlled(bool controlled)
     {
         isControlled = controlled;
-        if(playerIndicator != null)
+        if (playerIndicator != null)
         {
             playerIndicator.toggleIndicator(controlled);
         }
-        if(animator != null)
+        if (animator != null)
         {
             animator.SetBool("IsControlled", controlled);
-            if(controlled)
+            if (controlled)
             {
                 animator.SetTrigger("Rasuk");
             }
@@ -224,11 +235,6 @@ public class MovePlayer : MonoBehaviour
                 spiritState.SetSpiritState(SpiritStateEnum.Captured);
             }
         }
-
-        // if (other.CompareTag("LoadLevel"))
-        // {
-        //     levelManager.LoadLevel(levelManager.GetCurrentLevelId());
-        // }
     }
 
     private void OnTriggerExit2D(Collider2D other)

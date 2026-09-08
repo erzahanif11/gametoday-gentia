@@ -41,3 +41,31 @@ MonoBehaviour:
     targetIds: 08000000
     delay: 0.15
     persistent: 1
+  - sourceId: 9
+    targetIds: 
+    delay: 0.15
+    persistent: 1
+  - sourceId: 10
+    targetIds: 
+    delay: 0.15
+    persistent: 1
+  - sourceId: 11
+    targetIds: 
+    delay: 0.15
+    persistent: 1
+  - sourceId: 12
+    targetIds: 
+    delay: 0.15
+    persistent: 1
+  - sourceId: 13
+    targetIds: 
+    delay: 0.15
+    persistent: 1
+  - sourceId: 14
+    targetIds: 
+    delay: 0.15
+    persistent: 1
+  - sourceId: 15
+    targetIds: 
+    delay: 0.15
+    persistent: 1

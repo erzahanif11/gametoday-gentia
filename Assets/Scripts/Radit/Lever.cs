@@ -1,9 +1,6 @@
 using UnityEngine;
 using DG.Tweening;
 
-/// <summary>
-/// An interactable lever that toggles associated platforms ON/OFF.
-/// </summary>
 public class Lever : MonoBehaviour, IInteractable
 {
     // ───────── Inspector ─────────
@@ -15,7 +12,6 @@ public class Lever : MonoBehaviour, IInteractable
     [Header("Targets")]
     [Tooltip("IDs of pressure platforms to reveal when ON, hide when OFF.")]
     public int[] targetIds;
-
     [Tooltip("IDs of pressure platforms to reveal when OFF, hide when ON.")]
     public int[] offTargetIds;
 
@@ -28,18 +24,15 @@ public class Lever : MonoBehaviour, IInteractable
     public bool isPlayerInRange = false;
 
     [Header("Visuals")]
-    [Tooltip("Sprite to display when the lever is ON.")]
     [SerializeField] private Sprite onSprite;
-    [Tooltip("Sprite to display when the lever is OFF.")]
     [SerializeField] private Sprite offSprite;
     [SerializeField] private Color onTint = new Color(0.5f, 1f, 0.5f, 1f);
     [SerializeField] private Color offTint = new Color(1f, 1f, 1f, 1f);
     [SerializeField] private float tweenDuration = 0.3f;
 
     // ───────── Runtime ─────────
-
     private SpriteRenderer spriteRenderer;
-    private Collider2D col;
+    private Collider2D[] allColliders; // Array untuk menyimpan semua collider (solid & trigger)
     private bool initialized = false;
 
     [HideInInspector] public PressurePlatform parentPlatform;
@@ -49,10 +42,23 @@ public class Lever : MonoBehaviour, IInteractable
     private void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
-        col = GetComponent<Collider2D>();
 
-        // Ensure the collider acts as a trigger for interaction detection
-        if (col != null) col.isTrigger = true;
+        // 1. Ambil collider bawaan dari Prefab (misalnya BoxCollider2D)
+        Collider2D[] initialColliders = GetComponents<Collider2D>();
+
+        // 2. Jadikan semua collider bawaan tersebut menjadi SOLID agar tidak bisa dilangkahi Player
+        foreach (Collider2D c in initialColliders)
+        {
+            c.isTrigger = false;
+        }
+
+        // 3. Tambahkan Trigger Collider dinamis (Lingkaran) khusus untuk mendeteksi interaksi Player
+        CircleCollider2D interactTrigger = gameObject.AddComponent<CircleCollider2D>();
+        interactTrigger.isTrigger = true;
+        interactTrigger.radius = 0.6f; // Sesuaikan radius jangkauan deteksi interaksi
+
+        // 4. Simpan semua collider (bawaan + buatan dinamis) untuk dikontrol saat hidden/reveal
+        allColliders = GetComponents<Collider2D>();
     }
 
     private void Update()
@@ -63,7 +69,12 @@ public class Lever : MonoBehaviour, IInteractable
             if (spriteRenderer.enabled != platformVisible)
             {
                 spriteRenderer.enabled = platformVisible;
-                if (col != null) col.enabled = platformVisible;
+
+                // Matikan atau nyalakan seluruh collider (solid + trigger) sesuai platform
+                foreach (Collider2D c in allColliders)
+                {
+                    if (c != null) c.enabled = platformVisible;
+                }
             }
         }
     }
@@ -72,11 +83,9 @@ public class Lever : MonoBehaviour, IInteractable
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        // Pastikan GameObject Player Anda memiliki Tag "Player"
         if (other.CompareTag("Player"))
         {
             isPlayerInRange = true;
-            // Opsional: Tambahkan logika untuk menampilkan UI (misal: "Press E to Interact") di sini
         }
     }
 
@@ -85,7 +94,6 @@ public class Lever : MonoBehaviour, IInteractable
         if (other.CompareTag("Player"))
         {
             isPlayerInRange = false;
-            // Opsional: Sembunyikan UI di sini
         }
     }
 
@@ -95,8 +103,6 @@ public class Lever : MonoBehaviour, IInteractable
     {
         leverId = id;
         initialized = true;
-
-        // Apply initial visual state
         ApplyVisualState(animate: false);
     }
 
@@ -104,13 +110,13 @@ public class Lever : MonoBehaviour, IInteractable
 
     public void Interact()
     {
-        if (col != null && !col.enabled) return;
+        // Validasi: pastikan collider sedang aktif
+        if (allColliders != null && allColliders.Length > 0 && !allColliders[0].enabled) return;
 
-        // Tolak interaksi jika player tidak berada di dalam area collider
+        // Tolak interaksi jika player tidak berada di dalam jangkauan
         if (!isPlayerInRange) return;
 
         isOn = !isOn;
-
         ApplyVisualState(animate: true);
 
         if (isOn)
@@ -135,41 +141,26 @@ public class Lever : MonoBehaviour, IInteractable
     private void RevealTargets(int[] targets)
     {
         if (targets == null || targets.Length == 0) return;
-
-        var manager = PressurePlatformManager.Instance;
-        if (manager == null)
-        {
-            Debug.LogWarning("Lever: No PressurePlatformManager found.", this);
-            return;
-        }
-
-        for (int i = 0; i < targets.Length; i++)
-        {
-            PressurePlatform target = manager.GetById(targets[i]);
-            if (target != null)
-            {
-                target.Reveal(animate: true);
-            }
-            else
-            {
-                Debug.LogWarning($"Lever {leverId}: Target platform ID {targets[i]} not found.", this);
-            }
-        }
-    }
-
-    private void HideTargets(int[] targets)
-    {
-        if (targets == null || targets.Length == 0) return;
-
         var manager = PressurePlatformManager.Instance;
         if (manager == null) return;
 
         for (int i = 0; i < targets.Length; i++)
         {
             PressurePlatform target = manager.GetById(targets[i]);
-            if (target == null) continue;
+            if (target != null) target.Reveal(animate: true);
+        }
+    }
 
-            target.Hide(animate: true, force: true);
+    private void HideTargets(int[] targets)
+    {
+        if (targets == null || targets.Length == 0) return;
+        var manager = PressurePlatformManager.Instance;
+        if (manager == null) return;
+
+        for (int i = 0; i < targets.Length; i++)
+        {
+            PressurePlatform target = manager.GetById(targets[i]);
+            if (target != null) target.Hide(animate: true, force: true);
         }
     }
 
@@ -180,10 +171,7 @@ public class Lever : MonoBehaviour, IInteractable
         if (spriteRenderer == null) return;
 
         Sprite targetSprite = isOn ? onSprite : offSprite;
-        if (targetSprite != null)
-        {
-            spriteRenderer.sprite = targetSprite;
-        }
+        if (targetSprite != null) spriteRenderer.sprite = targetSprite;
 
         Color targetColor = isOn ? onTint : offTint;
 
@@ -201,6 +189,6 @@ public class Lever : MonoBehaviour, IInteractable
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = isOn ? Color.green : Color.red;
-        Gizmos.DrawWireSphere(transform.position, 0.3f);
+        Gizmos.DrawWireSphere(transform.position, 0.6f);
     }
 }

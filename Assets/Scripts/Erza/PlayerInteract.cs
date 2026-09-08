@@ -10,12 +10,6 @@ public class PlayerInteract : MonoBehaviour
     public InputActionReference interactAction;
 
     private IInteractable currentInteractable;
-    private Collider2D myCollider;
-
-    private void Awake()
-    {
-        myCollider = GetComponent<Collider2D>();
-    }
 
     private void OnEnable()
     {
@@ -78,12 +72,7 @@ public class PlayerInteract : MonoBehaviour
             }
         }
 
-        activeTriggers.RemoveAll(c =>
-            c == null ||
-            !c.gameObject.activeInHierarchy ||
-            !c.enabled ||
-            (myCollider != null && !myCollider.IsTouching(c)) // real overlap check, don't trust stale enter/exit state
-        );
+        activeTriggers.RemoveAll(c => c == null || !c.gameObject.activeInHierarchy || !c.enabled);
         if (activeTriggers.Count > 0)
         {
             Collider2D hit = activeTriggers[activeTriggers.Count - 1];
