@@ -1806,8 +1806,8 @@ Tilemap:
   - first: {x: -2, y: 0, z: 0}
     second:
       serializedVersion: 2
-      m_TileIndex: 1
-      m_TileSpriteIndex: 1
+      m_TileIndex: 2
+      m_TileSpriteIndex: 2
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -1816,8 +1816,8 @@ Tilemap:
   - first: {x: -1, y: 0, z: 0}
     second:
       serializedVersion: 2
-      m_TileIndex: 1
-      m_TileSpriteIndex: 1
+      m_TileIndex: 2
+      m_TileSpriteIndex: 2
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -1826,8 +1826,8 @@ Tilemap:
   - first: {x: 0, y: 0, z: 0}
     second:
       serializedVersion: 2
-      m_TileIndex: 1
-      m_TileSpriteIndex: 1
+      m_TileIndex: 2
+      m_TileSpriteIndex: 2
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -1836,8 +1836,8 @@ Tilemap:
   - first: {x: 1, y: 0, z: 0}
     second:
       serializedVersion: 2
-      m_TileIndex: 1
-      m_TileSpriteIndex: 1
+      m_TileIndex: 2
+      m_TileSpriteIndex: 2
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -1846,8 +1846,8 @@ Tilemap:
   - first: {x: 1, y: 2, z: 0}
     second:
       serializedVersion: 2
-      m_TileIndex: 1
-      m_TileSpriteIndex: 1
+      m_TileIndex: 2
+      m_TileSpriteIndex: 2
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -1859,21 +1859,21 @@ Tilemap:
     m_RefCount: 0
     m_Data: {fileID: 11400000, guid: 148c7cfac1b50d04c9e26dc3e6b2db17, type: 2}
   - serializedVersion: 2
-    m_RefCount: 5
+    m_RefCount: 0
     m_Data: {fileID: 11400000, guid: ce85002d9e03343499eb98ac3c2f5a6d, type: 2}
   - serializedVersion: 2
-    m_RefCount: 0
-    m_Data: {fileID: 11400000, guid: b49b1fbb90e7f8b4a86d98179bb17897, type: 2}
+    m_RefCount: 5
+    m_Data: {fileID: 11400000, guid: a48adccb4b761f2499a4c9eec533f79d, type: 2}
   m_TileSpriteArray:
   - serializedVersion: 2
     m_RefCount: 0
     m_Data: {fileID: 21300000, guid: 9256869268067814b80fd143c5247bd5, type: 3}
   - serializedVersion: 2
-    m_RefCount: 5
+    m_RefCount: 0
     m_Data: {fileID: 7482667652216324306, guid: 01634bb86bc98944e91bc258b9c4de81, type: 3}
   - serializedVersion: 2
-    m_RefCount: 0
-    m_Data: {fileID: 21300000, guid: e76c5b4e5204da44d932f1ea5e1bb465, type: 3}
+    m_RefCount: 5
+    m_Data: {fileID: -5673636518985711193, guid: 6813c28245b4b1b429f83a2f65aa6e09, type: 3}
   m_TileMatrixArray:
   - serializedVersion: 2
     m_RefCount: 5
@@ -1898,6 +1898,9 @@ Tilemap:
   - serializedVersion: 2
     m_RefCount: 5
     m_Data: {r: 1, g: 1, b: 1, a: 1}
+  - serializedVersion: 2
+    m_RefCount: 0
+    m_Data: {r: 0.8143648, g: 0.3489471, b: 0.39230704, a: 1}
   m_TileObjectToInstantiateArray: []
   m_AnimationFrameRate: 1
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -1930,6 +1933,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 301876068090773552, guid: 442175bb09730524bb296d96c2683fdc, type: 3}
+      propertyPath: movementTilemap
+      value: 
+      objectReference: {fileID: 263835779}
     - target: {fileID: 2314857677476298232, guid: 442175bb09730524bb296d96c2683fdc, type: 3}
       propertyPath: movementTilemap
       value: 
@@ -2006,6 +2013,14 @@ PrefabInstance:
       propertyPath: interactAction
       value: 
       objectReference: {fileID: 1781555164194001046, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
+    - target: {fileID: 2737463002498962010, guid: c09cc022bcc76fb419e7a870d1e4ae94, type: 3}
+      propertyPath: interactPoints.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2737463002498962010, guid: c09cc022bcc76fb419e7a870d1e4ae94, type: 3}
+      propertyPath: 'interactPoints.Array.data[0]'
+      value: 
+      objectReference: {fileID: 130617900}
     - target: {fileID: 5074893262297760820, guid: c09cc022bcc76fb419e7a870d1e4ae94, type: 3}
       propertyPath: m_LocalPosition.x
       value: -5.76
@@ -2050,6 +2065,10 @@ PrefabInstance:
       propertyPath: movementTilemap
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 7371084483682240527, guid: c09cc022bcc76fb419e7a870d1e4ae94, type: 3}
+      propertyPath: movementTilemap
+      value: 
+      objectReference: {fileID: 263835779}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2086,7 +2105,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c97469538ae56f4abedf49f094c461d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerInteract
-  interactPoint: {fileID: 130617900}
+  interactPoints:
+  - {fileID: 130617900}
   interactRadius: 0.5
   interactLayer:
     serializedVersion: 2
@@ -2124,7 +2144,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c97469538ae56f4abedf49f094c461d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerInteract
-  interactPoint: {fileID: 130617900}
+  interactPoints:
+  - {fileID: 130617900}
   interactRadius: 0.01
   interactLayer:
     serializedVersion: 2
@@ -2286,7 +2307,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c97469538ae56f4abedf49f094c461d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerInteract
-  interactPoint: {fileID: 130617900}
+  interactPoints:
+  - {fileID: 130617900}
   interactRadius: 0.5
   interactLayer:
     serializedVersion: 2
@@ -2705,7 +2727,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c97469538ae56f4abedf49f094c461d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerInteract
-  interactPoint: {fileID: 130617900}
+  interactPoints:
+  - {fileID: 130617900}
   interactRadius: 0.5
   interactLayer:
     serializedVersion: 2
@@ -2963,6 +2986,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 301876068090773552, guid: 442175bb09730524bb296d96c2683fdc, type: 3}
+      propertyPath: movementTilemap
+      value: 
+      objectReference: {fileID: 263835779}
     - target: {fileID: 2314857677476298232, guid: 442175bb09730524bb296d96c2683fdc, type: 3}
       propertyPath: moveAction
       value: 
@@ -3084,9 +3111,9 @@ MonoBehaviour:
   chainData: {fileID: 11400000, guid: 6dad984a23e72f04d9794f32e11556ac, type: 2}
   leverData: {fileID: 11400000, guid: 76e8e083f10140649be95540e897796b, type: 2}
   tileMappings:
-  - tile: {fileID: 11400000, guid: ce85002d9e03343499eb98ac3c2f5a6d, type: 2}
+  - tile: {fileID: 11400000, guid: a48adccb4b761f2499a4c9eec533f79d, type: 2}
     type: 2
-    prefab: {fileID: 681326583234926791, guid: 273f12baaafa15643b4737b0c5f11f89, type: 3}
+    prefab: {fileID: 6696383583843936611, guid: 1a946fad49ed78c42bf7de4fc2b0243b, type: 3}
   - tile: {fileID: 11400000, guid: 33d5e28ea093b5a48a49163eecc57bb3, type: 2}
     type: 3
     prefab: {fileID: 3244444532495868820, guid: 5da271ebf68eff646b8d03af3f69ac6e, type: 3}
@@ -3115,6 +3142,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 301876068090773552, guid: 442175bb09730524bb296d96c2683fdc, type: 3}
+      propertyPath: movementTilemap
+      value: 
+      objectReference: {fileID: 263835779}
     - target: {fileID: 2314857677476298232, guid: 442175bb09730524bb296d96c2683fdc, type: 3}
       propertyPath: moveAction
       value: 

@@ -20,36 +20,36 @@ MonoBehaviour:
   - sourceId: 4
     targetIds: 05000000
     delay: 0.15
-    persistent: 0
+    persistent: 1
   - sourceId: 5
     targetIds: 06000000
     delay: 0.15
-    persistent: 0
+    persistent: 1
   - sourceId: 6
     targetIds: 07000000
     delay: 0.15
-    persistent: 0
+    persistent: 1
   - sourceId: 7
     targetIds: 08000000
     delay: 0.15
-    persistent: 0
+    persistent: 1
   - sourceId: 8
     targetIds: 09000000
     delay: 0.15
-    persistent: 0
+    persistent: 1
   - sourceId: 10
     targetIds: 0b000000
     delay: 0.15
-    persistent: 0
+    persistent: 1
   - sourceId: 11
     targetIds: 0c000000
     delay: 0.15
-    persistent: 0
+    persistent: 1
   - sourceId: 12
     targetIds: 0d000000
     delay: 0.15
-    persistent: 0
+    persistent: 1
   - sourceId: 13
     targetIds: 0e000000
     delay: 0.15
-    persistent: 0
+    persistent: 1

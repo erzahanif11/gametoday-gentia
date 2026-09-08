@@ -3,16 +3,6 @@ using DG.Tweening;
 
 /// <summary>
 /// An interactable lever that toggles associated platforms ON/OFF.
-/// 
-/// When the player interacts:
-///   OFF → ON:  Reveals all target platforms (they stay visible).
-///   ON  → OFF: Hides all target platforms.
-/// 
-/// Implements <see cref="IInteractable"/> so the existing
-/// <see cref="PlayerInteract"/> system detects and triggers it.
-/// 
-/// IMPORTANT: Do NOT rely on Awake/Start for ID assignment.
-/// Call Initialize() from TilemapSpawner after setting the leverId.
 /// </summary>
 public class Lever : MonoBehaviour, IInteractable
 {
@@ -33,6 +23,10 @@ public class Lever : MonoBehaviour, IInteractable
     [Tooltip("Current toggle state. True = ON (targets revealed).")]
     public bool isOn = false;
 
+    [Header("Interaction State")]
+    [Tooltip("True jika player sedang berada di dalam area trigger lever.")]
+    public bool isPlayerInRange = false;
+
     [Header("Visuals")]
     [Tooltip("Sprite to display when the lever is ON.")]
     [SerializeField] private Sprite onSprite;
@@ -47,7 +41,6 @@ public class Lever : MonoBehaviour, IInteractable
     private SpriteRenderer spriteRenderer;
     private Collider2D col;
     private bool initialized = false;
-    private bool playerInRange = false;
 
     [HideInInspector] public PressurePlatform parentPlatform;
 
@@ -64,7 +57,7 @@ public class Lever : MonoBehaviour, IInteractable
 
     private void Update()
     {
-        if (parentPlatform != null)
+        if (parentPlatform != null && spriteRenderer != null)
         {
             bool platformVisible = (parentPlatform.CurrentState != PressurePlatform.State.Hidden);
             if (spriteRenderer.enabled != platformVisible)
@@ -75,11 +68,29 @@ public class Lever : MonoBehaviour, IInteractable
         }
     }
 
-    // ───────── Initialization (called by TilemapSpawner) ─────────
+    // ───────── Triggers (Player Detection) ─────────
 
-    /// <summary>
-    /// Sets the lever ID. Must be called by TilemapSpawner after spawning.
-    /// </summary>
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        // Pastikan GameObject Player Anda memiliki Tag "Player"
+        if (other.CompareTag("Player"))
+        {
+            isPlayerInRange = true;
+            // Opsional: Tambahkan logika untuk menampilkan UI (misal: "Press E to Interact") di sini
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            isPlayerInRange = false;
+            // Opsional: Sembunyikan UI di sini
+        }
+    }
+
+    // ───────── Initialization ─────────
+
     public void Initialize(int id)
     {
         leverId = id;
@@ -89,25 +100,14 @@ public class Lever : MonoBehaviour, IInteractable
         ApplyVisualState(animate: false);
     }
 
-    // ───────── Trigger Detection ─────────
-
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.CompareTag("Player"))
-            playerInRange = true;
-    }
-
-    private void OnTriggerExit2D(Collider2D other)
-    {
-        if (other.CompareTag("Player"))
-            playerInRange = false;
-    }
-
     // ───────── IInteractable ─────────
 
     public void Interact()
     {
-        if (!playerInRange) return;
+        if (col != null && !col.enabled) return;
+
+        // Tolak interaksi jika player tidak berada di dalam area collider
+        if (!isPlayerInRange) return;
 
         isOn = !isOn;
 
@@ -127,7 +127,7 @@ public class Lever : MonoBehaviour, IInteractable
 
     public string GetInteractText()
     {
-        return "";
+        return "Lever";
     }
 
     // ───────── Target Management ─────────
@@ -152,8 +152,7 @@ public class Lever : MonoBehaviour, IInteractable
             }
             else
             {
-                Debug.LogWarning(
-                    $"Lever {leverId}: Target platform ID {targets[i]} not found.", this);
+                Debug.LogWarning($"Lever {leverId}: Target platform ID {targets[i]} not found.", this);
             }
         }
     }
@@ -170,7 +169,6 @@ public class Lever : MonoBehaviour, IInteractable
             PressurePlatform target = manager.GetById(targets[i]);
             if (target == null) continue;
 
-            // Force-hide: lever controls visibility directly
             target.Hide(animate: true, force: true);
         }
     }
@@ -181,7 +179,6 @@ public class Lever : MonoBehaviour, IInteractable
     {
         if (spriteRenderer == null) return;
 
-        // Swap sprite based on state
         Sprite targetSprite = isOn ? onSprite : offSprite;
         if (targetSprite != null)
         {
@@ -201,11 +198,8 @@ public class Lever : MonoBehaviour, IInteractable
         }
     }
 
-    // ───────── Debug Gizmo ─────────
-
     private void OnDrawGizmosSelected()
     {
-        // Show a small icon to distinguish levers in Scene view
         Gizmos.color = isOn ? Color.green : Color.red;
         Gizmos.DrawWireSphere(transform.position, 0.3f);
     }
