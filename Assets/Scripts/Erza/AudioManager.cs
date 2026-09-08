@@ -6,6 +6,7 @@ public class AudioManager : MonoBehaviour
     public AudioSource musicSource;
     public AudioSource sfxSource;
     public AudioSource ambientSource;
+    public AudioMixer audioMixer;
 
     [Header("Music")]
     public AudioClip mainMenuMusic;
@@ -62,5 +63,20 @@ public class AudioManager : MonoBehaviour
         ambientSource.volume = volume;
         ambientSource.loop = true;
         ambientSource.Play();
+    }
+
+    public void SetMasterVolume(float volume)
+    {
+        audioMixer.SetFloat("MasterVolume", Mathf.Log10(volume) * 20);
+    }
+
+    public void SetMusicVolume(float volume)
+    {
+        audioMixer.SetFloat("MusicVolume", Mathf.Log10(volume) * 20);
+    }
+
+    public void SetSfxVolume(float volume)
+    {
+        audioMixer.SetFloat("SFXVolume", Mathf.Log10(volume) * 20);
     }
 }
