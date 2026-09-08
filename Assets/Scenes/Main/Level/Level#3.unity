@@ -333,6 +333,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 301876068090773552, guid: 442175bb09730524bb296d96c2683fdc, type: 3}
+      propertyPath: movementTilemap
+      value: 
+      objectReference: {fileID: 577211326}
     - target: {fileID: 2314857677476298232, guid: 442175bb09730524bb296d96c2683fdc, type: 3}
       propertyPath: moveAction
       value: 
@@ -2471,6 +2475,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 301876068090773552, guid: 442175bb09730524bb296d96c2683fdc, type: 3}
+      propertyPath: movementTilemap
+      value: 
+      objectReference: {fileID: 577211326}
     - target: {fileID: 2314857677476298232, guid: 442175bb09730524bb296d96c2683fdc, type: 3}
       propertyPath: movementTilemap
       value: 
@@ -2643,6 +2651,10 @@ PrefabInstance:
       propertyPath: movementTilemap
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 7371084483682240527, guid: c09cc022bcc76fb419e7a870d1e4ae94, type: 3}
+      propertyPath: movementTilemap
+      value: 
+      objectReference: {fileID: 577211326}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2785,6 +2797,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 301876068090773552, guid: 442175bb09730524bb296d96c2683fdc, type: 3}
+      propertyPath: movementTilemap
+      value: 
+      objectReference: {fileID: 577211326}
     - target: {fileID: 2314857677476298232, guid: 442175bb09730524bb296d96c2683fdc, type: 3}
       propertyPath: moveAction
       value: 
