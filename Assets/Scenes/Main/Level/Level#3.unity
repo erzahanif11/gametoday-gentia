@@ -444,11 +444,7 @@ MonoBehaviour:
   interactLayer:
     serializedVersion: 2
     m_Bits: 128
-  interactAction: {fileID: 1120369429361536294, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
-  promptOffsetY: 1.2
-  promptFontSize: 24
-  promptColor: {r: 1, g: 1, b: 1, a: 1}
-  promptBackgroundColor: {r: 0, g: 0, b: 0, a: 0.6}
+  interactAction: {fileID: 1781555164194001046, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
 --- !u!1 &577211323
 GameObject:
   m_ObjectHideFlags: 0
@@ -2570,11 +2566,7 @@ MonoBehaviour:
   interactLayer:
     serializedVersion: 2
     m_Bits: 128
-  interactAction: {fileID: 1120369429361536294, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
-  promptOffsetY: 1.2
-  promptFontSize: 24
-  promptColor: {r: 1, g: 1, b: 1, a: 1}
-  promptBackgroundColor: {r: 0, g: 0, b: 0, a: 0.6}
+  interactAction: {fileID: 1781555164194001046, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
 --- !u!1001 &1485277518
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2594,7 +2586,7 @@ PrefabInstance:
     - target: {fileID: 2737463002498962010, guid: c09cc022bcc76fb419e7a870d1e4ae94, type: 3}
       propertyPath: interactAction
       value: 
-      objectReference: {fileID: 1120369429361536294, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
+      objectReference: {fileID: 1781555164194001046, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
     - target: {fileID: 2737463002498962010, guid: c09cc022bcc76fb419e7a870d1e4ae94, type: 3}
       propertyPath: interactPoints.Array.size
       value: 2
@@ -2691,16 +2683,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c97469538ae56f4abedf49f094c461d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerInteract
-  interactPoints: []
+  interactPoints:
+  - {fileID: 47987173}
+  - {fileID: 1727332750}
   interactRadius: 0.5
   interactLayer:
     serializedVersion: 2
     m_Bits: 128
-  interactAction: {fileID: 1120369429361536294, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
-  promptOffsetY: 1.2
-  promptFontSize: 24
-  promptColor: {r: 1, g: 1, b: 1, a: 1}
-  promptBackgroundColor: {r: 0, g: 0, b: 0, a: 0.6}
+  interactAction: {fileID: 1781555164194001046, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
 --- !u!1001 &1486031861
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2908,11 +2898,7 @@ MonoBehaviour:
   interactLayer:
     serializedVersion: 2
     m_Bits: 128
-  interactAction: {fileID: 1120369429361536294, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
-  promptOffsetY: 1.2
-  promptFontSize: 24
-  promptColor: {r: 1, g: 1, b: 1, a: 1}
-  promptBackgroundColor: {r: 0, g: 0, b: 0, a: 0.6}
+  interactAction: {fileID: 1781555164194001046, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
 --- !u!1001 &1974916346
 PrefabInstance:
   m_ObjectHideFlags: 0
