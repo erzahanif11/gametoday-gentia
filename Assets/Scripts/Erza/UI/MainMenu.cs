@@ -11,7 +11,7 @@ public class MainMenu : MonoBehaviour
         {
             return;
         }
-        UnityEngine.SceneManagement.SceneManager.LoadScene("Prologue");
+        FadeTransition.Instance.TransitionToScene("Prologue");
     }
 
     public void ToggleSettings()

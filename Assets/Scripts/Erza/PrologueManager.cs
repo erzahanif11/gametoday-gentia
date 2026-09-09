@@ -1,11 +1,12 @@
 using UnityEngine;
-using System.Collections; 
+using System.Collections;
 using TMPro;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
 [System.Serializable]
-public class MonologueLine{
+public class MonologueLine
+{
     [TextArea(2, 5)]
     public string line;
     public Sprite background;
@@ -34,54 +35,69 @@ public class PrologueManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (enterAction.action.triggered){
-            if (isTyping){
+        if (enterAction.action.triggered)
+        {
+            if (isTyping)
+            {
                 StopAllCoroutines();
                 monologueText.text = monologueLines[currentLineIndex].line;
                 isTyping = false;
-            } else {
+            }
+            else
+            {
                 NextLine();
             }
         }
     }
 
-    void ShowLine(){
+    void ShowLine()
+    {
         MonologueLine line = monologueLines[currentLineIndex];
-        if (line.background != null && backgroundImage.sprite != line.background){
+        if (line.background != null && backgroundImage.sprite != line.background)
+        {
             StartCoroutine(fadeBackground(line.background, 0.5f));
         }
         StartCoroutine(TypeLine(line.line));
     }
 
-    IEnumerator TypeLine(string line){
+    IEnumerator TypeLine(string line)
+    {
         isTyping = true;
         monologueText.text = "";
-        foreach (char letter in line.ToCharArray()){
+        foreach (char letter in line.ToCharArray())
+        {
             monologueText.text += letter;
             yield return new WaitForSeconds(typingSpeed);
         }
         isTyping = false;
     }
 
-    void NextLine(){
+    void NextLine()
+    {
         currentLineIndex++;
-        if (currentLineIndex < monologueLines.Length){
+        if (currentLineIndex < monologueLines.Length)
+        {
             ShowLine();
-            
-        } else {
+
+        }
+        else
+        {
             EndMonologue();
         }
     }
 
-    void EndMonologue(){
+    void EndMonologue()
+    {
         monologueBox.SetActive(false);
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        FadeTransition.Instance.TransitionToScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 
-    IEnumerator fadeBackground(Sprite newSprite, float duration){
+    IEnumerator fadeBackground(Sprite newSprite, float duration)
+    {
         float elapsedTime = 0f;
         Sprite originalSprite = backgroundImage.sprite;
-        while (elapsedTime < duration){
+        while (elapsedTime < duration)
+        {
             elapsedTime += Time.deltaTime;
             float t = Mathf.Clamp01(elapsedTime / duration);
             backgroundImage.sprite = newSprite;
