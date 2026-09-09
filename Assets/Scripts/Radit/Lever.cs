@@ -86,6 +86,7 @@ public class Lever : MonoBehaviour, IInteractable
         if (other.CompareTag("Player"))
         {
             isPlayerInRange = true;
+            Debug.Log("Player In Range");
         }
     }
 
