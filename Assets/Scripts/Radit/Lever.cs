@@ -160,7 +160,11 @@ public class Lever : MonoBehaviour, IInteractable
         for (int i = 0; i < targets.Length; i++)
         {
             PressurePlatform target = manager.GetById(targets[i]);
-            if (target != null) target.Hide(animate: true, force: true);
+            // overridePersistent: true — a lever's own on/off targets are a
+            // deliberate switch and must always respond, even if that target
+            // happens to be marked persistent (persistence only protects a
+            // platform from a chain cascade started by another platform).
+            if (target != null) target.Hide(animate: true, force: true, overridePersistent: true);
         }
     }
 

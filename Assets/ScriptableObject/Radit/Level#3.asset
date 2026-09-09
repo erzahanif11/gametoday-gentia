@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ChainReactionData
   rules:
   - sourceId: 1
-    targetIds: 15000000
+    targetIds: 02000000
     delay: 0.15
     persistent: 1
   - sourceId: 4
@@ -51,5 +51,21 @@ MonoBehaviour:
     persistent: 1
   - sourceId: 13
     targetIds: 0e000000
+    delay: 0.15
+    persistent: 1
+  - sourceId: 9
+    targetIds: 0a000000
+    delay: 0.15
+    persistent: 1
+  - sourceId: 15
+    targetIds: 
+    delay: 0.15
+    persistent: 1
+  - sourceId: 16
+    targetIds: 
+    delay: 0.15
+    persistent: 1
+  - sourceId: 17
+    targetIds: 
     delay: 0.15
     persistent: 1
