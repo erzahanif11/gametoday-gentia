@@ -25,7 +25,7 @@ public class MovePlayer : MonoBehaviour
     public Tilemap dropOffTilemap; // ADDED: New Tilemap reference for drop-off zones
 
     private Rigidbody2D rb;
-    float moveSpeed = 15f;
+    float moveSpeed = 10f;
 
     public SpiritState spiritState;
     public SpiritManager spiritManager;
@@ -62,18 +62,18 @@ public class MovePlayer : MonoBehaviour
         moveAction.action.Enable();
         movementMode = playerMoveMode.movementMode;
 
-        if (levelManager != null)
-        {
-            levelManager.OnLevelCompleted += HandleOnLevelComplete;
-        }
+        // if (levelManager != null)
+        // {
+        //     levelManager.OnLevelCompleted += HandleOnLevelComplete;
+        // }
     }
 
     void OnDisable()
     {
-        if (levelManager != null)
-        {
-            levelManager.OnLevelCompleted -= HandleOnLevelComplete;
-        }
+        // if (levelManager != null)
+        // {
+        //     levelManager.OnLevelCompleted -= HandleOnLevelComplete;
+        // }
     }
 
     void Update()
@@ -90,14 +90,14 @@ public class MovePlayer : MonoBehaviour
         }
     }
 
-    void HandleOnLevelComplete(int completedLevelIndex)
-    {
-        if (isSpirit)
-        {
-            playerManager.DisableAllSpirits();
-            Destroy(gameObject);
-        }
-    }
+    // void HandleOnLevelComplete(int completedLevelIndex)
+    // {
+    //     if (isSpirit)
+    //     {
+    //         playerManager.DisableAllSpirits();
+    //         Destroy(gameObject);
+    //     }
+    // }
 
     void MoveFree()
     {
@@ -227,7 +227,7 @@ public class MovePlayer : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Finish"))
+        if (isSpirit && other.CompareTag("Finish"))
         {
             Debug.Log("Reached the finish area!");
             if (spiritState != null)
@@ -239,7 +239,7 @@ public class MovePlayer : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D other)
     {
-        if (other.CompareTag("Finish"))
+        if (isSpirit && other.CompareTag("Finish"))
         {
             Debug.Log("Exited the finish area!");
             spiritState.SetSpiritState(SpiritStateEnum.Free);
