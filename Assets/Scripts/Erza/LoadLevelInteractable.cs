@@ -1,18 +1,18 @@
-using UnityEngine;
+// using UnityEngine;
 
-public class LoadLevelInteractable : MonoBehaviour, IInteractable
-{
-    public LoadLevel loadLevel;
+// public class LoadLevelInteractable : MonoBehaviour, IInteractable
+// {
+//     public LoadLevel loadLevel;
 
-    void OnEnable(){
-        loadLevel = GetComponent<LoadLevel>();
-    }
+//     void OnEnable(){
+//         loadLevel = GetComponent<LoadLevel>();
+//     }
 
-    public void Interact(){
-        loadLevel.InteractLoadLevel();
-    }
+//     public void Interact(){
+//         loadLevel.InteractLoadLevel();
+//     }
 
-    public string GetInteractText(){
-        return "(F) Load/Reset Level";
-    } 
-}
+//     public string GetInteractText(){
+//         return "(F) Load/Reset Level";
+//     } 
+// }

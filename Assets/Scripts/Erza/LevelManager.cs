@@ -6,19 +6,19 @@ using System.Collections.Generic;
 public class LevelData{
     public LevelSpiritInfo levelSpiritInfo;
     public LevelStateEnum levelState;
-    public int levelId;
+    // public int levelId;
 }
 
 public class LevelManager : MonoBehaviour
 {
-    public LevelDatabase levelDatabase;
     public LevelState levelState;
 
-    private int currentLevelId = 0;
-    private int clearedLevelId = -1;
+    // private int currentLevelId = 0;
+    // private int clearedLevelId = -1;
     private LevelData currentLevelData;
+    public GameObject gameCompleteUI; // Reference to the Game Complete UI GameObject
 
-    public event System.Action<int> OnLevelCompleted;
+    public event System.Action OnLevelCompleted;
 
     void Awake(){
         if(levelState == null){
@@ -26,36 +26,35 @@ public class LevelManager : MonoBehaviour
         }
     }
 
+    void Start(){
+        StartLevel();
+    }
+
     public bool LoadLevel(int levelId){
-        LevelData entry = levelDatabase.GetLevel(levelId);
-        currentLevelId = levelId;
-        if(entry != null && levelId > clearedLevelId){
-            currentLevelId = levelId;
-            currentLevelData = new LevelData{
-                levelSpiritInfo = entry.levelSpiritInfo,
-                levelState = LevelStateEnum.NotStarted
-            };
+        LevelData entry = currentLevelData;
+        if(entry != null){
             Debug.Log("Loading Level: " + levelId);
             if(levelState != null){
-                levelState.SetLevelState(LevelStateEnum.NotStarted);
+                levelState.SetLevelState(LevelStateEnum.InProgress);
             }
             
             // Setup spirit manager dengan level data
             SpiritManager spiritManager = FindAnyObjectByType<SpiritManager>();
             if(spiritManager != null){
-                spiritManager.SetupLevel(entry.levelSpiritInfo);
-                spiritManager.SpawnSpiritAtRandomPosition();
+                // spiritManager.SetupLevel(entry.levelSpiritInfo);
+                // spiritManager.SpawnSpiritAtRandomPosition();
                 StartLevel();
             }
             return true;
         } else {
-            Debug.LogError("Level with ID " + levelId + " not found in LevelDatabase or it's already cleared.");
+            // Debug.LogError("Level with ID " + levelId + " not found in LevelDatabase or it's already cleared.");
             return false;
         }
     }
 
     public void StartLevel(){
         if(levelState != null){
+            Time.timeScale = 1f;
             levelState.SetLevelState(LevelStateEnum.InProgress);
         }
     }
@@ -63,19 +62,21 @@ public class LevelManager : MonoBehaviour
     public void CompleteLevel(){
         if(levelState != null){
             levelState.SetLevelState(LevelStateEnum.Completed);
-            clearedLevelId = currentLevelId;
-            Debug.Log("Current State of Level ID " + currentLevelData.levelId + " is " + levelState.levelState);
-            OnLevelCompleted?.Invoke(clearedLevelId);
+            // clearedLevelId = currentLevelId;
+            // Debug.Log("Current State of Level ID " + currentLevelData.levelId + " is " + levelState.levelState);
+            OnLevelCompleted?.Invoke();
+            Time.timeScale = 0f; 
+            gameCompleteUI.SetActive(true);
         }
     }
 
-    public void NextLevel(){
-        currentLevelId += 1;
-    }
+    // public void NextLevel(){
+    //     currentLevelId += 1;
+    // }
 
-    public int GetCurrentLevelId(){
-        return currentLevelId;
-    }
+    // public int GetCurrentLevelId(){
+    //     return currentLevelId;
+    // }
 
     public LevelData GetCurrentLevelData(){
         return currentLevelData;

@@ -4,6 +4,6 @@ using UnityEngine;
 public class LevelSpiritInfo : ScriptableObject
 {
     public int spiritCount = 0;
-    public Vector2 minSpawnPosition;
-    public Vector2 maxSpawnPosition;
+    // public Vector2 minSpawnPosition;
+    // public Vector2 maxSpawnPosition;
 }

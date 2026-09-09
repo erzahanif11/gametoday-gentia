@@ -1,14 +1,14 @@
 using UnityEngine;
 
 public enum LevelStateEnum{
-    NotStarted,
+    // NotStarted,
     InProgress,
     Completed
 }
 
 public class LevelState : MonoBehaviour
 {
-    public LevelStateEnum levelState = LevelStateEnum.NotStarted;
+    public LevelStateEnum levelState = LevelStateEnum.InProgress;
     public event System.Action<LevelStateEnum> OnLevelStateChanged;
 
     public void SetLevelState(LevelStateEnum newState){
