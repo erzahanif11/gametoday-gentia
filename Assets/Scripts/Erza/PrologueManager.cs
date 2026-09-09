@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections; 
 using TMPro;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 [System.Serializable]
 public class MonologueLine{
@@ -46,7 +47,7 @@ public class PrologueManager : MonoBehaviour
 
     void ShowLine(){
         MonologueLine line = monologueLines[currentLineIndex];
-        if (line.background != null){
+        if (line.background != null && backgroundImage.sprite != line.background){
             StartCoroutine(fadeBackground(line.background, 0.5f));
         }
         StartCoroutine(TypeLine(line.line));
@@ -74,6 +75,7 @@ public class PrologueManager : MonoBehaviour
 
     void EndMonologue(){
         monologueBox.SetActive(false);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 
     IEnumerator fadeBackground(Sprite newSprite, float duration){
