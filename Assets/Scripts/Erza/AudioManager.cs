@@ -47,6 +47,18 @@ public class AudioManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+        SetInitialVolumes();
+    }
+
+    void SetInitialVolumes()
+    {
+        SetMasterVolume(masterVolume);
+        SetMusicVolume(musicVolume);
+        SetSfxVolume(sfxVolume);
+
+        PlayerPrefs.SetFloat("MasterVolume", masterVolume);
+        PlayerPrefs.SetFloat("MusicVolume", musicVolume);
+        PlayerPrefs.SetFloat("SFXVolume", sfxVolume);
     }
 
     public void PlayMusic(AudioClip clip, float volume = 1f)
@@ -73,15 +85,18 @@ public class AudioManager : MonoBehaviour
     public void SetMasterVolume(float volume)
     {
         audioMixer.SetFloat("MasterVolume", Mathf.Log10(volume) * 20);
+        PlayerPrefs.SetFloat("MasterVolume", volume);
     }
 
     public void SetMusicVolume(float volume)
     {
         audioMixer.SetFloat("MusicVolume", Mathf.Log10(volume) * 20);
+        PlayerPrefs.SetFloat("MusicVolume", volume);
     }
 
     public void SetSfxVolume(float volume)
     {
         audioMixer.SetFloat("SFXVolume", Mathf.Log10(volume) * 20);
+        PlayerPrefs.SetFloat("SFXVolume", volume);
     }
 }

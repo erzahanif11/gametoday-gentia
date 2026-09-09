@@ -17,7 +17,7 @@ public class SettingsManager : MonoBehaviour
 
         masterVolumeSlider.value = audioManager.masterVolume;
         musicVolumeSlider.value = audioManager.musicVolume;
-
+        sfxVolumeSlider.value = audioManager.sfxVolume;
         masterVolumeSlider.onValueChanged.AddListener(SetMasterVolume);
         musicVolumeSlider.onValueChanged.AddListener(SetMusicVolume);
         sfxVolumeSlider.onValueChanged.AddListener(SetSfxVolume);
