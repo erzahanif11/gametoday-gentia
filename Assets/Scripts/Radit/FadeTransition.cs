@@ -89,6 +89,21 @@ public class FadeTransition : MonoBehaviour
     }
 
     /// <summary>
+    /// Triggers the full transition: fade out → load scene → fade in.
+    /// </summary>
+    /// <param name="sceneIndex">The build index of the scene to load.</param>
+    public void TransitionToScene(int sceneIndex)
+    {
+        if (isTransitioning)
+        {
+            Debug.LogWarning("FadeTransition: Transition already in progress.", this);
+            return;
+        }
+
+        StartCoroutine(TransitionCoroutine(sceneIndex));
+    }
+
+    /// <summary>
     /// Fades out (screen goes dark). Calls <paramref name="onComplete"/> when done.
     /// Useful for manual control without automatic scene loading.
     /// </summary>
@@ -158,6 +173,42 @@ public class FadeTransition : MonoBehaviour
 
         isTransitioning = false;
     }
+
+    private IEnumerator TransitionCoroutine(int sceneIndex)
+    {
+        isTransitioning = true;
+
+        // ── Fade Out (screen goes dark) ──
+        bool fadeOutDone = false;
+        AnimateFadeOut(() => fadeOutDone = true);
+
+        while (!fadeOutDone)
+            yield return null;
+
+        // ── Hold ──
+        if (holdDuration > 0f)
+            yield return new WaitForSeconds(holdDuration);
+
+        // ── Load Scene Async ──
+        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(sceneIndex);
+        asyncLoad.allowSceneActivation = true;
+
+        while (!asyncLoad.isDone)
+            yield return null;
+
+        // Small delay so the new scene can render a first frame behind the overlay
+        yield return null;
+
+        // ── Fade In (reveal new scene) ──
+        bool fadeInDone = false;
+        AnimateFadeIn(() => fadeInDone = true);
+
+        while (!fadeInDone)
+            yield return null;
+
+        isTransitioning = false;
+    }
+
 
     // ───────── Animation ─────────
 
