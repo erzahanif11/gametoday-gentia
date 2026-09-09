@@ -183,7 +183,7 @@ public class PressurePlatform : MonoBehaviour
 
         if (col != null)
             col.enabled = true;
-            
+
         if (spriteRenderer != null)
             spriteRenderer.enabled = true;
 
@@ -309,24 +309,32 @@ public class PressurePlatform : MonoBehaviour
     /// When <paramref name="force"/> is true, the platform hides even if a spirit
     /// is standing on it (chain dependency was broken upstream).
     /// </summary>
-    public void Hide(bool animate = true, bool force = false)
+    public void Hide(bool animate = true, bool force = false, bool overridePersistent = false)
     {
         // Only hide from Revealed or Activated states
         if (CurrentState == State.Hidden) return;
 
-        // Persistent platforms refuse to hide unless force is true (e.g. level reset)
-        if (persistent && !force) return;
+        // Persistent platforms refuse to hide when a chain cascade collapses
+        // them (HideChainTargets(), triggered by a parent deactivating).
+        // `overridePersistent` is a separate, explicit signal reserved for a
+        // deliberate external switch — namely a Lever's own direct targets —
+        // which must always be able to flip state regardless of persistence.
+        // `force` alone must NOT grant that bypass, or every chain collapse
+        // would ignore persistence again (the original bug).
+        if (persistent && !overridePersistent) return;
 
-        // Unless forced (chain collapse), don't hide if a spirit is standing on us
+        // Unless forced (chain collapse) or overriding persistence, don't
+        // hide if a spirit is standing on us
         if (!force && activatorCount > 0) return;
 
         // If we're activated, deactivate first (hides our own targets recursively)
         if (CurrentState == State.Activated)
         {
-            // For persistent platforms being force-hidden, temporarily disable
-            // persistence so Deactivate() can proceed
+            // Only when explicitly overriding persistence do we need to
+            // temporarily clear it so Deactivate() (which itself checks
+            // persistent) is allowed to proceed.
             bool wasPersistent = persistent;
-            persistent = false;
+            if (overridePersistent) persistent = false;
             Deactivate();
             persistent = wasPersistent;
         }
@@ -376,7 +384,7 @@ public class PressurePlatform : MonoBehaviour
         currentSequence.Join(transform.DOLocalMove(targetPos, hideDuration).SetEase(Ease.InCubic));
         if (spriteRenderer != null)
             currentSequence.Join(spriteRenderer.DOFade(0f, hideDuration).SetEase(Ease.InCubic));
-            
+
         currentSequence.OnComplete(() =>
         {
             // Ensure final state is fully hidden

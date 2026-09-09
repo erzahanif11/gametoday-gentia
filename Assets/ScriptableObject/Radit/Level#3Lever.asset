@@ -16,6 +16,3 @@ MonoBehaviour:
   - leverId: 2
     targetIds: 03000000
     offTargetIds: 04000000
-  - leverId: 9
-    targetIds: 05000000
-    offTargetIds: 0a000000
