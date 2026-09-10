@@ -5,6 +5,7 @@ public class PauseManager : MonoBehaviour
 {
     public GameObject pauseMenu;
     public GameObject settingsMenu;
+    public GameObject confirmationMenu;
     public InputActionReference pauseActionReference;
     private bool isPauseMenuActive = false;
 
@@ -32,18 +33,17 @@ public class PauseManager : MonoBehaviour
 
     public void ToggleSettings()
     {
-        if (isPauseMenuActive)
-        {
-            settingsMenu.SetActive(true);
-        }
+        settingsMenu.SetActive(!settingsMenu.activeSelf);
     }
 
     public void BackToMainMenu()
     {
-        if (isPauseMenuActive)
-        {
-            Time.timeScale = 1f; // Resume the game before going to main menu
-            UnityEngine.SceneManagement.SceneManager.LoadScene("MainMenu");
-        }
+        Time.timeScale = 1f; // Resume the game before going to main menu
+        FadeTransition.Instance.TransitionToScene("MainMenu");
+    }
+
+    public void ToggleConfirmationMenu()
+    {
+        confirmationMenu.SetActive(!confirmationMenu.activeSelf);
     }
 }

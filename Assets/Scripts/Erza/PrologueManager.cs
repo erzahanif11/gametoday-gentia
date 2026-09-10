@@ -25,6 +25,7 @@ public class PrologueManager : MonoBehaviour
 
     private int currentLineIndex = 0;
     private bool isTyping = false;
+    public bool isEpilogue = false;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -90,7 +91,14 @@ public class PrologueManager : MonoBehaviour
     void EndMonologue()
     {
         monologueBox.SetActive(false);
-        FadeTransition.Instance.TransitionToScene(SceneManager.GetActiveScene().buildIndex + 1);
+        if (isEpilogue)
+        {
+            FadeTransition.Instance.TransitionToScene("MainMenu");
+        }
+        else
+        {
+            FadeTransition.Instance.TransitionToScene(SceneManager.GetActiveScene().buildIndex + 1);
+        }
     }
 
     IEnumerator fadeBackground(Sprite newSprite, float duration)
