@@ -12,6 +12,12 @@ EditorBuildSettings:
     path: Assets/Scenes/Main/Prologue.unity
     guid: ca5a9bed88b21cb40998abbe02505e96
   - enabled: 1
+    path: Assets/Scenes/Main/OutsideHome/Spawn.unity
+    guid: 841f52a1a3c79944aa85af6c0bc87a58
+  - enabled: 1
+    path: Assets/Scenes/Main/OutsideHome/House.unity
+    guid: 4cd2b434676b8d340b8a31110733027c
+  - enabled: 1
     path: Assets/Scenes/Main/Level/Level #1.unity
     guid: 9279ce4d53f8ab547b883f40c9ba16ae
   - enabled: 1

@@ -5,16 +5,16 @@ public class LevelClear : MonoBehaviour
 {
     public void NextLevel()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        FadeTransition.Instance.TransitionToScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 
     public void RestartLevel()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        FadeTransition.Instance.TransitionToScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     public void QuitToMainMenu()
     {
-        SceneManager.LoadScene("MainMenu");
+        FadeTransition.Instance.TransitionToScene("MainMenu");
     }
 }

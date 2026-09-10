@@ -17,6 +17,9 @@ public class PlayerEntrance : MonoBehaviour
     [Tooltip("Nilai parameter HorizontalInput saat berjalan ke kiri. Biasanya -1.")]
     public float walkLeftValue = -1f;
 
+
+    [Tooltip("References")]
+    [SerializeField] private GameObject _boundary;
     private void Start()
     {
         // Beri sedikit jeda agar Animator dan script lain selesai inisialisasi
@@ -46,6 +49,8 @@ public class PlayerEntrance : MonoBehaviour
 
         // 5. Nyalakan kembali script pergerakan agar player bisa dimainkan
         GetComponent<MovePlayer>().enabled = true;
+
+        _boundary.SetActive(true);
 
         Debug.Log("Player sudah di posisi dan siap dimainkan!");
     }
