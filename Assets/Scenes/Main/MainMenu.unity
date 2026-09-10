@@ -292,8 +292,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -675, y: -129}
-  m_SizeDelta: {x: 412, y: 72}
+  m_AnchoredPosition: {x: -674.5, y: -129}
+  m_SizeDelta: {x: 411, y: 72}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &179135062
 MonoBehaviour:
@@ -1241,10 +1241,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1354610909}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: 484, y: 68}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1885171346
 MonoBehaviour:
@@ -1503,6 +1503,30 @@ PrefabInstance:
     - target: {fileID: 7736098669537146876, guid: 473d31a9ce49d92498afead40dde37db, type: 3}
       propertyPath: m_Name
       value: Settings Manager
+      objectReference: {fileID: 0}
+    - target: {fileID: 8379459626504861389, guid: 473d31a9ce49d92498afead40dde37db, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8379459626504861389, guid: 473d31a9ce49d92498afead40dde37db, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8379459626504861389, guid: 473d31a9ce49d92498afead40dde37db, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8379459626504861389, guid: 473d31a9ce49d92498afead40dde37db, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8379459626504861389, guid: 473d31a9ce49d92498afead40dde37db, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 1920
+      objectReference: {fileID: 0}
+    - target: {fileID: 8379459626504861389, guid: 473d31a9ce49d92498afead40dde37db, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 1080
       objectReference: {fileID: 0}
     - target: {fileID: 8919717577463934199, guid: 473d31a9ce49d92498afead40dde37db, type: 3}
       propertyPath: m_LocalPosition.x
