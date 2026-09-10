@@ -40,6 +40,7 @@ public class PrologueManager : MonoBehaviour
             if (isTyping)
             {
                 StopAllCoroutines();
+                backgroundImage.color = Color.white;
                 monologueText.text = monologueLines[currentLineIndex].line;
                 isTyping = false;
             }
@@ -106,5 +107,6 @@ public class PrologueManager : MonoBehaviour
         }
         backgroundImage.sprite = newSprite;
         backgroundImage.color = Color.white;
+        backgroundImage.color = new Color(1f, 1f, 1f);
     }
 }
