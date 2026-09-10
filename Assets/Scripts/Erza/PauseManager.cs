@@ -8,10 +8,11 @@ public class PauseManager : MonoBehaviour
     public GameObject confirmationMenu;
     public InputActionReference pauseActionReference;
     private bool isPauseMenuActive = false;
+    private bool isPopUpActive = false;
 
     void Update()
     {
-        if (pauseActionReference.action.triggered)
+        if (pauseActionReference.action.triggered && !isPopUpActive)
         {
             TogglePauseMenu();
         }
@@ -34,6 +35,7 @@ public class PauseManager : MonoBehaviour
     public void ToggleSettings()
     {
         settingsMenu.SetActive(!settingsMenu.activeSelf);
+        isPopUpActive = settingsMenu.activeSelf;
     }
 
     public void BackToMainMenu()
@@ -45,5 +47,6 @@ public class PauseManager : MonoBehaviour
     public void ToggleConfirmationMenu()
     {
         confirmationMenu.SetActive(!confirmationMenu.activeSelf);
+        isPopUpActive = confirmationMenu.activeSelf;
     }
 }
