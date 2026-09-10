@@ -3,7 +3,8 @@ using System.Collections.Generic;
 
 
 [System.Serializable]
-public class LevelData{
+public class LevelData
+{
     public LevelSpiritInfo levelSpiritInfo;
     public LevelStateEnum levelState;
     // public int levelId;
@@ -16,57 +17,72 @@ public class LevelManager : MonoBehaviour
     // private int currentLevelId = 0;
     // private int clearedLevelId = -1;
     private LevelData currentLevelData;
-    public GameObject gameCompleteUI; // Reference to the Game Complete UI GameObject
-
-    public event System.Action OnLevelCompleted;
-
-    void Awake(){
-        if(levelState == null){
+    public GameObject Transitioner;
+    public GameObject arrow;
+    public GameObject offBoundary;
+    public GameObject onBoundary;
+    void Awake()
+    {
+        if (levelState == null)
+        {
             levelState = GetComponent<LevelState>();
         }
     }
 
-    void Start(){
+    void Start()
+    {
         StartLevel();
     }
 
-    public bool LoadLevel(int levelId){
+    public bool LoadLevel(int levelId)
+    {
         LevelData entry = currentLevelData;
-        if(entry != null){
+        if (entry != null)
+        {
             Debug.Log("Loading Level: " + levelId);
-            if(levelState != null){
+            if (levelState != null)
+            {
                 levelState.SetLevelState(LevelStateEnum.InProgress);
             }
-            
+
             // Setup spirit manager dengan level data
             SpiritManager spiritManager = FindAnyObjectByType<SpiritManager>();
-            if(spiritManager != null){
+            if (spiritManager != null)
+            {
                 // spiritManager.SetupLevel(entry.levelSpiritInfo);
                 // spiritManager.SpawnSpiritAtRandomPosition();
                 StartLevel();
             }
             return true;
-        } else {
+        }
+        else
+        {
             // Debug.LogError("Level with ID " + levelId + " not found in LevelDatabase or it's already cleared.");
             return false;
         }
     }
 
-    public void StartLevel(){
-        if(levelState != null){
+    public void StartLevel()
+    {
+        if (levelState != null)
+        {
             Time.timeScale = 1f;
             levelState.SetLevelState(LevelStateEnum.InProgress);
         }
     }
 
-    public void CompleteLevel(){
-        if(levelState != null){
+    public void CompleteLevel()
+    {
+        if (levelState != null)
+        {
             levelState.SetLevelState(LevelStateEnum.Completed);
             // clearedLevelId = currentLevelId;
             // Debug.Log("Current State of Level ID " + currentLevelData.levelId + " is " + levelState.levelState);
-            OnLevelCompleted?.Invoke();
-            Time.timeScale = 0f; 
-            gameCompleteUI.SetActive(true);
+
+            Transitioner.SetActive(true);
+            arrow.SetActive(true);
+            offBoundary.SetActive(false);
+            onBoundary.SetActive(true);
         }
     }
 
@@ -78,7 +94,8 @@ public class LevelManager : MonoBehaviour
     //     return currentLevelId;
     // }
 
-    public LevelData GetCurrentLevelData(){
+    public LevelData GetCurrentLevelData()
+    {
         return currentLevelData;
     }
 

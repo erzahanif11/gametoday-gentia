@@ -30,6 +30,12 @@ EditorBuildSettings:
     path: Assets/Scenes/Main/Level/Level#4.unity
     guid: 25d3ec80483348545ab07a27f66b2e32
   - enabled: 1
+    path: Assets/Scenes/Main/OutsideHomeLeave/LeaveHouse.unity
+    guid: 3ab2dcc705115b540a00dca7f15651fd
+  - enabled: 1
+    path: Assets/Scenes/Main/OutsideHomeLeave/Leave.unity
+    guid: e35722b279ac2824d9a5ffc89639be4d
+  - enabled: 1
     path: Assets/Scenes/Main/Epilogue.unity
     guid: 2d415c3b8d52e954ba785ecb27020a5c
   m_configObjects:
