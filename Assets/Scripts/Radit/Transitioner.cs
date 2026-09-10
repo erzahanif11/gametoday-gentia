@@ -1,18 +1,34 @@
 using UnityEngine;
 
-public class Transitioner : MonoBehaviour
+// 1. Tambahkan IInteractable di sebelah MonoBehaviour
+public class Transitioner : MonoBehaviour, IInteractable
 {
     [SerializeField] private string _sceneName;
-    private Collider2D collider2D;
+    [SerializeField] private bool _isInteractable;
 
-    private void start()
+    // Tidak perlu lagi InputActionReference di sini!
+    // PlayerInteract yang akan mengurus tombolnya.
+
+    // 2. Fungsi ini wajib ada karena kita memakai IInteractable
+    public void Interact()
     {
-        collider2D = GetComponent<Collider2D>();
+        if (_isInteractable)
+        {
+            Debug.Log("Pintu diinteraksi! Pindah scene...");
+            FadeTransition.Instance.TransitionToScene(_sceneName);
+        }
+    }
+
+    public string GetInteractText()
+    {
+        if (_isInteractable) return "Tekan E untuk naik elevator";
+        return "";
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Player"))
+        // 3. Untuk pintu otomatis (tidak butuh ditekan)
+        if (collision.gameObject.CompareTag("Player") && !_isInteractable)
         {
             FadeTransition.Instance.TransitionToScene(_sceneName);
         }
