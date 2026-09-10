@@ -379,6 +379,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2514418099073961097, guid: 89d653560d2e01b4291cf63fd88a43e7, type: 3}
+      propertyPath: m_ReferenceResolution.x
+      value: 1920
+      objectReference: {fileID: 0}
+    - target: {fileID: 2514418099073961097, guid: 89d653560d2e01b4291cf63fd88a43e7, type: 3}
+      propertyPath: m_ReferenceResolution.y
+      value: 1080
+      objectReference: {fileID: 0}
     - target: {fileID: 6430088802124752327, guid: 89d653560d2e01b4291cf63fd88a43e7, type: 3}
       propertyPath: m_LocalPosition.x
       value: -2.14919
@@ -419,6 +427,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7308218796134613451, guid: 89d653560d2e01b4291cf63fd88a43e7, type: 3}
+      propertyPath: settingsMenu
+      value: 
+      objectReference: {fileID: 2001068271}
     - target: {fileID: 7917476810462893405, guid: 89d653560d2e01b4291cf63fd88a43e7, type: 3}
       propertyPath: m_Name
       value: Pause Manager
@@ -800,6 +812,17 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 2, y: 12}
   m_EdgeRadius: 0
+--- !u!114 &829087290 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7308218796134613451, guid: 89d653560d2e01b4291cf63fd88a43e7, type: 3}
+  m_PrefabInstance: {fileID: 567761660}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb434e750af79be4680a8452b4c1a2f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PauseManager
 --- !u!1 &1219848088
 GameObject:
   m_ObjectHideFlags: 0
@@ -1373,6 +1396,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4339006432714580669, guid: 1950a8925e941c64eb18d44fc334ad85, type: 3}
+      propertyPath: m_UiScaleMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4339006432714580669, guid: 1950a8925e941c64eb18d44fc334ad85, type: 3}
+      propertyPath: m_ReferenceResolution.x
+      value: 1920
+      objectReference: {fileID: 0}
+    - target: {fileID: 4339006432714580669, guid: 1950a8925e941c64eb18d44fc334ad85, type: 3}
+      propertyPath: m_ReferenceResolution.y
+      value: 1080
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1925,6 +1960,76 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 21, y: 3}
   m_EdgeRadius: 0
+--- !u!1001 &2001068270
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 3578227700852036977, guid: 473d31a9ce49d92498afead40dde37db, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 829087290}
+    - target: {fileID: 3578227700852036977, guid: 473d31a9ce49d92498afead40dde37db, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ToggleSettings
+      objectReference: {fileID: 0}
+    - target: {fileID: 7736098669537146876, guid: 473d31a9ce49d92498afead40dde37db, type: 3}
+      propertyPath: m_Name
+      value: Settings Manager
+      objectReference: {fileID: 0}
+    - target: {fileID: 8919717577463934199, guid: 473d31a9ce49d92498afead40dde37db, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 1797.1812
+      objectReference: {fileID: 0}
+    - target: {fileID: 8919717577463934199, guid: 473d31a9ce49d92498afead40dde37db, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 915.5392
+      objectReference: {fileID: 0}
+    - target: {fileID: 8919717577463934199, guid: 473d31a9ce49d92498afead40dde37db, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8919717577463934199, guid: 473d31a9ce49d92498afead40dde37db, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8919717577463934199, guid: 473d31a9ce49d92498afead40dde37db, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8919717577463934199, guid: 473d31a9ce49d92498afead40dde37db, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8919717577463934199, guid: 473d31a9ce49d92498afead40dde37db, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8919717577463934199, guid: 473d31a9ce49d92498afead40dde37db, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8919717577463934199, guid: 473d31a9ce49d92498afead40dde37db, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8919717577463934199, guid: 473d31a9ce49d92498afead40dde37db, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 473d31a9ce49d92498afead40dde37db, type: 3}
+--- !u!1 &2001068271 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 149743878523377015, guid: 473d31a9ce49d92498afead40dde37db, type: 3}
+  m_PrefabInstance: {fileID: 2001068270}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2035933427
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2368,3 +2473,4 @@ SceneRoots:
   - {fileID: 618593814}
   - {fileID: 1636368886}
   - {fileID: 58004253}
+  - {fileID: 2001068270}
