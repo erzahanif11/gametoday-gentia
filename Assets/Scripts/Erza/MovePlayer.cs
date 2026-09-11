@@ -237,7 +237,7 @@ public class MovePlayer : MonoBehaviour
             if (otherPlayer != null && otherPlayer != this)
             {
                 Debug.Log("Movement blocked by another player at: " + targetCell);
-                return;
+                return false;
             }
             Debug.Log("Movement blocked by another player at: " + targetCell);
             return false;
