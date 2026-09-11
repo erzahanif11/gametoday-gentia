@@ -239,6 +239,8 @@ public class MovePlayer : MonoBehaviour
                 Debug.Log("Movement blocked by another player at: " + targetCell);
                 return false;
             }
+            Debug.Log("Movement blocked by another player at: " + targetCell);
+            return false;
         }
 
         // 6. ALL CLEAR: Move the player
