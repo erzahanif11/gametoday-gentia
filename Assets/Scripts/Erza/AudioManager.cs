@@ -205,4 +205,9 @@ public class AudioManager : MonoBehaviour
         audioMixer.SetFloat("SFXVolume", Mathf.Log10(volume) * 20);
         PlayerPrefs.SetFloat("SFXVolume", volume);
     }
+
+    public bool IsPlayingMusic(AudioClip clip)
+    {
+        return musicSource.isPlaying && musicSource.clip == clip;
+    }
 }

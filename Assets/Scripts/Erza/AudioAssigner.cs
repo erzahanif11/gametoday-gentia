@@ -21,6 +21,7 @@ public class AudioAssigner : MonoBehaviour
     
     void OnSceneLoaded(UnityEngine.SceneManagement.Scene scene, UnityEngine.SceneManagement.LoadSceneMode mode)
     {
+
         if (scene.name == "MainMenu")
         {
             audioManager.StopMusic();
@@ -38,7 +39,10 @@ public class AudioAssigner : MonoBehaviour
         }
         else
         {
-            audioManager.PlayMusic(audioManager.gameplayMusic);
+            if(!audioManager.IsPlayingMusic(audioManager.gameplayMusic))
+            {
+                audioManager.PlayMusic(audioManager.gameplayMusic);
+            }
         }
     }
 }
