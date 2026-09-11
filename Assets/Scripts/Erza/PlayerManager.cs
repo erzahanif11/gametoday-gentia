@@ -67,6 +67,7 @@ public class PlayerManager : MonoBehaviour
         }
         lastSpiritIndex = currentPlayerIndex;
         EnablePlayer(currentPlayerIndex);
+        AudioManager.Instance.PlaySFX(AudioManager.Instance.playerSwapSFX);
     }
 
     void ChangePlayerBackward(){ //spirit only
@@ -81,6 +82,7 @@ public class PlayerManager : MonoBehaviour
         }
         lastSpiritIndex = currentPlayerIndex;
         EnablePlayer(currentPlayerIndex);
+        AudioManager.Instance.PlaySFX(AudioManager.Instance.playerSwapSFX);
     }
 
     void ChangePlayerMode(){
@@ -97,6 +99,7 @@ public class PlayerManager : MonoBehaviour
             DisablePlayer(currentPlayerIndex);
             EnablePlayer(0);
         }
+        AudioManager.Instance.PlaySFX(AudioManager.Instance.playerSwapSFX);
     }
 
     void EnablePlayer(int index){

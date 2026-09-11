@@ -73,6 +73,11 @@ public class MovePlayer : MonoBehaviour
 
     void OnDisable()
     {
+        if (isControlled && AudioManager.Instance != null)
+        {
+            AudioManager.Instance.StopFootstepSFX();
+        }
+
         // if (levelManager != null)
         // {
         //     levelManager.OnLevelCompleted -= HandleOnLevelComplete;
@@ -81,7 +86,16 @@ public class MovePlayer : MonoBehaviour
 
     void Update()
     {
-        if (!isControlled) return;
+        if (!isControlled) 
+        {
+            rb.isKinematic = true;
+            rb.linearVelocity = Vector2.zero;
+            return;
+        }else
+        {
+            rb.isKinematic = false;
+        }
+        
 
         if (movementMode == MovementMode.Free)
         {
@@ -91,6 +105,7 @@ public class MovePlayer : MonoBehaviour
         {
             MoveGrid();
         }
+
     }
 
     // void HandleOnLevelComplete(int completedLevelIndex)
@@ -106,13 +121,36 @@ public class MovePlayer : MonoBehaviour
     {
         float horizontalInput = moveAction.action.ReadValue<Vector2>().x;
         float verticalInput = moveAction.action.ReadValue<Vector2>().y;
+        bool isMoving = new Vector2(horizontalInput, verticalInput).sqrMagnitude > 0.01f;
+
         rb.linearVelocity = new Vector2(horizontalInput, verticalInput) * moveSpeed;
         animator.SetFloat("HorizontalInput", horizontalInput);
         animator.SetFloat("VerticalInput", verticalInput);
+
+        if (!isSpirit && AudioManager.Instance != null)
+        {
+            if (isMoving)
+            {
+                AudioManager.Instance.StartFootstepLoop(AudioManager.Instance.GetCurrentFootstepClip());
+            }
+            else
+            {
+                AudioManager.Instance.StopFootstepSFX();
+            }
+        }
     }
 
     void MoveGrid()
     {
+        rb.linearVelocity = Vector2.zero;
+        animator.SetFloat("HorizontalInput", 0f);
+        animator.SetFloat("VerticalInput", 0f);
+
+        if (!isSpirit && AudioManager.Instance != null)
+        {
+            AudioManager.Instance.StopFootstepSFX();
+        }
+
         if (!moveAction.action.WasPressedThisFrame()) return;
 
         Vector2 input = moveAction.action.ReadValue<Vector2>();
@@ -127,15 +165,18 @@ public class MovePlayer : MonoBehaviour
             direction = input.y > 0 ? Vector3Int.up : Vector3Int.down;
         }
 
-        MoveOneStep(direction);
+        if (MoveOneStep(direction) && !isSpirit && AudioManager.Instance != null)
+        {
+            AudioManager.Instance.PlayFootstepOneShot(AudioManager.Instance.GetCurrentFootstepClip());
+        }
     }
 
-    void MoveOneStep(Vector3Int movement)
+    bool MoveOneStep(Vector3Int movement)
     {
         if (movementTilemap == null)
         {
             Debug.LogWarning("Movement Tilemap is not assigned.");
-            return;
+            return false;
         }
 
         Vector3 currentPlatformPosition = GetPlatformPosition();
@@ -162,7 +203,7 @@ public class MovePlayer : MonoBehaviour
                 if (platform.CurrentState == PressurePlatform.State.Hidden)
                 {
                     Debug.Log("Movement blocked by hidden platform at: " + targetCell);
-                    return; // Fail: Platform exists but is hidden
+                    return false; // Fail: Platform exists but is hidden
                 }
                 else
                 {
@@ -175,7 +216,7 @@ public class MovePlayer : MonoBehaviour
         if (!hasVisiblePlatform && !isDropOffZone)
         {
             Debug.Log("Movement blocked by empty space at: " + targetCell);
-            return;
+            return false;
         }
 
         // 4. Check for obstacles (Walls, Levers, etc.)
@@ -183,7 +224,7 @@ public class MovePlayer : MonoBehaviour
         if (hitCollider != null)
         {
             Debug.Log("Movement blocked by wall/interactable at: " + targetCell);
-            return;
+            return false;
         }
 
         // 5. Check if occupied by another player
@@ -198,6 +239,8 @@ public class MovePlayer : MonoBehaviour
                 Debug.Log("Movement blocked by another player at: " + targetCell);
                 return;
             }
+            Debug.Log("Movement blocked by another player at: " + targetCell);
+            return false;
         }
 
         // 6. ALL CLEAR: Move the player
@@ -211,6 +254,8 @@ public class MovePlayer : MonoBehaviour
             Debug.Log("Stepped on Drop-Off layer! Switching to Free Move mode.");
             SetMovementMode(MovementMode.Free);
         }
+
+        return true;
     }
 
     public void SetControlled(bool controlled)
