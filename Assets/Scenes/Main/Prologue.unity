@@ -187,8 +187,8 @@ Canvas:
   m_GameObject: {fileID: 16968547}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 0
-  m_Camera: {fileID: 0}
+  m_RenderMode: 1
+  m_Camera: {fileID: 130652546}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
@@ -360,6 +360,75 @@ MonoBehaviour:
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
   m_Version: 2
+--- !u!1001 &276716079
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 369157416796768216, guid: 476389b47ac11ef4e83d51d4757c8486, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 369157416796768216, guid: 476389b47ac11ef4e83d51d4757c8486, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 369157416796768216, guid: 476389b47ac11ef4e83d51d4757c8486, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.039999995
+      objectReference: {fileID: 0}
+    - target: {fileID: 369157416796768216, guid: 476389b47ac11ef4e83d51d4757c8486, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.5900002
+      objectReference: {fileID: 0}
+    - target: {fileID: 369157416796768216, guid: 476389b47ac11ef4e83d51d4757c8486, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 369157416796768216, guid: 476389b47ac11ef4e83d51d4757c8486, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 369157416796768216, guid: 476389b47ac11ef4e83d51d4757c8486, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 369157416796768216, guid: 476389b47ac11ef4e83d51d4757c8486, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 369157416796768216, guid: 476389b47ac11ef4e83d51d4757c8486, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 369157416796768216, guid: 476389b47ac11ef4e83d51d4757c8486, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 369157416796768216, guid: 476389b47ac11ef4e83d51d4757c8486, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 369157416796768216, guid: 476389b47ac11ef4e83d51d4757c8486, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5779124705624664248, guid: 476389b47ac11ef4e83d51d4757c8486, type: 3}
+      propertyPath: m_Name
+      value: Spirit(No Indicator)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5779124705624664248, guid: 476389b47ac11ef4e83d51d4757c8486, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 476389b47ac11ef4e83d51d4757c8486, type: 3}
 --- !u!1 &360533740
 GameObject:
   m_ObjectHideFlags: 0
@@ -609,24 +678,34 @@ MonoBehaviour:
   monologueText: {fileID: 787028210}
   monologueBox: {fileID: 1187336777}
   backgroundImage: {fileID: 959479381}
+  spirit: {fileID: 1868872931}
   monologueLines:
   - line: '"A plague brought an end to life on Earth." '
     background: {fileID: -855298285791758126, guid: d59f773f7d4bc2444ab5a9257d2100d6, type: 3}
+    hasSpirit: 0
   - line: '"Humanity slowly faded into memory." '
     background: {fileID: 6937817954938267909, guid: 66f6ad45527f90b4887cd26307f3122c, type: 3}
+    hasSpirit: 0
   - line: '"All that remained was a world slowly returning to nature." '
     background: {fileID: 6937817954938267909, guid: 66f6ad45527f90b4887cd26307f3122c, type: 3}
+    hasSpirit: 0
   - line: '"Yet some souls still remained."'
     background: {fileID: -6470460504253458178, guid: f0d74e92a4a90de42a71de524a8e8129, type: 3}
+    hasSpirit: 1
   - line: '"Unable to find their way home."'
     background: {fileID: -6470460504253458178, guid: f0d74e92a4a90de42a71de524a8e8129, type: 3}
+    hasSpirit: 1
   - line: '"And so, an angel was sent to Earth."'
     background: {fileID: -4178046375966092550, guid: 13bab6e4730925540a895e94b2278f06, type: 3}
+    hasSpirit: 0
   - line: '"With only one task."'
     background: {fileID: -4178046375966092550, guid: 13bab6e4730925540a895e94b2278f06, type: 3}
+    hasSpirit: 0
   - line: '"Bring them home."'
     background: {fileID: -4178046375966092550, guid: 13bab6e4730925540a895e94b2278f06, type: 3}
+    hasSpirit: 0
   typingSpeed: 0.05
+  isEpilogue: 0
 --- !u!4 &805290983
 Transform:
   m_ObjectHideFlags: 0
@@ -793,6 +872,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1187336777}
   m_CullTransparentMesh: 1
+--- !u!1 &1868872931 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5779124705624664248, guid: 476389b47ac11ef4e83d51d4757c8486, type: 3}
+  m_PrefabInstance: {fileID: 276716079}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -801,3 +885,4 @@ SceneRoots:
   - {fileID: 805290983}
   - {fileID: 16968551}
   - {fileID: 360533743}
+  - {fileID: 276716079}

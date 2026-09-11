@@ -3,6 +3,7 @@ using System.Collections;
 using TMPro;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 [System.Serializable]
 public class MonologueLine
@@ -10,6 +11,7 @@ public class MonologueLine
     [TextArea(2, 5)]
     public string line;
     public Sprite background;
+    public bool hasSpirit;
 }
 
 public class PrologueManager : MonoBehaviour
@@ -17,7 +19,9 @@ public class PrologueManager : MonoBehaviour
     public InputActionReference enterAction;
     public TextMeshProUGUI monologueText;
     public GameObject monologueBox;
-    public UnityEngine.UI.Image backgroundImage;
+    public Image backgroundImage;
+
+    public GameObject spirit;
 
     public MonologueLine[] monologueLines;
 
@@ -110,6 +114,7 @@ public class PrologueManager : MonoBehaviour
             elapsedTime += Time.deltaTime;
             float t = Mathf.Clamp01(elapsedTime / duration);
             backgroundImage.sprite = newSprite;
+            if (spirit != null) spirit.SetActive(monologueLines[currentLineIndex].hasSpirit);
             backgroundImage.color = new Color(1f, 1f, 1f, t);
             yield return null;
         }
