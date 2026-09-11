@@ -24,6 +24,9 @@ public class MovePlayer : MonoBehaviour
     [Tooltip("Tilemap layer that triggers Free Move mode when stepped on.")]
     public Tilemap dropOffTilemap; // ADDED: New Tilemap reference for drop-off zones
 
+    [Header("Grid Position")]
+    [SerializeField] private Vector3 gridPositionOffset = new Vector3(0f, 0.5f, 0f);
+
     private Rigidbody2D rb;
     float moveSpeed = 10f;
 
@@ -135,9 +138,10 @@ public class MovePlayer : MonoBehaviour
             return;
         }
 
-        Vector3Int currentcell = movementTilemap.WorldToCell(transform.position);
+        Vector3 currentPlatformPosition = GetPlatformPosition();
+        Vector3Int currentcell = movementTilemap.WorldToCell(currentPlatformPosition);
         Vector3Int targetCell = currentcell + movement;
-        Vector3 targetPosition = movementTilemap.GetCellCenterWorld(targetCell);
+        Vector3 targetPlatformPosition = movementTilemap.GetCellCenterWorld(targetCell);
 
         bool hasVisiblePlatform = false;
         bool isDropOffZone = false; // ADDED: Check for drop-off zone
@@ -151,7 +155,7 @@ public class MovePlayer : MonoBehaviour
         // 2. Check Pressure Platform Manager
         if (PressurePlatformManager.Instance != null)
         {
-            PressurePlatform platform = PressurePlatformManager.Instance.GetByPosition(targetPosition);
+            PressurePlatform platform = PressurePlatformManager.Instance.GetByPosition(targetPlatformPosition);
 
             if (platform != null)
             {
@@ -175,7 +179,7 @@ public class MovePlayer : MonoBehaviour
         }
 
         // 4. Check for obstacles (Walls, Levers, etc.)
-        Collider2D hitCollider = Physics2D.OverlapCircle(targetPosition, 0.1f, wallLayerMask);
+        Collider2D hitCollider = Physics2D.OverlapCircle(targetPlatformPosition, 0.1f, wallLayerMask);
         if (hitCollider != null)
         {
             Debug.Log("Movement blocked by wall/interactable at: " + targetCell);
@@ -183,7 +187,7 @@ public class MovePlayer : MonoBehaviour
         }
 
         // 5. Check if occupied by another player
-        Collider2D playerCollider = Physics2D.OverlapCircle(targetPosition, 0.1f, LayerMask.GetMask("Player"));
+        Collider2D playerCollider = Physics2D.OverlapCircle(targetPlatformPosition, 0.1f, LayerMask.GetMask("Player"));
         if (playerCollider != null)
         {
             Debug.Log("Movement blocked by another player at: " + targetCell);
@@ -191,7 +195,7 @@ public class MovePlayer : MonoBehaviour
         }
 
         // 6. ALL CLEAR: Move the player
-        transform.position = targetPosition;
+        transform.position = targetPlatformPosition + gridPositionOffset;
         animator.SetFloat("HorizontalInput", 0f);
         animator.SetFloat("VerticalInput", 0f);
 
@@ -222,7 +226,37 @@ public class MovePlayer : MonoBehaviour
 
     public void SetMovementMode(MovementMode mode)
     {
+        if (movementMode == mode)
+        {
+            return;
+        }
+
+        if (movementMode == MovementMode.Grid && mode != MovementMode.Grid)
+        {
+            transform.position -= gridPositionOffset;
+        }
+
         movementMode = mode;
+
+        if (movementMode == MovementMode.Grid)
+        {
+            transform.position += gridPositionOffset;
+        }
+    }
+
+    public Vector3 GetPlatformPosition()
+    {
+        if (movementMode == MovementMode.Grid)
+        {
+            return transform.position - gridPositionOffset;
+        }
+
+        return transform.position;
+    }
+
+    public Vector3 GetGridPosition(Vector3 platformPosition)
+    {
+        return platformPosition + gridPositionOffset;
     }
 
     private void OnTriggerEnter2D(Collider2D other)

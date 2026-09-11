@@ -68,7 +68,7 @@ public class MoveArea : MonoBehaviour
             Debug.LogWarning("Movement Tilemap is not assigned.");
             return;
         }
-        Vector3Int currentCell = movementTilemap.WorldToCell(movePlayer.transform.position);
+        Vector3Int currentCell = movementTilemap.WorldToCell(movePlayer.GetPlatformPosition());
         Vector3Int nearestCell = FindNearestTile(currentCell);
 
         if (nearestCell == currentCell)
@@ -93,12 +93,12 @@ public class MoveArea : MonoBehaviour
             return;
         }
 
-        movePlayer.SetMovementMode(MovementMode.Free);
+        movePlayer.SetMovementMode(MovementMode.Grid);
 
-        transform.DOMove(targetPosition, snapDuration).SetEase(Ease.OutQuad).OnComplete(() =>
+        Vector3 gridTargetPosition = movePlayer.GetGridPosition(targetPosition);
+        transform.DOMove(gridTargetPosition, snapDuration).SetEase(Ease.OutQuad).OnComplete(() =>
         {
             Debug.Log("Snapped to nearest tile at: " + nearestCell);
-            movePlayer.SetMovementMode(MovementMode.Grid);
         });
     }
 
@@ -120,7 +120,7 @@ public class MoveArea : MonoBehaviour
                     continue;
                 }
                 Vector3 worldPosition = movementTilemap.GetCellCenterWorld(cell);
-                float distance = Vector2.Distance(transform.position, worldPosition);
+                float distance = Vector2.Distance(movePlayer.GetPlatformPosition(), worldPosition);
 
                 if (distance < nearestDistance)
                 {
