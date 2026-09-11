@@ -86,7 +86,16 @@ public class MovePlayer : MonoBehaviour
 
     void Update()
     {
-        if (!isControlled) return;
+        if (!isControlled) 
+        {
+            rb.isKinematic = true;
+            rb.linearVelocity = Vector2.zero;
+            return;
+        }else
+        {
+            rb.isKinematic = false;
+        }
+        
 
         if (movementMode == MovementMode.Free)
         {
@@ -96,6 +105,7 @@ public class MovePlayer : MonoBehaviour
         {
             MoveGrid();
         }
+
     }
 
     // void HandleOnLevelComplete(int completedLevelIndex)
