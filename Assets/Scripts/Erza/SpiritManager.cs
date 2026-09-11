@@ -60,6 +60,16 @@ public class SpiritManager : MonoBehaviour
         }
     }
 
+    public void DestroyAllSpirits(){
+        for(int i = playerManager.movePlayers.Count - 1; i > 0; i--){
+            MovePlayer spirit = playerManager.movePlayers[i];
+            playerManager.RemoveSpirit(spirit);
+            if(spirit != null){
+                Destroy(spirit.gameObject);
+            }
+        }
+    }
+
     // void GenerateRandomSpawnPosition(){
     //     float x = Random.Range(levelSpiritInfo.minSpawnPosition.x, levelSpiritInfo.maxSpawnPosition.x);
     //     float y = Random.Range(levelSpiritInfo.minSpawnPosition.y, levelSpiritInfo.maxSpawnPosition.y);

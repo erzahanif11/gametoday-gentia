@@ -21,11 +21,18 @@ public class LevelManager : MonoBehaviour
     public GameObject arrow;
     public GameObject offBoundary;
     public GameObject onBoundary;
+    public SpiritManager spiritManager;
+
     void Awake()
     {
         if (levelState == null)
         {
             levelState = GetComponent<LevelState>();
+        }
+
+        if (spiritManager == null)
+        {
+            spiritManager = FindAnyObjectByType<SpiritManager>();
         }
     }
 
@@ -46,7 +53,6 @@ public class LevelManager : MonoBehaviour
             }
 
             // Setup spirit manager dengan level data
-            SpiritManager spiritManager = FindAnyObjectByType<SpiritManager>();
             if (spiritManager != null)
             {
                 // spiritManager.SetupLevel(entry.levelSpiritInfo);
@@ -83,6 +89,11 @@ public class LevelManager : MonoBehaviour
             arrow.SetActive(true);
             offBoundary.SetActive(false);
             onBoundary.SetActive(true);
+            
+            if (spiritManager != null)
+            {
+                spiritManager.DestroyAllSpirits();
+            }
         }
     }
 
