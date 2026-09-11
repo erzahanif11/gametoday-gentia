@@ -39,7 +39,7 @@ public class AudioAssigner : MonoBehaviour
         }
         else
         {
-            if(!audioManager.IsMusicPlaying(audioManager.gameplayMusic))
+            if(!audioManager.IsPlayingMusic(audioManager.gameplayMusic))
             {
                 audioManager.PlayMusic(audioManager.gameplayMusic);
             }
