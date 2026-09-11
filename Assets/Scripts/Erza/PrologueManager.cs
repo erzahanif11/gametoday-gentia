@@ -34,6 +34,10 @@ public class PrologueManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        if (enterAction != null)
+        {
+            enterAction.action.Enable();
+        }
         ShowLine();
     }
 

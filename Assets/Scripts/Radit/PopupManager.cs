@@ -49,6 +49,23 @@ public class PopupManager : MonoBehaviour
         }
     }
 
+    private void OnEnable()
+    {
+        if (enterAction != null)
+        {
+            enterAction.action.Enable();
+            enterAction.action.performed += OnActionPerformed;
+        }
+    }
+
+    private void OnDisable()
+    {
+        if (enterAction != null)
+        {
+            enterAction.action.performed -= OnActionPerformed;
+        }
+    }
+
     private void Start()
     {
         if (enterAction != null)
@@ -92,15 +109,22 @@ public class PopupManager : MonoBehaviour
         IsPopupOpen = true;
         Time.timeScale = 0f; // Freeze gameplay di belakang
 
+        gameObject.SetActive(true); // Pastikan PopupManager sendiri menyala
         if (popupCanvas != null) popupCanvas.SetActive(true);
+
+        // Pastikan action kembali aktif jika sempat dimatikan oleh skrip lain (misal PlayerInteract saat di-destroy)
+        if (enterAction != null)
+        {
+            enterAction.action.Enable();
+        }
 
         AnimatePopupIn();
         ShowCurrentLine();
     }
 
-    private void Update()
+    private void OnActionPerformed(UnityEngine.InputSystem.InputAction.CallbackContext context)
     {
-        if (IsPopupOpen && enterAction != null && enterAction.action.triggered)
+        if (IsPopupOpen)
         {
             OnInputTriggered();
         }
@@ -224,9 +248,5 @@ public class PopupManager : MonoBehaviour
     private void OnDestroy()
     {
         IsPopupOpen = false;
-        if (enterAction != null)
-        {
-            enterAction.action.Disable();
-        }
     }
 }

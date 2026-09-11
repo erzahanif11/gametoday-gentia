@@ -420,11 +420,20 @@ PrefabInstance:
       propertyPath: m_SortingOrder
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4301149336547728073, guid: 476389b47ac11ef4e83d51d4757c8486, type: 3}
+      propertyPath: playerMoveMode
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 5779124705624664248, guid: 476389b47ac11ef4e83d51d4757c8486, type: 3}
       propertyPath: m_Name
       value: Spirit(No Indicator) (4)
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 4396613508979886414, guid: 476389b47ac11ef4e83d51d4757c8486, type: 3}
+    - {fileID: 6603204681195119971, guid: 476389b47ac11ef4e83d51d4757c8486, type: 3}
+    - {fileID: 4301149336547728073, guid: 476389b47ac11ef4e83d51d4757c8486, type: 3}
+    - {fileID: 4317333647526680055, guid: 476389b47ac11ef4e83d51d4757c8486, type: 3}
+    - {fileID: 4080931184659900229, guid: 476389b47ac11ef4e83d51d4757c8486, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -560,11 +569,20 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4301149336547728073, guid: 476389b47ac11ef4e83d51d4757c8486, type: 3}
+      propertyPath: playerMoveMode
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 5779124705624664248, guid: 476389b47ac11ef4e83d51d4757c8486, type: 3}
       propertyPath: m_Name
       value: Spirit(No Indicator)
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 4396613508979886414, guid: 476389b47ac11ef4e83d51d4757c8486, type: 3}
+    - {fileID: 6603204681195119971, guid: 476389b47ac11ef4e83d51d4757c8486, type: 3}
+    - {fileID: 4301149336547728073, guid: 476389b47ac11ef4e83d51d4757c8486, type: 3}
+    - {fileID: 4317333647526680055, guid: 476389b47ac11ef4e83d51d4757c8486, type: 3}
+    - {fileID: 4080931184659900229, guid: 476389b47ac11ef4e83d51d4757c8486, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -629,11 +647,20 @@ PrefabInstance:
       propertyPath: m_SortingOrder
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4301149336547728073, guid: 476389b47ac11ef4e83d51d4757c8486, type: 3}
+      propertyPath: playerMoveMode
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 5779124705624664248, guid: 476389b47ac11ef4e83d51d4757c8486, type: 3}
       propertyPath: m_Name
       value: Spirit(No Indicator) (2)
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 4396613508979886414, guid: 476389b47ac11ef4e83d51d4757c8486, type: 3}
+    - {fileID: 6603204681195119971, guid: 476389b47ac11ef4e83d51d4757c8486, type: 3}
+    - {fileID: 4301149336547728073, guid: 476389b47ac11ef4e83d51d4757c8486, type: 3}
+    - {fileID: 4317333647526680055, guid: 476389b47ac11ef4e83d51d4757c8486, type: 3}
+    - {fileID: 4080931184659900229, guid: 476389b47ac11ef4e83d51d4757c8486, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -671,18 +698,23 @@ MonoBehaviour:
   monologueText: {fileID: 2124064358}
   monologueBox: {fileID: 1187336777}
   backgroundImage: {fileID: 959479381}
-  canvas: {fileID: 0}
+  spirit: {fileID: 0}
   monologueLines:
   - line: '"One by one, the lost souls found their way home."'
     background: {fileID: 5100088941278441565, guid: cb4cc9af53168914c8981c360ded4ae8, type: 3}
+    hasSpirit: 0
   - line: '"With every soul returned, the angel''s task was complete."'
     background: {fileID: 5100088941278441565, guid: cb4cc9af53168914c8981c360ded4ae8, type: 3}
+    hasSpirit: 0
   - line: '"There was nothing left to save."'
     background: {fileID: 5100088941278441565, guid: cb4cc9af53168914c8981c360ded4ae8, type: 3}
+    hasSpirit: 0
   - line: '"And the world was left to heal."'
     background: {fileID: 5100088941278441565, guid: cb4cc9af53168914c8981c360ded4ae8, type: 3}
+    hasSpirit: 0
   - line: '"Until the end."'
     background: {fileID: 5100088941278441565, guid: cb4cc9af53168914c8981c360ded4ae8, type: 3}
+    hasSpirit: 0
   typingSpeed: 0.05
   isEpilogue: 1
 --- !u!4 &805290983
@@ -835,11 +867,20 @@ PrefabInstance:
       propertyPath: m_SortingOrder
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4301149336547728073, guid: 476389b47ac11ef4e83d51d4757c8486, type: 3}
+      propertyPath: playerMoveMode
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 5779124705624664248, guid: 476389b47ac11ef4e83d51d4757c8486, type: 3}
       propertyPath: m_Name
       value: Spirit(No Indicator) (1)
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 4396613508979886414, guid: 476389b47ac11ef4e83d51d4757c8486, type: 3}
+    - {fileID: 6603204681195119971, guid: 476389b47ac11ef4e83d51d4757c8486, type: 3}
+    - {fileID: 4301149336547728073, guid: 476389b47ac11ef4e83d51d4757c8486, type: 3}
+    - {fileID: 4317333647526680055, guid: 476389b47ac11ef4e83d51d4757c8486, type: 3}
+    - {fileID: 4080931184659900229, guid: 476389b47ac11ef4e83d51d4757c8486, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
