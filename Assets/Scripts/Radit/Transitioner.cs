@@ -33,6 +33,7 @@ public class Transitioner : MonoBehaviour, IInteractable
         if (_isInteractable)
         {
             Debug.Log("Pintu diinteraksi! Pindah scene...");
+            AudioManager.Instance.PlaySFX(AudioManager.Instance.openDoorSFX);
             FadeTransition.Instance.TransitionToScene(_sceneName);
         }
     }

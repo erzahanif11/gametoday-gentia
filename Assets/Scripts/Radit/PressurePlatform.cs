@@ -149,6 +149,11 @@ public class PressurePlatform : MonoBehaviour
         CurrentState = State.Hidden;
         activatorCount = 0;
 
+        if (animate && AudioManager.Instance != null)
+        {
+            AudioManager.Instance.PlaySFX(AudioManager.Instance.platformDisappearSFX);
+        }
+
         if (animate && spriteRenderer != null)
         {
             PlayHideAnimation();
@@ -180,6 +185,11 @@ public class PressurePlatform : MonoBehaviour
     private void SetRevealed(bool animate)
     {
         CurrentState = State.Revealed;
+
+        if (animate && AudioManager.Instance != null)
+        {
+            AudioManager.Instance.PlaySFX(AudioManager.Instance.platformAppearSFX);
+        }
 
         if (col != null)
             col.enabled = true;
