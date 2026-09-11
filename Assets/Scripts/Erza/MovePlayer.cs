@@ -228,9 +228,17 @@ public class MovePlayer : MonoBehaviour
         }
 
         // 5. Check if occupied by another player
-        Collider2D playerCollider = Physics2D.OverlapCircle(targetPlatformPosition, 0.1f, LayerMask.GetMask("Player"));
-        if (playerCollider != null)
+        Vector3 playerCheckPos = targetPlatformPosition + gridPositionOffset;
+        Collider2D[] playerColliders = Physics2D.OverlapCircleAll(playerCheckPos, 0.1f, LayerMask.GetMask("Player"));
+        foreach (Collider2D col in playerColliders)
         {
+            Debug.Log("Player detected at: " + targetCell);
+            MovePlayer otherPlayer = col.GetComponentInParent<MovePlayer>();
+            if (otherPlayer != null && otherPlayer != this)
+            {
+                Debug.Log("Movement blocked by another player at: " + targetCell);
+                return;
+            }
             Debug.Log("Movement blocked by another player at: " + targetCell);
             return false;
         }

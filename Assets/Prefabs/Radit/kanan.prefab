@@ -110,6 +110,7 @@ MonoBehaviour:
   targetIds: 
   offTargetIds: 
   isOn: 0
+  isPlayerInRange: 0
   onSprite: {fileID: 21300000, guid: 87295c4d27f53b2448502b9c18bd9672, type: 3}
   offSprite: {fileID: 21300000, guid: fd37759e564f312488cba40f5d208593, type: 3}
   onTint: {r: 1, g: 1, b: 1, a: 1}
@@ -150,7 +151,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.000000059604645, y: -0.04647997}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -160,5 +161,5 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.7004628, y: 0.48355645}
   m_EdgeRadius: 0

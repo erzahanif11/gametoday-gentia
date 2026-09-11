@@ -55,7 +55,7 @@ public class Lever : MonoBehaviour, IInteractable
         // 3. Tambahkan Trigger Collider dinamis (Lingkaran) khusus untuk mendeteksi interaksi Player
         CircleCollider2D interactTrigger = gameObject.AddComponent<CircleCollider2D>();
         interactTrigger.isTrigger = true;
-        interactTrigger.radius = 0.6f; // Sesuaikan radius jangkauan deteksi interaksi
+        interactTrigger.radius = 0.7f; // Sesuaikan radius jangkauan deteksi interaksi
 
         // 4. Simpan semua collider (bawaan + buatan dinamis) untuk dikontrol saat hidden/reveal
         allColliders = GetComponents<Collider2D>();
