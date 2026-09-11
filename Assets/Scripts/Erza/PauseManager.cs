@@ -12,7 +12,7 @@ public class PauseManager : MonoBehaviour
 
     void Update()
     {
-        if (pauseActionReference.action.triggered && !isPopUpActive)
+        if (pauseActionReference.action.triggered && !isPopUpActive && !TutorialManager.IsTutorialOpen && !PopupManager.IsPopupOpen)
         {
             TogglePauseMenu();
         }

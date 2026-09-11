@@ -26,6 +26,8 @@ public class MovePlayer : MonoBehaviour
 
     [Header("Grid Position")]
     [SerializeField] private Vector3 gridPositionOffset = new Vector3(0f, 0.5f, 0f);
+    
+    [HideInInspector] public Vector3 previousPlatformPosition;
 
     private Rigidbody2D rb;
     float moveSpeed = 10f;
@@ -58,6 +60,7 @@ public class MovePlayer : MonoBehaviour
     void Start()
     {
         playerIndicator.toggleIndicator(isControlled);
+        previousPlatformPosition = transform.position;
     }
 
     void OnEnable()
@@ -244,6 +247,7 @@ public class MovePlayer : MonoBehaviour
         }
 
         // 6. ALL CLEAR: Move the player
+        previousPlatformPosition = transform.position; // Save before moving
         transform.position = targetPlatformPosition + gridPositionOffset;
         animator.SetFloat("HorizontalInput", 0f);
         animator.SetFloat("VerticalInput", 0f);
@@ -256,6 +260,12 @@ public class MovePlayer : MonoBehaviour
         }
 
         return true;
+    }
+
+    public void PushBack()
+    {
+        Debug.Log($"{gameObject.name} pushed back to previous position due to platform disappearing!");
+        transform.position = previousPlatformPosition;
     }
 
     public void SetControlled(bool controlled)

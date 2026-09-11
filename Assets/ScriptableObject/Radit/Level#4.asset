@@ -14,87 +14,82 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ChainReactionData
   rules:
   - sourceId: 1
-    targetIds:
-    - 2
+    targetIds: 03000000
+    offTargetIds: 
     delay: 0.15
     persistent: 1
   - sourceId: 2
-    targetIds:
-    - 3
-    - 4
-    delay: 0.15
-    persistent: 1
-  - sourceId: 4
-    targetIds:
-    - 5
+    targetIds: 
+    offTargetIds: 
     delay: 0.15
     persistent: 1
   - sourceId: 3
-    targetIds:
-    - 6
+    targetIds: 04000000
+    offTargetIds: 
     delay: 0.15
     persistent: 1
-  - sourceId: 6
-    targetIds:
-    - 7
+  - sourceId: 9
+    targetIds: 
+    offTargetIds: 
     delay: 0.15
-    persistent: 0
+    persistent: 1
   - sourceId: 7
-    targetIds:
-    - 11
+    targetIds: 0a000000
+    offTargetIds: 
     delay: 0.15
     persistent: 1
   - sourceId: 10
-    targetIds:
-    - 12
+    targetIds: 0b0000000c000000
+    offTargetIds: 
     delay: 0.15
     persistent: 1
-  - sourceId: 12
-    targetIds:
-    - 13
+  - sourceId: 11
+    targetIds: 0f000000
+    offTargetIds: 
     delay: 0.15
-    persistent: 1
+    persistent: 0
   - sourceId: 13
-    targetIds:
-    - 14
+    targetIds: 10000000
+    offTargetIds: 
     delay: 0.15
     persistent: 1
   - sourceId: 14
-    targetIds:
-    - 151
+    targetIds: 11000000
+    offTargetIds: 
     delay: 0.15
     persistent: 1
-  - sourceId: 151
-    targetIds:
-    - 161
-    - 162
-    delay: 0.15
-    persistent: 1
-  - sourceId: 17
-    targetIds:
-    - 18
-    delay: 0.15
-    persistent: 1
-  - sourceId: 18
-    targetIds:
-    - 19
-    delay: 0.15
-    persistent: 1
-  - sourceId: 19
-    targetIds:
-    - 20
-    delay: 0.15
-    persistent: 1
-  - sourceId: 22
-    targetIds:
-    - 23
-    - 24
+  - sourceId: 2
+    targetIds: 13000000
+    offTargetIds: 
     delay: 0.15
     persistent: 0
-  - sourceId: 21
-    targetIds:
-    - 25
-    - 27
-    - 28
+  - sourceId: 18
+    targetIds: 1400000015000000
+    offTargetIds: 
+    delay: 0.15
+    persistent: 1
+  - sourceId: 12
+    targetIds: 0d0000000e000000
+    offTargetIds: 09000000
+    delay: 0.15
+    persistent: 0
+  - sourceId: 22
+    targetIds: 
+    offTargetIds: 
+    delay: 0.15
+    persistent: 1
+  - sourceId: 23
+    targetIds: 
+    offTargetIds: 
+    delay: 0.15
+    persistent: 1
+  - sourceId: 24
+    targetIds: 
+    offTargetIds: 
+    delay: 0.15
+    persistent: 1
+  - sourceId: 25
+    targetIds: 
+    offTargetIds: 
     delay: 0.15
     persistent: 1

@@ -23,6 +23,15 @@ public class LevelManager : MonoBehaviour
     public GameObject onBoundary;
     public SpiritManager spiritManager;
 
+    [Header("Level Complete Popup")]
+    public PopupManager popupManager;
+    [TextArea]
+    public string[] levelCompleteMessages = new string[] {
+        "Bagus Sekali!",
+        "Teka-teki di area ini telah terpecahkan.",
+        "Jalan menuju area selanjutnya telah terbuka."
+    };
+
     void Awake()
     {
         if (levelState == null)
@@ -82,20 +91,35 @@ public class LevelManager : MonoBehaviour
         if (levelState != null)
         {
             levelState.SetLevelState(LevelStateEnum.Completed);
-            // clearedLevelId = currentLevelId;
-            // Debug.Log("Current State of Level ID " + currentLevelData.levelId + " is " + levelState.levelState);
 
-            Transitioner.SetActive(true);
-            arrow.SetActive(true);
-            offBoundary.SetActive(false);
-            onBoundary.SetActive(true);
-            
             if (spiritManager != null)
             {
                 spiritManager.DestroyAllSpirits();
             }
             AudioManager.Instance.PlaySFX(AudioManager.Instance.puzzleCompleteSFX);
+
+            // Tampilkan popup jika ada, jalankan aksi buka jalan setelah popup selesai
+            if (popupManager != null && levelCompleteMessages != null && levelCompleteMessages.Length > 0)
+            {
+                popupManager.ShowLevelCompletePopup(levelCompleteMessages, () =>
+                {
+                    OpenPath();
+                });
+            }
+            else
+            {
+                // Jika tidak ada popup, langsung buka jalan
+                OpenPath();
+            }
         }
+    }
+
+    private void OpenPath()
+    {
+        if (Transitioner != null) Transitioner.SetActive(true);
+        if (arrow != null) arrow.SetActive(true);
+        if (offBoundary != null) offBoundary.SetActive(false);
+        if (onBoundary != null) onBoundary.SetActive(true);
     }
 
     // public void NextLevel(){

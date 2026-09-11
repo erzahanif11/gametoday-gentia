@@ -36,6 +36,9 @@ public class PressurePlatform : MonoBehaviour
     [Tooltip("IDs of platforms to reveal when this one is activated.")]
     public int[] targetIds;
 
+    [Tooltip("IDs of platforms to hide when this one is activated (and reveal when deactivated).")]
+    public int[] offTargetIds;
+
     [Tooltip("Delay (seconds) before each target is revealed/hidden.")]
     public float triggerDelay = 0.15f;
 
@@ -258,7 +261,7 @@ public class PressurePlatform : MonoBehaviour
 
     private IEnumerator TriggerChainReaction()
     {
-        if (targetIds == null || targetIds.Length == 0) yield break;
+        if ((targetIds == null || targetIds.Length == 0) && (offTargetIds == null || offTargetIds.Length == 0)) yield break;
 
         var manager = PressurePlatformManager.Instance;
         if (manager == null)
@@ -267,20 +270,43 @@ public class PressurePlatform : MonoBehaviour
             yield break;
         }
 
-        for (int i = 0; i < targetIds.Length; i++)
+        if (targetIds != null)
         {
-            if (triggerDelay > 0f)
-                yield return new WaitForSeconds(triggerDelay);
+            for (int i = 0; i < targetIds.Length; i++)
+            {
+                if (triggerDelay > 0f)
+                    yield return new WaitForSeconds(triggerDelay);
 
-            PressurePlatform target = manager.GetById(targetIds[i]);
-            if (target != null)
-            {
-                target.Reveal(animate: true);
+                PressurePlatform target = manager.GetById(targetIds[i]);
+                if (target != null)
+                {
+                    target.Reveal(animate: true);
+                }
+                else
+                {
+                    Debug.LogWarning(
+                        $"PressurePlatform {platformId}: Target ID {targetIds[i]} not found.", this);
+                }
             }
-            else
+        }
+
+        if (offTargetIds != null)
+        {
+            for (int i = 0; i < offTargetIds.Length; i++)
             {
-                Debug.LogWarning(
-                    $"PressurePlatform {platformId}: Target ID {targetIds[i]} not found.", this);
+                if (triggerDelay > 0f)
+                    yield return new WaitForSeconds(triggerDelay);
+
+                PressurePlatform target = manager.GetById(offTargetIds[i]);
+                if (target != null)
+                {
+                    target.Hide(animate: true, force: true, overridePersistent: true);
+                }
+                else
+                {
+                    Debug.LogWarning(
+                        $"PressurePlatform {platformId}: OffTarget ID {offTargetIds[i]} not found.", this);
+                }
             }
         }
 
@@ -297,18 +323,32 @@ public class PressurePlatform : MonoBehaviour
     /// </summary>
     private IEnumerator HideChainTargets()
     {
-        if (targetIds == null || targetIds.Length == 0) yield break;
+        if ((targetIds == null || targetIds.Length == 0) && (offTargetIds == null || offTargetIds.Length == 0)) yield break;
 
         var manager = PressurePlatformManager.Instance;
         if (manager == null) yield break;
 
-        for (int i = 0; i < targetIds.Length; i++)
+        if (targetIds != null)
         {
-            PressurePlatform target = manager.GetById(targetIds[i]);
-            if (target == null) continue;
+            for (int i = 0; i < targetIds.Length; i++)
+            {
+                PressurePlatform target = manager.GetById(targetIds[i]);
+                if (target == null) continue;
 
-            // Force-hide: chain dependency is broken, collapse everything
-            target.Hide(animate: true, force: true);
+                // Force-hide: chain dependency is broken, collapse everything
+                target.Hide(animate: true, force: true);
+            }
+        }
+
+        if (offTargetIds != null)
+        {
+            for (int i = 0; i < offTargetIds.Length; i++)
+            {
+                PressurePlatform target = manager.GetById(offTargetIds[i]);
+                if (target == null) continue;
+
+                target.Reveal(animate: true);
+            }
         }
     }
 
@@ -349,7 +389,29 @@ public class PressurePlatform : MonoBehaviour
             persistent = wasPersistent;
         }
 
+        // Push back any spirits standing on this platform before it hides
+        if (activatorCount > 0)
+        {
+            PushBackSpirits();
+        }
+
         SetHidden(animate);
+    }
+
+    private void PushBackSpirits()
+    {
+        int count = Physics2D.OverlapBoxNonAlloc(transform.position, detectionSize, 0f, overlapBuffer);
+        for (int i = 0; i < count; i++)
+        {
+            if (overlapBuffer[i] != null && overlapBuffer[i].CompareTag("Player"))
+            {
+                MovePlayer player = overlapBuffer[i].GetComponentInParent<MovePlayer>();
+                if (player != null)
+                {
+                    player.PushBack();
+                }
+            }
+        }
     }
 
     private Sequence currentSequence;

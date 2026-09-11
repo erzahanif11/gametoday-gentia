@@ -324,6 +324,7 @@ public class TilemapSpawner : MonoBehaviour
             }
 
             source.targetIds = rule.targetIds;
+            source.offTargetIds = rule.offTargetIds;
             source.triggerDelay = rule.delay;
             source.persistent = rule.persistent;
 
@@ -331,6 +332,16 @@ public class TilemapSpawner : MonoBehaviour
             if (!allTargetIds.Contains(rule.sourceId))
             {
                 source.startsRevealed = true;
+            }
+
+            // Platforms in offTargetIds should start revealed because the source platform is initially NOT stepped on
+            if (rule.offTargetIds != null)
+            {
+                for (int j = 0; j < rule.offTargetIds.Length; j++)
+                {
+                    var target = manager.GetById(rule.offTargetIds[j]);
+                    if (target != null) target.startsRevealed = true;
+                }
             }
         }
     }

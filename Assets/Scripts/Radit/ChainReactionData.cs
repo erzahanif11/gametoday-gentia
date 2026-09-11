@@ -40,6 +40,9 @@ public struct ChainRule
     [Tooltip("IDs of platforms to reveal when this rule fires.")]
     public int[] targetIds;
 
+    [Tooltip("IDs of platforms to hide when this rule fires (and reveal when reversed).")]
+    public int[] offTargetIds;
+
     [Tooltip("Delay (seconds) before targets are revealed.")]
     public float delay;
 

@@ -13,27 +13,6 @@ MonoBehaviour:
   m_Name: Level#4Lever
   m_EditorClassIdentifier: Assembly-CSharp::LeverData
   rules:
-  - leverId: 8
-    targetIds:
-    - 9
-    offTargetIds: []
-  - leverId: 152
-    targetIds: []
-    offTargetIds:
-    - 12
-  - leverId: 161
-    targetIds:
-    - 17
-    offTargetIds: []
-  - leverId: 20
-    targetIds:
-    - 7
-    - 21
-    - 22
-    offTargetIds: []
-  - leverId: 27
-    targetIds:
-    - 23
-    offTargetIds:
-    - 9
-    - 24
+  - leverId: 6
+    targetIds: 08000000
+    offTargetIds: 07000000
