@@ -36,7 +36,7 @@ public class AudioAssigner : MonoBehaviour
             audioManager.StopMusic();
             audioManager.PlayMusic(audioManager.epilogueMusic);
         }
-        else
+        else if(scene.name == "Level1")
         {
             audioManager.PlayMusic(audioManager.gameplayMusic);
         }
