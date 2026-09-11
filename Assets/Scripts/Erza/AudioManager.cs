@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
@@ -9,6 +10,7 @@ public class AudioManager : MonoBehaviour
     public AudioSource musicSource;
     public AudioSource sfxSource;
     public AudioSource ambientSource;
+    public AudioSource footstepSource;
     public AudioMixer audioMixer;
 
     [Header("Music")]
@@ -144,6 +146,44 @@ public class AudioManager : MonoBehaviour
         ambientSource.volume = volume;
         ambientSource.loop = true;
         ambientSource.Play();
+    }
+
+    public void PlayFootstepOneShot(AudioClip clip, float volume = 1f)
+    {
+        if (clip == null || footstepSource == null) return;
+        if (footstepSource.loop)
+        {
+            footstepSource.Stop();
+            footstepSource.loop = false;
+        }
+        footstepSource.PlayOneShot(clip, volume);
+    }
+
+    public void StartFootstepLoop(AudioClip clip, float volume = 1f)
+    {
+        if (clip == null || footstepSource == null) return;
+        if (footstepSource.isPlaying && footstepSource.loop && footstepSource.clip == clip) return;
+
+        footstepSource.Stop();
+        footstepSource.loop = true;
+        footstepSource.clip = clip;
+        footstepSource.volume = volume;
+        footstepSource.Play();
+    }
+
+    public AudioClip GetCurrentFootstepClip()
+    {
+        string sceneName = SceneManager.GetActiveScene().name;
+        bool isLevelScene = sceneName.IndexOf("Level", StringComparison.OrdinalIgnoreCase) >= 0;
+        return isLevelScene ? footstepWoodSFX : footstepGrassSFX;
+    }
+
+    public void StopFootstepSFX()
+    {
+        if (footstepSource != null)
+        {
+            footstepSource.Stop();
+        }
     }
 
     public void SetMasterVolume(float volume)
