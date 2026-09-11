@@ -23,19 +23,22 @@ public class AudioAssigner : MonoBehaviour
     {
         if (scene.name == "MainMenu")
         {
+            audioManager.StopMusic();
             audioManager.PlayMusic(audioManager.mainMenuMusic);
         }
         else if (scene.name == "Prologue")
         {
+            audioManager.StopMusic();
             audioManager.PlayMusic(audioManager.prologueMusic);
-        }
-        else if (scene.name == "Gameplay")
-        {
-            audioManager.PlayMusic(audioManager.gameplayMusic);
         }
         else if (scene.name == "Epilogue")
         {
+            audioManager.StopMusic();
             audioManager.PlayMusic(audioManager.epilogueMusic);
+        }
+        else
+        {
+            audioManager.PlayMusic(audioManager.gameplayMusic);
         }
     }
 }

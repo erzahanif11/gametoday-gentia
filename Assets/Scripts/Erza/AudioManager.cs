@@ -1,5 +1,8 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class AudioManager : MonoBehaviour
 {
@@ -16,6 +19,7 @@ public class AudioManager : MonoBehaviour
 
     [Header("SFX")]
     public AudioClip clickSFX;
+    // public AudioClip hoverSFX;
     public AudioClip angelLandingSFX;
     public AudioClip footstepGrassSFX;
     public AudioClip footstepWoodSFX;
@@ -36,6 +40,10 @@ public class AudioManager : MonoBehaviour
 
     public static AudioManager Instance { get; private set; }
 
+    private readonly HashSet<Button> buttonsWithClickSound = new();
+    private float buttonScanTimer;
+
+
     void OnEnable()
     {
         if (Instance == null)
@@ -48,7 +56,57 @@ public class AudioManager : MonoBehaviour
             Destroy(gameObject);
         }
         SetInitialVolumes();
+        SceneManager.sceneLoaded += OnSceneLoaded;
+        RegisterButtonClickSounds();
     }
+
+    void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    void Update()
+    {
+        buttonScanTimer -= Time.unscaledDeltaTime;
+        if (buttonScanTimer <= 0f)
+        {
+            buttonScanTimer = 0.5f;
+            RegisterButtonClickSounds();
+        }
+    }
+
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        RegisterButtonClickSounds();
+    }
+
+    void RegisterButtonClickSounds()
+    {
+        Button[] buttons = FindObjectsByType<Button>(FindObjectsInactive.Include, FindObjectsSortMode.None);
+
+        foreach (Button button in buttons)
+        {
+            if (buttonsWithClickSound.Add(button))
+            {
+                button.onClick.AddListener(PlayClickSFX);
+            }
+
+            // if (button.GetComponent<HoverSoundTrigger>() == null)
+            // {
+            //     button.gameObject.AddComponent<HoverSoundTrigger>();
+            // }
+        }
+    }
+
+    void PlayClickSFX()
+    {
+        PlaySFX(clickSFX);
+    }
+
+    // public void PlayHoverSFX()
+    // {
+    //     PlaySFX(hoverSFX);
+    // }
 
     void SetInitialVolumes()
     {
@@ -69,8 +127,14 @@ public class AudioManager : MonoBehaviour
         musicSource.Play();
     }
 
+    public void StopMusic()
+    {
+        musicSource.Stop();
+    }
+
     public void PlaySFX(AudioClip clip, float volume = 1f)
     {
+        if (clip == null || sfxSource == null) return;
         sfxSource.PlayOneShot(clip, volume);
     }
 
