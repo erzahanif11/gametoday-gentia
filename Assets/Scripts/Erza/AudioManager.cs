@@ -23,6 +23,7 @@ public class AudioManager : MonoBehaviour
     public AudioClip clickSFX;
     // public AudioClip hoverSFX;
     public AudioClip angelLandingSFX;
+    public AudioClip angelTakeoffSFX;
     public AudioClip footstepGrassSFX;
     public AudioClip footstepWoodSFX;
     public AudioClip leverInteractionSFX;
@@ -31,6 +32,7 @@ public class AudioManager : MonoBehaviour
     public AudioClip platformDisappearSFX;
     public AudioClip puzzleCompleteSFX;
     public AudioClip spiritCaptured;
+    public AudioClip playerSwapSFX;
 
     [Header("Ambient")]
     public AudioClip softWindAmbient;

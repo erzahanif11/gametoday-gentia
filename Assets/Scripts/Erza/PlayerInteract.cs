@@ -91,6 +91,7 @@ public class PlayerInteract : MonoBehaviour
     {
         if (currentInteractable != null)
         {
+            AudioManager.Instance.PlaySFX(AudioManager.Instance.leverInteractionSFX);
             currentInteractable.Interact();
         }
     }

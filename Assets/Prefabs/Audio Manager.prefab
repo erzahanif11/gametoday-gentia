@@ -58,15 +58,17 @@ MonoBehaviour:
   gameplayMusic: {fileID: 8300000, guid: 2e204542741281f48bc59f218847bf67, type: 3}
   epilogueMusic: {fileID: 8300000, guid: d2fc887bdedfdb349bede74e6d5b5d6f, type: 3}
   clickSFX: {fileID: 8300000, guid: 93dc613a72115744cab4dcc48641ccd6, type: 3}
-  angelLandingSFX: {fileID: 0}
+  angelLandingSFX: {fileID: 8300000, guid: 6d909bb67d47d0d4eb9b6ebad71ccdd0, type: 3}
+  angelTakeoffSFX: {fileID: 8300000, guid: e662e1b96393afb469eec63f1a218115, type: 3}
   footstepGrassSFX: {fileID: 8300000, guid: 66dd7e2c4b1926c49a79aed601cda8a7, type: 3}
   footstepWoodSFX: {fileID: 8300000, guid: 5875598373c18f24587131ba8612c4e1, type: 3}
-  leverInteractionSFX: {fileID: 0}
+  leverInteractionSFX: {fileID: 8300000, guid: a7c052bbbf89d0142b14c016a18ea5de, type: 3}
   openDoorSFX: {fileID: 8300000, guid: a7b7260e9d04f8940b82701259b1b648, type: 3}
   platformAppearSFX: {fileID: 8300000, guid: 8eaa01bc2dfdab64989ba29964265d23, type: 3}
   platformDisappearSFX: {fileID: 8300000, guid: 266395b72a0376e42a87f7364fea50a0, type: 3}
-  puzzleCompleteSFX: {fileID: 0}
-  spiritCaptured: {fileID: 0}
+  puzzleCompleteSFX: {fileID: 8300000, guid: 93ab01af87165044bb723de2f55a3572, type: 3}
+  spiritCaptured: {fileID: 8300000, guid: 2962d42cfdceb634792e562a3e5f6b69, type: 3}
+  playerSwapSFX: {fileID: 8300000, guid: a38f648a970c5f142a48f0f88d3a3ed3, type: 3}
   softWindAmbient: {fileID: 8300000, guid: 7c887a6f43865d543919c1f740ff7ce8, type: 3}
   masterVolume: 1
   musicVolume: 1

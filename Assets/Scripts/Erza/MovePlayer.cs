@@ -154,6 +154,11 @@ public class MovePlayer : MonoBehaviour
         {
             direction = input.y > 0 ? Vector3Int.up : Vector3Int.down;
         }
+
+        if (MoveOneStep(direction) && !isSpirit && AudioManager.Instance != null)
+        {
+            AudioManager.Instance.PlayFootstepOneShot(AudioManager.Instance.GetCurrentFootstepClip());
+        }
     }
 
     bool MoveOneStep(Vector3Int movement)

@@ -44,6 +44,7 @@ public class SpiritManager : MonoBehaviour
 
         if(newState == SpiritStateEnum.Captured){
             capturedSpiritCount++;
+            AudioManager.Instance.PlaySFX(AudioManager.Instance.spiritCaptured);
             // playerManager.RemoveSpirit(spirit);
             spiritCountText.text = "Spirits: " + (capturedSpiritCount) + "/" + levelSpiritInfo.spiritCount;
             if(capturedSpiritCount >= levelSpiritInfo.spiritCount){

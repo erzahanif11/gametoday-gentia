@@ -94,6 +94,7 @@ public class LevelManager : MonoBehaviour
             {
                 spiritManager.DestroyAllSpirits();
             }
+            AudioManager.Instance.PlaySFX(AudioManager.Instance.puzzleCompleteSFX);
         }
     }
 
