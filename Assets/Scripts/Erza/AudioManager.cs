@@ -47,18 +47,28 @@ public class AudioManager : MonoBehaviour
     private readonly HashSet<Button> buttonsWithClickSound = new();
     private float buttonScanTimer;
 
+    void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        Instance = this;
+        DontDestroyOnLoad(gameObject);
+        masterVolume = PlayerPrefs.GetFloat("MasterVolume", masterVolume);
+        musicVolume = PlayerPrefs.GetFloat("MusicVolume", musicVolume);
+        sfxVolume = PlayerPrefs.GetFloat("SFXVolume", sfxVolume);
+    }
 
     void OnEnable()
     {
-        if (Instance == null)
+        if (Instance != this)
         {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
+            return;
         }
-        else
-        {
-            Destroy(gameObject);
-        }
+
         SetInitialVolumes();
         SceneManager.sceneLoaded += OnSceneLoaded;
         RegisterButtonClickSounds();
@@ -117,10 +127,7 @@ public class AudioManager : MonoBehaviour
         SetMasterVolume(masterVolume);
         SetMusicVolume(musicVolume);
         SetSfxVolume(sfxVolume);
-
-        PlayerPrefs.SetFloat("MasterVolume", masterVolume);
-        PlayerPrefs.SetFloat("MusicVolume", musicVolume);
-        PlayerPrefs.SetFloat("SFXVolume", sfxVolume);
+        PlayerPrefs.Save();
     }
 
     public void PlayMusic(AudioClip clip, float volume = 1f)
@@ -190,20 +197,26 @@ public class AudioManager : MonoBehaviour
 
     public void SetMasterVolume(float volume)
     {
-        audioMixer.SetFloat("MasterVolume", Mathf.Log10(volume) * 20);
+        masterVolume = Mathf.Clamp01(volume);
+        audioMixer.SetFloat("MasterVolume", Mathf.Log10(Mathf.Max(masterVolume, 0.0001f)) * 20);
         PlayerPrefs.SetFloat("MasterVolume", volume);
+        PlayerPrefs.Save();
     }
 
     public void SetMusicVolume(float volume)
     {
-        audioMixer.SetFloat("MusicVolume", Mathf.Log10(volume) * 20);
+        musicVolume = Mathf.Clamp01(volume);
+        audioMixer.SetFloat("MusicVolume", Mathf.Log10(Mathf.Max(musicVolume, 0.0001f)) * 20);
         PlayerPrefs.SetFloat("MusicVolume", volume);
+        PlayerPrefs.Save();
     }
 
     public void SetSfxVolume(float volume)
     {
-        audioMixer.SetFloat("SFXVolume", Mathf.Log10(volume) * 20);
+        sfxVolume = Mathf.Clamp01(volume);
+        audioMixer.SetFloat("SFXVolume", Mathf.Log10(Mathf.Max(sfxVolume, 0.0001f)) * 20);
         PlayerPrefs.SetFloat("SFXVolume", volume);
+        PlayerPrefs.Save();
     }
 
     public bool IsPlayingMusic(AudioClip clip)

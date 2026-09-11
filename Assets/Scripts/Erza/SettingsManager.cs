@@ -10,9 +10,18 @@ public class SettingsManager : MonoBehaviour
 
     void Start()
     {
-        if (audioManager == null)
+        if (AudioManager.Instance != null)
+        {
+            audioManager = AudioManager.Instance;
+        }
+        else if (audioManager == null)
         {
             audioManager = FindObjectOfType<AudioManager>();
+        }
+
+        if (audioManager == null)
+        {
+            return;
         }
 
         masterVolumeSlider.value = audioManager.masterVolume;
