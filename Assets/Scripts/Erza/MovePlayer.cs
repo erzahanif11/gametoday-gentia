@@ -117,7 +117,7 @@ public class MovePlayer : MonoBehaviour
         animator.SetFloat("HorizontalInput", horizontalInput);
         animator.SetFloat("VerticalInput", verticalInput);
 
-        if (AudioManager.Instance != null)
+        if (!isSpirit && AudioManager.Instance != null)
         {
             if (isMoving)
             {
@@ -136,7 +136,7 @@ public class MovePlayer : MonoBehaviour
         animator.SetFloat("HorizontalInput", 0f);
         animator.SetFloat("VerticalInput", 0f);
 
-        if (AudioManager.Instance != null)
+        if (!isSpirit && AudioManager.Instance != null)
         {
             AudioManager.Instance.StopFootstepSFX();
         }
@@ -153,11 +153,6 @@ public class MovePlayer : MonoBehaviour
         else
         {
             direction = input.y > 0 ? Vector3Int.up : Vector3Int.down;
-        }
-
-        if (MoveOneStep(direction) && AudioManager.Instance != null)
-        {
-            AudioManager.Instance.PlayFootstepOneShot(AudioManager.Instance.GetCurrentFootstepClip());
         }
     }
 
